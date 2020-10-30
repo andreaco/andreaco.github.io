@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Architects+Daughter);
+
+/* General */
+* {
+  color: black;
+  font-family: 'Architects Daughter';
+  font-size: 50px;
+}
+
+#counter {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: blue;
+  color: white;
+  text-align: center;
+  vertical-alignment: middle;
+  line-height: 100px;
+  position: absolute;
+  cursor: pointer;
+  user-select: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+}
