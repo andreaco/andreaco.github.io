@@ -1,5 +1,3 @@
-// (function ($, undefined) {
-// }(jQuery));
 let bandpassfreq = 2000
 
 function playNoise() {
@@ -54,12 +52,14 @@ function playSample(audioContext, audioBuffer) {
     return sampleSource;
 }
 
+
+
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
-let tempo = 140.0;
+let tempo = 120.0;
 
-let steps = 16
+let steps = 8
 
 let lookahead = 1.0; // How frequently to call scheduling function (in milliseconds)
 let scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
@@ -70,7 +70,6 @@ let nextNoteTime = 0.0; // when the next note is due.
 
 function nextNote() {
     // 16th sequencer 0.25 * (60 / tempo)
-    // 1/4 * 1/4 = 1/16
     const secondsPerBeat = 0.25 * (60.0 / tempo);
 
     nextNoteTime += secondsPerBeat; // Add beat length to last beat time
@@ -82,6 +81,9 @@ function nextNote() {
     }
 }
 
+kick_pattern  = [true, false, false, false, true, false, false, false]
+snare_pattern = [false, false, false, false, true, false, false, false]
+hihat_pattern = [false, false, true, false, false, false, true, false]
 
 const notesInQueue = [];
 let kick;
@@ -92,18 +94,20 @@ function scheduleNote(beatNumber, time) {
     // push the note on the queue, even if we're not playing.
     notesInQueue.push({ note: beatNumber, time: time });
 
-    if (beatNumber % 4 == 0 || Math.random() > 0.9)
+    if (kick_pattern[beatNumber])
         playSample(audioCtx, kick);
-    if ((beatNumber + 4) % 8 == 0 || Math.random() > 0.99)
+    if (hihat_pattern[beatNumber])
+        playSample(audioCtx, hihat);
+    if (snare_pattern[beatNumber])
         playSample(audioCtx, snare);
-    if ((beatNumber + 2) % 4 == 0 && Math.random() > 0.2)
-        playSample(audioCtx, hihat); 
-    if (beatNumber % 2) bandpassfreq = 2500*Math.random()
-    else bandpassfreq = 500*Math.random()
-    playNoise();
+
+    //else bandpassfreq = 500*Math.random()
+   // playNoise();
     counter.innerText = beatNumber;
 }
 
+
+ 
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime ) {
@@ -125,6 +129,16 @@ function start() {
     }
 }
 
+function generatePattern() {
+    for(let i=0; i < kick_pattern.length; ++i) {
+        kick_pattern[i]  = Math.random() < 0.5;
+        snare_pattern[i] = Math.random() < 0.5;
+        hihat_pattern[i] = Math.random() < 0.5;
+    }
+}
+
+generate.onclick = generatePattern;
+
 setupSample().then((samples) => {
         currentNote = 0;
         nextNoteTime = audioCtx.currentTime;
@@ -135,7 +149,7 @@ setupSample().then((samples) => {
         snare = samples[1]
         hihat = samples[2]
         audioCtx.resume();
-        document.body.addEventListener('click', start, true); 
+        counter.onclick = start; 
 });
 
 
