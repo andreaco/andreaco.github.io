@@ -1,5 +1,7 @@
+///////////////
+// PLAY NOISE 
+///////////////
 let bandpassfreq = 2000
-
 function playNoise() {
     const bufferSize = audioCtx.sampleRate * 0.02; // set the time of the note
     const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate); // create an empty buffer
@@ -24,6 +26,8 @@ function playNoise() {
     noise.start();
 }
 
+
+// Get Sample Files
 async function getFile(audioContext, filepath) {
     const response = await fetch(filepath);
     const arrayBuffer = await response.arrayBuffer();
@@ -31,6 +35,7 @@ async function getFile(audioContext, filepath) {
     return audioBuffer;
 }
 
+// Setup samples before playing
 async function setupSample() {
     const filePaths = ['kick.wav',
                        'snare.wav',
@@ -43,6 +48,9 @@ async function setupSample() {
     return samples;
 }
 
+////////////////
+// Play Sample /
+////////////////
 function playSample(audioContext, audioBuffer) {
     const sampleSource = audioContext.createBufferSource();
     sampleSource.buffer = audioBuffer;
@@ -53,7 +61,9 @@ function playSample(audioContext, audioBuffer) {
 }
 
 
-
+////////////////////////////
+// Audio Context Parametrs
+////////////////////////////
 const AudioContext = window.AudioContext || window.webkitAudioContext;
 const audioCtx = new AudioContext();
 
@@ -64,10 +74,10 @@ let steps = 8
 let lookahead = 1.0; // How frequently to call scheduling function (in milliseconds)
 let scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
 
-
 let currentNote = 0;
 let nextNoteTime = 0.0; // when the next note is due.
 
+// Sequencing Parameters
 function nextNote() {
     // 16th sequencer 0.25 * (60 / tempo)
     const secondsPerBeat = 0.25 * (60.0 / tempo);
@@ -81,11 +91,15 @@ function nextNote() {
     }
 }
 
-kick_pattern  = [true, false, false, false, true, false, false, false]
-snare_pattern = [false, false, false, false, true, false, false, false]
-hihat_pattern = [false, false, true, false, false, false, true, false]
 
+// Patterns Model
 const notesInQueue = [];
+
+kick_pattern  = [false, false, false, false, false, false, false, false]
+snare_pattern = [false, false, false, false, false, false, false, false]
+hihat_pattern = [false, false, false, false, false, false, false, false]
+
+// Pattern Sequencing
 let kick;
 let snare;
 let hihat;
@@ -106,8 +120,17 @@ function scheduleNote(beatNumber, time) {
     counter.innerText = beatNumber;
 }
 
+function generatePattern() {
+    for(let i=0; i < kick_pattern.length; ++i) {
+        kick_pattern [i] = (i%4 == 0) ? Math.random() < 0.5 : Math.random() < 0.1;
+    }
+}
 
- 
+generate.onclick = generatePattern;
+
+
+
+ // Scheduler
 function scheduler() {
     // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
     while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime ) {
@@ -117,6 +140,8 @@ function scheduler() {
     timerID = window.setTimeout(scheduler, lookahead);
 }
 
+
+// Start/Stop
 function start() {
     
     if (audioCtx.state === 'suspended') {
@@ -129,16 +154,7 @@ function start() {
     }
 }
 
-function generatePattern() {
-    for(let i=0; i < kick_pattern.length; ++i) {
-        kick_pattern[i]  = Math.random() < 0.5;
-        snare_pattern[i] = Math.random() < 0.5;
-        hihat_pattern[i] = Math.random() < 0.5;
-    }
-}
-
-generate.onclick = generatePattern;
-
+// Prepare to play
 setupSample().then((samples) => {
         currentNote = 0;
         nextNoteTime = audioCtx.currentTime;
