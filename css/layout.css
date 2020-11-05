@@ -4,9 +4,9 @@
 * {
   color: black;
   font-family: 'Architects Daughter';
-  font-size: 50px;
 }
 
+/*
 #counter {
   width: 100px;
   height: 100px;
@@ -22,4 +22,101 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); 
+}
+*/
+
+#root {
+  min-width: 512px;
+  min-height: 320px;
+  max-width: 800px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-content: space-evenly;
+  width: 80vw;
+  height: 50vw;
+  background-color: #333333;
+  margin: 0;
+  
+  
+  position: absolute;
+  border-radius: 3%;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.play_button {
+  width: 19%;
+}
+
+
+input[type=number] {
+  width: 19%;
+
+  box-sizing: border-box;
+}
+
+
+
+
+/*----------------------------*/
+#bar {
+  background-color: grey;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.key {
+  width: 4%;
+  height: 50px;
+  border-radius: 5px;
+  display: inline-block;
+  background-color: lightgrey;
+  border: 2px solid grey;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.red {
+  background-color: #ea4545;
+  border-color: #b33232;
+}
+
+.orange {
+  background-color: orange;
+  border-colorborder-color: darkorange;
+}
+
+.yellow {
+  background-color: #fdd238a3;
+  border-color: #ad8c19a3;
+}
+
+.white {
+  background-color: #eeeeee;
+  border-color: lightgrey;
+}
+
+.selected {
+  background-color: green;
+  border-color: darkgreen;
+}
+
+.circle {
+  width: 10px;
+  height: 10px;
+  border: 1px solid grey;
+  background-color: lightgrey;
+  border-radius: 50%;
+  position: relative;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.active-circle {
+  border-color: green;
+  background-color: lightgreen;
 }

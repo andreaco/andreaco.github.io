@@ -1,5 +1,5 @@
 ///////////////
-// PLAY NOISE 
+// PLAY NOISE /
 ///////////////
 let bandpassfreq = 2000
 function playNoise() {
@@ -69,7 +69,7 @@ const audioCtx = new AudioContext();
 
 let tempo = 120.0;
 
-let steps = 8
+let steps = 16
 
 let lookahead = 1.0; // How frequently to call scheduling function (in milliseconds)
 let scheduleAheadTime = 0.1; // How far ahead to schedule audio (sec)
@@ -95,9 +95,18 @@ function nextNote() {
 // Patterns Model
 const notesInQueue = [];
 
-kick_pattern  = [false, false, false, false, false, false, false, false]
-snare_pattern = [false, false, false, false, false, false, false, false]
-hihat_pattern = [false, false, false, false, false, false, false, false]
+
+patterns = [
+    Array(steps).fill(false),
+    Array(steps).fill(false),
+    Array(steps).fill(false),
+    Array(steps).fill(false),
+    Array(steps).fill(false)
+]
+
+kick_pattern  = Array(steps).fill(false)
+snare_pattern = Array(steps).fill(false)
+hihat_pattern = Array(steps).fill(false)
 
 // Pattern Sequencing
 let kick;
@@ -105,6 +114,7 @@ let snare;
 let hihat;
 function scheduleNote(beatNumber, time) {
 
+    next_tick(beatNumber)
     // push the note on the queue, even if we're not playing.
     notesInQueue.push({ note: beatNumber, time: time });
 
@@ -114,20 +124,15 @@ function scheduleNote(beatNumber, time) {
         playSample(audioCtx, hihat);
     if (snare_pattern[beatNumber])
         playSample(audioCtx, snare);
-
-    //else bandpassfreq = 500*Math.random()
-   // playNoise();
-    counter.innerText = beatNumber;
 }
 
 function generatePattern() {
-    for(let i=0; i < kick_pattern.length; ++i) {
-        kick_pattern [i] = (i%4 == 0) ? Math.random() < 0.5 : Math.random() < 0.1;
+    for(let i=0; i < patterns.length; ++i) {
+        for(let j=0; j < patterns[i].length; ++j) {
+            patterns[i][j] = Math.random() < 0.5; //(i%4 == 0) ? Math.random() < 0.5 : Math.random() < 0.2;
+        }
     }
 }
-
-generate.onclick = generatePattern;
-
 
 
  // Scheduler
@@ -145,6 +150,7 @@ function scheduler() {
 function start() {
     
     if (audioCtx.state === 'suspended') {
+        generatePattern();
         console.log("Start!")
         audioCtx.resume();
     }
@@ -154,6 +160,36 @@ function start() {
     }
 }
 
+// MODEL
+tick = 0;
+// INTERNAL STATE
+keys = document.querySelectorAll(".key");
+
+// VIEW
+function render() {
+  keys.forEach(function(key, index) {
+    key.classList.toggle("selected", index == tick);
+    key.firstElementChild.classList.toggle("active-circle", kick_pattern[index]);
+  })
+}
+
+function assign_pattern(index) {
+    kick_pattern = patterns[index]
+}
+
+play_buttons = document.querySelectorAll(".play_button");
+play_buttons.forEach(function(button, index) {
+    button.onclick = function() {
+        assign_pattern(this.id.slice(-1))
+    }
+})
+
+function next_tick(step) {
+  tick = step;
+  render();
+}
+render()
+
 // Prepare to play
 setupSample().then((samples) => {
         currentNote = 0;
@@ -161,11 +197,9 @@ setupSample().then((samples) => {
         scheduler(); // kick off scheduling
 
 
-        kick = samples[0]
+        kick  = samples[0]
         snare = samples[1]
         hihat = samples[2]
         audioCtx.resume();
-        counter.onclick = start; 
+        start_button.onclick = start; 
 });
-
-
