@@ -11,8 +11,11 @@
   <link rel="stylesheet" href="css/layout.css" type="text/css" />
 </head>
 <body>
+  <!-- Root -->
   <div id="root">
+    <!-- Start Button -->
     <button id="start_button"> Start </button>
+    <!-- Play Container -->
     <div id="playcointainer">
       <button class="play_button" id="play0">Play0</button>
       <button class="play_button" id="play1">Play1</button>
@@ -20,6 +23,7 @@
       <button class="play_button" id="play3">Play3</button>
       <button class="play_button" id="play4">Play4</button>
     </div>
+    <!-- Vote Container -->
     <div id="votecontainer">
       <input id="vote0" type="number">
       <input id="vote1" type="number">
@@ -27,8 +31,8 @@
       <input id="vote3" type="number">
       <input id="vote4" type="number">
     </div>
+    <!-- Bar Container -->
     <div id="bar">
-  
       <div id="k1" class="key red">
         <div class="circle"></div>
       </div>
@@ -82,14 +86,15 @@
         <div class="circle"></div>
       </div>
   
-  </div>
-  <button id="vote"> Vote! </button>
-  
+    </div>
+    <!-- Vote Button -->
+    <button id="vote"> Vote! </button>
   </div>
   
   <!-- JS -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script>!window.jQuery && document.write('<script src="js/lib/jquery-1.4.2.min.js"><\/script>')</script>
+  <script src="js/sampleplayer.js"></script>
   <script src="js/site.js"></script>
 </body>
 </html>
