@@ -1,6 +1,6 @@
 # ACTAM Project
 
-### TODO: 
+### TODO
 - [ ] Scrivere a Sarti/Borrelli per progetto combinato
 - [ ] Scrivere la funzione di mating
 - [ ] Interfaccia "modulare"  
