@@ -5,6 +5,7 @@
 - [ ] Scrivere la funzione di mating
 - [ ] Interfaccia "modulare"  
 - [ ] Pensare alla funzione di fitting  
+- [ ] Velocity float invece che boolean
 
 
 ### Obiettivo
