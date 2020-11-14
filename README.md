@@ -1,7 +1,15 @@
 # ACTAM Project
 
-**Obiettivo**: Generare un beat ispirandosi ad algoritmi genetici
-**Steps**:
+### TODO: 
+- [ ] Scrivere a Sarti/Borrelli per progetto combinato
+- [ ] Scrivere la funzione di mating
+- [ ] Interfaccia "modulare"  
+- [ ] Pensare alla funzione di fitting  
+
+
+### Obiettivo
+Generare un beat ispirandosi ad algoritmi genetici  
+### Steps
 - Inizialmente viene generato un pool di pattern pseudo randomici come prima generazione.
 Viene calcolata la fitness di ogni individuo, sia algoritmicamente confrontandolo con un dataset di beat MIDI o a preferenza degli utenti, votando il preferito da un sottoinsieme
 - I beat che sopravvivono a queste selezioni entreranno in un “Mating Pool”.
@@ -11,12 +19,12 @@ Viene calcolata la fitness di ogni individuo, sia algoritmicamente confrontandol
 
 
 ### References
-https://dood.al/pinktrombone/
-https://youtu.be/C9hX3c970O8?t=213
-https://synthmata.com/
-https://maxforlive.com/library/device/5875/euclidean-sequencer
-https://github.com/2bbb/node-abletonlink
-https://sites.research.google/tonetransfer
-https://www.syntorial.com/
-https://vochlea.com/
-https://www.tatsuyatakahashi.com/2018-rbmg-tats-synth
+- https://dood.al/pinktrombone/
+- https://youtu.be/C9hX3c970O8?t=213
+- https://synthmata.com/
+- https://maxforlive.com/library/device/5875/euclidean-sequencer
+- https://github.com/2bbb/node-abletonlink
+- https://sites.research.google/tonetransfer
+- https://www.syntorial.com/
+- https://vochlea.com/
+- https://www.tatsuyatakahashi.com/2018-rbmg-tats-synth
