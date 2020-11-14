@@ -8,7 +8,7 @@
 
 
 ### Obiettivo
-Generare un beat ispirandosi ad algoritmi genetici  
+Generare un beat **ispirandosi** ad algoritmi genetici  
 ### Steps
 - Inizialmente viene generato un pool di pattern pseudo randomici come prima generazione.
 Viene calcolata la fitness di ogni individuo, sia algoritmicamente confrontandolo con un dataset di beat MIDI o a preferenza degli utenti, votando il preferito da un sottoinsieme
