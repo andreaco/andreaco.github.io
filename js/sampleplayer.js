@@ -25,16 +25,24 @@ async function setupSample() {
     return samples;
 }
 
+function linearToExp(linearGain, steepness){
+    let result = (Math.exp(steepness*linearGain) - 1) / (Math.exp(steepness) - 1);
+    return result;
+}
+
 /**
  * Create and play a BufferSource from a custom AudioBuffer
  * @param {AudioContext} audioContext The AudioContext object to be used
  * @param {AudioBuffer} audioBuffer The AudioBuffer in which the samples are stored
  */
-function playSample(audioContext, audioBuffer) {
+function playSample(audioContext, audioBuffer, audioGain) {
     const sampleSource = audioContext.createBufferSource();
+    const sampleGain = audioContext.createGain();
     sampleSource.buffer = audioBuffer;
+    sampleGain.gain.setValueAtTime(linearToExp(audioGain, 5), audioCtx.currentTime);
     sampleSource.playbackRate.setValueAtTime(1.0, audioCtx.currentTime);
-    sampleSource.connect(audioContext.destination)
+    sampleSource.connect(sampleGain);
+    sampleGain.connect(audioContext.destination);
     sampleSource.start();
     return sampleSource;
 }

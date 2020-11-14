@@ -38,7 +38,7 @@ let scheduleAheadTime = 0.1;    // How far ahead to schedule audio (sec)
 let currentNote = 0;            // Init current note to 0
 let nextNoteTime = 0.0;         // When the next note is due.
 //Currently Playing / Currently Displayed Pattern
-kick_pattern  = Array(steps).fill(false)
+kick_pattern  = Array(steps).fill(0.0)
 
 /**
  * Advance note in sequence and schedule it in time
@@ -64,8 +64,8 @@ function nextNote() {
 function scheduleNote(beatNumber, time) {
     next_tick(beatNumber);
 
-    if (kick_pattern[beatNumber])
-        playSample(audioCtx, kick);
+    if (kick_pattern[beatNumber] !== 0.0)
+        playSample(audioCtx, kick, kick_pattern[beatNumber]);
 }
 
 
@@ -89,11 +89,11 @@ function scheduler() {
  * FIXME: Temporary Solution
  */
 patterns = [
-    Array(steps).fill(false),
-    Array(steps).fill(false),
-    Array(steps).fill(false),
-    Array(steps).fill(false),
-    Array(steps).fill(false)
+    Array(steps).fill(0.0),
+    Array(steps).fill(0.0),
+    Array(steps).fill(0.0),
+    Array(steps).fill(0.0),
+    Array(steps).fill(0.0)
 ]
 
 /**
@@ -102,11 +102,33 @@ patterns = [
 function generatePattern() {
     for(let i=0; i < patterns.length; ++i) {
         for(let j=0; j < patterns[i].length; ++j) {
-            patterns[i][j] = Math.random() < 0.5;
+            if (Math.random()< 0.5){
+                let velocity = Math.random();
+                patterns[i][j] = velocity;
+            }
         }
     }
 }
 
+function matingAlternate(patternA, patternB, index = 1){ 
+    let childPattern = patternA.slice();
+    for(let i = index; i<childPattern.length; i+=2*index){
+        for (let j = 0 ; j< index; j++){
+            childPattern[i+j] = patternB[i+j]; 
+        }
+    }
+    return childPattern;
+}
+
+function matingAnd(patternA, patternB){
+    let childPattern = Array(patternA.length).fill(0.0);
+    for (let i = 0; i < childPattern.length; i++){
+        if(patternA[i]&&patternB[i]){
+            childPattern[i] = patternA[i];
+        }
+    }
+    return childPattern;
+}
 
 /**
  * -------------------------------------------------------------------------
