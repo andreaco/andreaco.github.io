@@ -1,7 +1,7 @@
 # ACTAM Project
 
 ### TODO
-- [ ] Scrivere a Sarti/Borrelli per progetto combinato
+- [X] Scrivere a Sarti/Borrelli per progetto combinato
 - [ ] Scrivere la funzione di mating
 - [ ] Interfaccia "modulare"  
 - [ ] Pensare alla funzione di fitting  
