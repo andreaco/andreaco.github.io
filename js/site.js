@@ -140,16 +140,13 @@ function matingAnd(patternA, patternB){
 // Current sequencer position
 tick = 0;
 
-
 // HTML Elements Array
-
 
 let html_object = []
 
 
 
 function getElementView(){
-
     let listElement = document.getElementById("playcontainer");
     let element = listElement.children;
     for(let i=0; i<element.length; i++){    
@@ -171,21 +168,10 @@ getElementView()
  * Render function
  */
 function render() {
-
-
-  console.log(html_object);
-  
-
   for(let i=0; i<html_object.length; i++){
-
     let seq = Array.from(html_object[i].seq.children);
-
-    console.log(seq.children);
-
-    seq.forEach(function(key, index) {
-        
+    seq.forEach(function(key, index) {      
         key.firstElementChild.classList.toggle("active-circle", patterns[i][index]);
-        
     });
   }
 }
@@ -203,21 +189,20 @@ function assign_pattern(index) {
  * FIXME: Find a better way to get the wanted index (now it's done by taking the last id character as index)
  */
 
-
-for(let i=0; i<html_object.length; i++){
-    
-    html_object[i].button.onclick = function() {
-        assign_pattern(i)
-    }
-
-}
-
 /*play_buttons = document.querySelectorAll(".play_button");
 play_buttons.forEach(function(button, index) {
     button.onclick = function() {
         assign_pattern(this.id.slice(-1))
     }
 });*/
+
+
+for(let i=0; i<html_object.length; i++){
+    html_object[i].button.onclick = function() {
+        assign_pattern(i)
+    }
+}
+
 
 // Advance displayed sequencer
 function next_tick(step) {
