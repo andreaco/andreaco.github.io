@@ -128,7 +128,7 @@ function matingAnd(patternA, patternB){
         }
     }
     return childPattern;
-}
+} 
 
 /**
  * -------------------------------------------------------------------------
