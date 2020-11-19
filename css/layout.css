@@ -92,7 +92,7 @@ input[type=number] {
 
 
 /*----------------------------*/
-#bar {
+.seq {
   background-color: grey;
   height: 25px;
   border-radius: 5px;

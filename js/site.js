@@ -88,6 +88,8 @@ function scheduler() {
  * -------------------------------------------------------------------------
  * FIXME: Temporary Solution
  */
+
+
 patterns = [
     Array(steps).fill(0.0),
     Array(steps).fill(0.0),
@@ -137,16 +139,55 @@ function matingAnd(patternA, patternB){
  */
 // Current sequencer position
 tick = 0;
-// Keys Array
-keys = document.querySelectorAll(".key");
+
+
+// HTML Elements Array
+
+
+let html_object = []
+
+
+
+function getElementView(){
+
+    let listElement = document.getElementById("playcontainer");
+    let element = listElement.children;
+    for(let i=0; i<element.length; i++){    
+        let b = element[i].querySelector(".play_button");
+        let v = element[i].querySelector(".vote");
+        let s = element[i].querySelector(".seq");
+        let object = {
+            button : b,
+            vote : v,
+            seq : s
+        }
+        html_object.push(object);
+    }
+}
+
+getElementView()
+
 /**
  * Render function
  */
 function render() {
-  keys.forEach(function(key, index) {
-    key.classList.toggle("selected", index == tick);
-    key.firstElementChild.classList.toggle("active-circle", kick_pattern[index]);
-  })
+
+
+  console.log(html_object);
+  
+
+  for(let i=0; i<html_object.length; i++){
+
+    let seq = Array.from(html_object[i].seq.children);
+
+    console.log(seq.children);
+
+    seq.forEach(function(key, index) {
+        
+        key.firstElementChild.classList.toggle("active-circle", patterns[i][index]);
+        
+    });
+  }
 }
 
 /**
@@ -161,12 +202,22 @@ function assign_pattern(index) {
  * Temporary display and playback of sequence
  * FIXME: Find a better way to get the wanted index (now it's done by taking the last id character as index)
  */
-play_buttons = document.querySelectorAll(".play_button");
+
+
+for(let i=0; i<html_object.length; i++){
+    
+    html_object[i].button.onclick = function() {
+        assign_pattern(i)
+    }
+
+}
+
+/*play_buttons = document.querySelectorAll(".play_button");
 play_buttons.forEach(function(button, index) {
     button.onclick = function() {
         assign_pattern(this.id.slice(-1))
     }
-});
+});*/
 
 // Advance displayed sequencer
 function next_tick(step) {
