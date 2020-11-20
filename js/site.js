@@ -19,7 +19,6 @@ function start() {
     }
 }
 
-
 /**
  * -------------------------------------------------------------------------
  * SEQUENCER
@@ -88,8 +87,6 @@ function scheduler() {
  * -------------------------------------------------------------------------
  * FIXME: Temporary Solution
  */
-
-
 patterns = [
     Array(steps).fill(0.0),
     Array(steps).fill(0.0),
@@ -136,32 +133,54 @@ function matingAnd(patternA, patternB){
  * -------------------------------------------------------------------------
  * VIEW
  * -------------------------------------------------------------------------
+ * TODO: remove tick since it isn't used anymore
  */
 // Current sequencer position
+
 tick = 0;
 
-// HTML Elements Array
+// Template literal
+function createChromosome(index, n_steps = 16) {    
+    html_seq = '';
 
+    for (let i = 0; i < n_steps; ++i) {
+        html_seq += '\n\t\t<div class="key"><div class="circle"></div></div>';
+    }
+    let html = /*html*/
+    `
+    <div class="element">
+        <button class="play_button">Play n° ${index}</button>
+        <input class="vote" type="number">
+        <div class="seq">
+            ${html_seq}
+        </div>
+    </div>
+    `;
+    let div = document.createElement('div');
+    div.id = 'element'+index;
+    div.innerHTML = html;
+    document.body.appendChild(div);
+}
+createChromosome(1, n_steps = 4);
+
+// HTML Elements Array
 let html_object = []
 
-
-
-function getElementView(){
+function getElementView() {
     let listElement = document.getElementById("playcontainer");
     let element = listElement.children;
-    for(let i=0; i<element.length; i++){    
+    for(let i = 0; i < element.length; i++) {    
         let b = element[i].querySelector(".play_button");
         let v = element[i].querySelector(".vote");
         let s = element[i].querySelector(".seq");
         let object = {
             button : b,
-            vote : v,
-            seq : s
+            vote :   v,
+            seq :    s
         }
         html_object.push(object);
     }
 }
-
 getElementView()
 
 /**
