@@ -19,7 +19,6 @@ function start() {
     }
 }
 
-
 /**
  * -------------------------------------------------------------------------
  * SEQUENCER
@@ -65,6 +64,12 @@ function scheduleNote(beatNumber, time) {
 
     if (kick_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, kick, kick_pattern[beatNumber]);
+    if (beatNumber==0){
+        playSample(audioCtx, snare, 0.5);
+    }
+    else if (beatNumber%2 ==0){
+        playSample(audioCtx, hihat, 0.5);
+    }
 }
 
 
@@ -79,7 +84,6 @@ function scheduler() {
     }
     timerID = window.setTimeout(scheduler, lookahead);
 }
-
 
 /**
  * -------------------------------------------------------------------------
@@ -110,6 +114,19 @@ function setOnClick(){
         html_object[i].button.onclick = function() {
             assign_pattern(i)
         }
+    }
+    let voteButton = document.getElementById("vote_btn");
+    voteButton.onclick = function(){
+        for (let j = 0; j< html_object.length; j++){
+            let vote = html_object[j].vote.value;
+            offspring.getPool()[j].setVote(vote);
+            console.log(offspring.getPool()[j])
+        }
+    }
+    let nextGen = document.getElementById("next_gen");
+    nextGen.onclick = function(){
+        offspring.mating();
+        render();
     }
 }
 
