@@ -105,15 +105,20 @@ offspring = new Offspring(5, steps);
 function setVotes(){
     for (let j = 0; j< html_object.length; j++){
         let vote = html_object[j].vote.value;
-        offspring.getPool()[j].setVote(vote);
+        offspring.pool[j].vote = vote;
     }
 }
 
+/**
+ * Function used to advance the generation and refresh the representation
+ */
 function advanceGeneration() {
-    offspring.mating();
-    render();
+    
 }
 
+/**
+ * Function used to assign 
+ */
 function setOnClick() {
     // Play Buttons
     for(let i = 0; i < html_object.length; i++){
@@ -126,9 +131,18 @@ function setOnClick() {
     voteButton.onclick = setVotes;
     // Next generation button
     let nextGen = document.getElementById("next_gen");
-    nextGen.onclick = advanceGeneration;
+    console.log(nextGen)
+    nextGen.onclick = function() {
+        offspring.mating();
+        console.log('mating')
+        render();
+    };
 }
 
+/**
+ * Creates a global html_object that stores the references for
+ * the interactive html elements for each element representation
+ */
 // HTML Elements Array
 let html_object = []
 function getElementView(){
@@ -147,10 +161,39 @@ function getElementView(){
     }
 }
 
-getElementView()
-setOnClick()
+function createHtmlElement(index, n_steps) {
+    let html_seq = '';
+    for (let i = 0; i < n_steps; ++i) {
+        html_seq += '<div class="key"><div class="circle"></div></div>'
+    }
+    let html = /*html*/
+    `
+        <button class="play_button">Play n° ${index}</button>
+        <input class="vote" type="number" value=0 min=0 max=10>
+        <div class="seq">
+            ${html_seq}
+        </div>
+    `;
+    let div = document.createElement('div');
+    div.id = 'element'+index;
+    div.classList.add('element');
+    div.innerHTML = html;
+    return div;
+}
 
-/**
+function addHtmlElements(n_elements) {
+    let container = document.getElementById("playcontainer");
+    
+    for (let i = 0; i < n_elements; i++) {
+        container.appendChild(createHtmlElement(i, steps))
+    }
+}
+
+addHtmlElements(5);
+getElementView();
+setOnClick();
+
+/** 
  * Render function
  */
 

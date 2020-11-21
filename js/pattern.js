@@ -134,13 +134,14 @@ class Offspring {
      * FIXME: funziona solo se c'è una pool con nelementi dispari
      */
     mating() {
-        this._pool.sort((a,b) => (b.getVote() - a.getVote()))
-        let newPool = Array(this.getNumberOfElements())
+        this._pool.sort((a,b) => (b.vote - a.vote))
+        let newPool = Array(this.numberOfElements)
         newPool[0] = this._pool[0];
         for (let i = 1; i< this._pool.length; i+=2){
             newPool[i] = this._pool[i].matingAlternate(this._pool[i+1])
             newPool[i+1] = this._pool[i+1].matingAlternate(this._pool[i])
         }
+        this._generation++;
         this._pool = newPool
     }
 }
