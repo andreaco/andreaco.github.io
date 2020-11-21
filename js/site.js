@@ -77,7 +77,8 @@ function scheduleNote(beatNumber, time) {
  * Scheduler responsible for playing sequencer notes
  */
 function scheduler() {
-    // while there are notes that will need to play before the next interval, schedule them and advance the pointer.
+    // while there are notes that will need to play before the next interval,
+    // schedule them and advance the pointer.
     while (nextNoteTime < audioCtx.currentTime + scheduleAheadTime ) {
         scheduleNote(currentNote, nextNoteTime);
         nextNote();
@@ -89,14 +90,8 @@ function scheduler() {
  * -------------------------------------------------------------------------
  * GENETIC STUFF
  * -------------------------------------------------------------------------
- * FIXME: Temporary Solution
  */
-
 offspring = new Offspring(5, steps);
-
-/**
- * Generate a random population of patterns
- */
 
 /**
  * -------------------------------------------------------------------------
@@ -104,32 +99,38 @@ offspring = new Offspring(5, steps);
  * -------------------------------------------------------------------------
  */
 
-// HTML Elements Array
+ /**
+  * Function used to get votes from html and assign them to the population
+  */
+function setVotes(){
+    for (let j = 0; j< html_object.length; j++){
+        let vote = html_object[j].vote.value;
+        offspring.getPool()[j].setVote(vote);
+    }
+}
 
-let html_object = []
+function advanceGeneration() {
+    offspring.mating();
+    render();
+}
 
-
-function setOnClick(){
-    for(let i=0; i<html_object.length; i++){
+function setOnClick() {
+    // Play Buttons
+    for(let i = 0; i < html_object.length; i++){
         html_object[i].button.onclick = function() {
             assign_pattern(i)
         }
     }
+    // Vote button
     let voteButton = document.getElementById("vote_btn");
-    voteButton.onclick = function(){
-        for (let j = 0; j< html_object.length; j++){
-            let vote = html_object[j].vote.value;
-            offspring.getPool()[j].setVote(vote);
-            console.log(offspring.getPool()[j])
-        }
-    }
+    voteButton.onclick = setVotes;
+    // Next generation button
     let nextGen = document.getElementById("next_gen");
-    nextGen.onclick = function(){
-        offspring.mating();
-        render();
-    }
+    nextGen.onclick = advanceGeneration;
 }
 
+// HTML Elements Array
+let html_object = []
 function getElementView(){
     let listElement = document.getElementById("playcontainer");
     let element = listElement.children;
@@ -157,8 +158,8 @@ function render() {
   for(let i=0; i<html_object.length; i++){
     let seq = Array.from(html_object[i].seq.children);
     seq.forEach(function(key, index) {    
-        let patterns = offspring.getPool();
-        key.firstElementChild.classList.toggle("active-circle", patterns[i].getSequence()[index]);
+        let patterns = offspring.pool;
+        key.firstElementChild.classList.toggle("active-circle", patterns[i].sequence[index]);
     });
   }
 }
@@ -168,8 +169,8 @@ function render() {
  * @param {number} index 
  */
 function assign_pattern(index) {
-    let patterns = offspring.getPool();
-    kick_pattern = patterns[index].getSequence();
+    let patterns = offspring.pool;
+    kick_pattern = patterns[index].sequence;
 }
 
 /**
@@ -177,7 +178,6 @@ function assign_pattern(index) {
  * STARTUP CODE
  * -------------------------------------------------------------------------
  */
-
 // First render
 render();
 
