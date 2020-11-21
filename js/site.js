@@ -62,7 +62,6 @@ function nextNote() {
  * @param {number} time Time in which the note is scheduled
  */
 function scheduleNote(beatNumber, time) {
-    next_tick(beatNumber);
 
     if (kick_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, kick, kick_pattern[beatNumber]);
@@ -89,62 +88,30 @@ function scheduler() {
  * FIXME: Temporary Solution
  */
 
-
-patterns = [
-    Array(steps).fill(0.0),
-    Array(steps).fill(0.0),
-    Array(steps).fill(0.0),
-    Array(steps).fill(0.0),
-    Array(steps).fill(0.0)
-]
+offspring = new Offspring(5, steps);
 
 /**
  * Generate a random population of patterns
  */
-function generatePattern() {
-    for(let i=0; i < patterns.length; ++i) {
-        for(let j=0; j < patterns[i].length; ++j) {
-            if (Math.random()< 0.5){
-                let velocity = Math.random();
-                patterns[i][j] = velocity;
-            }
-        }
-    }
-}
-
-function matingAlternate(patternA, patternB, index = 1){ 
-    let childPattern = patternA.slice();
-    for(let i = index; i<childPattern.length; i+=2*index){
-        for (let j = 0 ; j< index; j++){
-            childPattern[i+j] = patternB[i+j]; 
-        }
-    }
-    return childPattern;
-}
-
-function matingAnd(patternA, patternB){
-    let childPattern = Array(patternA.length).fill(0.0);
-    for (let i = 0; i < childPattern.length; i++){
-        if(patternA[i]&&patternB[i]){
-            childPattern[i] = patternA[i];
-        }
-    }
-    return childPattern;
-} 
 
 /**
  * -------------------------------------------------------------------------
  * VIEW
  * -------------------------------------------------------------------------
  */
-// Current sequencer position
-tick = 0;
 
 // HTML Elements Array
 
 let html_object = []
 
 
+function setOnClick(){
+    for(let i=0; i<html_object.length; i++){
+        html_object[i].button.onclick = function() {
+            assign_pattern(i)
+        }
+    }
+}
 
 function getElementView(){
     let listElement = document.getElementById("playcontainer");
@@ -163,15 +130,18 @@ function getElementView(){
 }
 
 getElementView()
+setOnClick()
 
 /**
  * Render function
  */
+
 function render() {
   for(let i=0; i<html_object.length; i++){
     let seq = Array.from(html_object[i].seq.children);
-    seq.forEach(function(key, index) {      
-        key.firstElementChild.classList.toggle("active-circle", patterns[i][index]);
+    seq.forEach(function(key, index) {    
+        let patterns = offspring.getPool();
+        key.firstElementChild.classList.toggle("active-circle", patterns[i].getSequence()[index]);
     });
   }
 }
@@ -181,35 +151,9 @@ function render() {
  * @param {number} index 
  */
 function assign_pattern(index) {
-    kick_pattern = patterns[index];
+    let patterns = offspring.getPool();
+    kick_pattern = patterns[index].getSequence();
 }
-
-/**
- * Temporary display and playback of sequence
- * FIXME: Find a better way to get the wanted index (now it's done by taking the last id character as index)
- */
-
-/*play_buttons = document.querySelectorAll(".play_button");
-play_buttons.forEach(function(button, index) {
-    button.onclick = function() {
-        assign_pattern(this.id.slice(-1))
-    }
-});*/
-
-
-for(let i=0; i<html_object.length; i++){
-    html_object[i].button.onclick = function() {
-        assign_pattern(i)
-    }
-}
-
-
-// Advance displayed sequencer
-function next_tick(step) {
-  tick = step;
-  render();
-}
-
 
 /**
  * -------------------------------------------------------------------------
@@ -231,7 +175,6 @@ setupSample().then((samples) => {
         // Sample Variable Instantiation <0>
         kick  = samples[0]; snare = samples[1]; hihat = samples[2];
         
-        generatePattern();
         start_button.onclick = start; 
         audioCtx.resume();
 });
