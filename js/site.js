@@ -62,6 +62,9 @@ function nextNote() {
  */
 function scheduleNote(beatNumber, time) {
 
+    if (beatNumber % 16 === 0) playSample(audioCtx, metro1, 0.5);
+    else if (beatNumber % 4 === 0) playSample(audioCtx, metro2, 0.5);
+
     if (kick_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, kick, kick_pattern[beatNumber]);
     if (beatNumber==0){
@@ -232,6 +235,7 @@ setupSample().then((samples) => {
 
         // Sample Variable Instantiation <0>
         kick  = samples[0]; snare = samples[1]; hihat = samples[2];
+        metro1 = samples[3]; metro2 = samples[4]; 
         
         start_button.onclick = start; 
         audioCtx.resume();
