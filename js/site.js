@@ -113,7 +113,9 @@ function setVotes(){
  * Function used to advance the generation and refresh the representation
  */
 function advanceGeneration() {
-    
+    offspring.mating();
+    console.log('mating')
+    render();
 }
 
 /**
@@ -132,11 +134,7 @@ function setOnClick() {
     // Next generation button
     let nextGen = document.getElementById("next_gen");
     console.log(nextGen)
-    nextGen.onclick = function() {
-        offspring.mating();
-        console.log('mating')
-        render();
-    };
+    nextGen.onclick = advanceGeneration;
 }
 
 /**
