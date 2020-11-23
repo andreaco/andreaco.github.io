@@ -67,12 +67,6 @@ function scheduleNote(beatNumber, time) {
 
     if (kick_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, kick, kick_pattern[beatNumber]);
-    if (beatNumber==0){
-        playSample(audioCtx, snare, 0.5);
-    }
-    else if (beatNumber%2 ==0){
-        playSample(audioCtx, hihat, 0.5);
-    }
 }
 
 
