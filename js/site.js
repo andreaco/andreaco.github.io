@@ -99,10 +99,10 @@ offspring = new Offspring(5, steps);
  /**
   * Function used to get votes from html and assign them to the population
   */
-function setVotes(){
+function setVotes() {
     for (let j = 0; j< html_object.length; j++){
         let vote = html_object[j].vote.value;
-        offspring.pool[j].vote = vote;
+        offspring.pool[j].setVote(vote);
     }
 }
 
@@ -111,7 +111,9 @@ function setVotes(){
  */
 function advanceGeneration() {
     offspring.mating();
-    console.log('mating')
+    for (let i = 0; i < html_object.length; ++i) {
+        html_object[i].vote.value = 0;
+    }
     render();
 }
 
@@ -194,6 +196,7 @@ setOnClick();
 
 function render() {
   for(let i=0; i<html_object.length; i++){
+    // Set sequences
     let seq = Array.from(html_object[i].seq.children);
     seq.forEach(function(key, index) {    
         let patterns = offspring.pool;
