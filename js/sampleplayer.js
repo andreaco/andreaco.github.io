@@ -14,9 +14,11 @@ async function getFile(audioContext, filepath) {
  * Setup and return the samples array
  */
 async function setupSample() {
-    const filePaths = ['kick.wav',
-                       'snare.wav',
-                       'hihat.wav'];
+    const filePaths = ['audio/kick.wav',
+                       'audio/snare.wav',
+                       'audio/hihat.wav',
+                       'audio/metronome1.wav',
+                       'audio/metronome2.wav'];
     const samples = []
     for (let i=0; i < filePaths.length; ++i) {
         console.log("Loading: " + filePaths[i] + "...")
@@ -53,3 +55,5 @@ function playSample(audioContext, audioBuffer, audioGain) {
 let kick;
 let snare;
 let hihat;
+let metro1;
+let metro2;
