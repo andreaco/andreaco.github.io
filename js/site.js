@@ -90,6 +90,7 @@ function scheduler() {
  */
 offspring = new Offspring(5, steps);
 
+
 /**
  * -------------------------------------------------------------------------
  * VIEW
@@ -161,7 +162,7 @@ function getElementView(){
 function createHtmlElement(index, n_steps) {
     let html_seq = '';
     for (let i = 0; i < n_steps; ++i) {
-        html_seq += '<div class="key"><div class="circle"></div></div>'
+        html_seq += '<div class="key"></div>'
     }
     let html = /*html*/
     `
@@ -200,7 +201,7 @@ function render() {
     let seq = Array.from(html_object[i].seq.children);
     seq.forEach(function(key, index) {    
         let patterns = offspring.pool;
-        key.firstElementChild.classList.toggle("active-circle", patterns[i].sequence[index]);
+        key.classList.toggle("active-step", patterns[i].sequence[index]);
     });
   }
 }
