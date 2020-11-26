@@ -1,98 +1,53 @@
-@import url(https://fonts.googleapis.com/css?family=Architects+Daughter);
-
-/* General */
-* {
-  color: black;
-  font-family: 'Architects Daughter';
+html, body, pre, code, kbd, samp {
+  font-family: "Press Start 2P";
 }
 
-#root {
-  min-width: 512px;
-  min-height: 320px;
-  max-width: 1000px;
-  max-height: 700px;
+.main-container {
   display: flex;
   flex-direction: column;
   align-content: space-evenly;
-  
-  width: 80vw;
-  height: 50vw;
-  background-color: #333333;
-  margin: 0;
-  
-  
   position: absolute;
-  border-radius: 3%;
-  top: 50%;
-  left: 50%;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
 }
 
-#playcontainer{
-
+/* Horizontal Flexbox */
+.horizontal-container {
   display: flex;
   flex-direction: row;
-
-
+  align-content: space-evenly;
 }
 
-
-.element{
-  width: 19%;
-  border : solid 5px green;
+/* Vertical Flexbox */
+.vertical-container {
   display: flex;
   flex-direction: column;
   align-content: space-evenly;
-
 }
 
-
-.play_button {
-  width: 100%;
+/* Element (Play, Vote, Seq) */
+.element {
+  box-sizing: border-box; /* Takes into account padding in size*/
+  flex: 1 1 auto;
+  width: 15%;
 }
-
 
 input[type=number] {
   width: 100%;
-
   box-sizing: border-box;
+  text-align: center;
 }
-
-
-#childrencontainer{
-  margin-top: 50px;
-  display: flex;
-  flex-direction: row;
-  align-content: space-evenly;
-}
-
-
 
 
 
 
 /*----------------------------*/
 .seq {
-  background-color: grey;
+  /*
   height: 25px;
   border-radius: 5px;
+  */
   padding: 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-}
-
-.key {
-  width: 4%;
-  height: 90%;
-  border-radius: 5px;
-  display: inline-block;
-  background-color: lightgrey;
-}
-
-.active-step {
-  border-color: blue;
-  background-color: blue;
 }
 

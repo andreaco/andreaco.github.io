@@ -9,32 +9,24 @@
   <link rel='icon' href='favicon.ico' type='image/x-icon'/>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="css/layout.css" type="text/css" />
+  <link rel="stylesheet" href="css/layout.css" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+  <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
 </head>
 <body>
   <!-- Root -->
   <div id="root">
-    <!-- Start Button -->
-    <button id="start_button"> Start </button>
-
-    <!-- Element Container -->
-    <div id="playcontainer"></div>
- 
- 
-    <!-- Vote Button -->
-    <button id="vote_btn"> Vote! </button>
-
-    <div id="childrencontainer">
-      <button class="play_button" id="next_gen">NEXT GEN</button>
+    <div class="main-container nes-container is-dark with-title is-centered">
+      <p class="title">Geneticsss</p>
+      <!-- Start Button -->
+      <button id="start_button" type="button" class="nes-btn is-error">Unmute</button>
+      <!-- Element Container -->
+      <div id="playcontainer" class="horizontal-container"></div>
+      <!-- Vote Button -->
+      <button class="nes-btn" id="vote_btn"> Vote! </button>
+      <button class="nes-btn is-primary" id="next_gen">NEXT GEN</button>
     </div>
-
-
-
-
-    
-
   </div>
-  
   <!-- JS -->
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
   <script>!window.jQuery && document.write('<script src="js/lib/jquery-1.4.2.min.js"><\/script>')</script>

@@ -9,12 +9,17 @@ const audioCtx = new AudioContext();
  * Suspend/Resume the AudioContext
  */
 function start() {
+    let btn = document.getElementById("start_button");
+
+    btn.classList.toggle("is-success", audioCtx.state === 'suspended')
+    btn.classList.toggle("is-error",   audioCtx.state === 'running')
+
     if (audioCtx.state === 'suspended') {
-        console.log("Start!");
+        btn.innerHTML = "Mute";
         audioCtx.resume();
     }
     else {
-        console.log("Stop!");
+        btn.innerHTML = "Unmute"
         audioCtx.suspend();
     }
 }
@@ -90,7 +95,7 @@ function scheduler() {
  */
 offspring = new Offspring(5, steps);
 
-
+ 
 /**
  * -------------------------------------------------------------------------
  * VIEW
@@ -133,7 +138,6 @@ function setOnClick() {
     voteButton.onclick = setVotes;
     // Next generation button
     let nextGen = document.getElementById("next_gen");
-    console.log(nextGen)
     nextGen.onclick = advanceGeneration;
 }
 
@@ -162,11 +166,12 @@ function getElementView(){
 function createHtmlElement(index, n_steps) {
     let html_seq = '';
     for (let i = 0; i < n_steps; ++i) {
-        html_seq += '<div class="key"></div>'
+        //html_seq += '<div class="key"></div>'
+        html_seq += '<div class="nes-icon is-small star is-empty"></div>'
     }
     let html = /*html*/
     `
-        <button class="play_button">Play n° ${index}</button>
+        <button class="play_button nes-btn">Play n° ${index}</button>
         <input class="vote" type="number" value=0 min=0 max=10>
         <div class="seq">
             ${html_seq}
@@ -174,7 +179,9 @@ function createHtmlElement(index, n_steps) {
     `;
     let div = document.createElement('div');
     div.id = 'element'+index;
-    div.classList.add('element');
+    div.classList.add('nes-container', 'is-dark')
+    div.classList.add('element', 'vertical-container');
+
     div.innerHTML = html;
     return div;
 }
@@ -196,14 +203,15 @@ setOnClick();
  */
 
 function render() {
-  for(let i=0; i<html_object.length; i++){
-    // Set sequences
-    let seq = Array.from(html_object[i].seq.children);
-    seq.forEach(function(key, index) {    
-        let patterns = offspring.pool;
-        key.classList.toggle("active-step", patterns[i].sequence[index]);
-    });
-  }
+
+    for(let i=0; i<html_object.length; i++){
+        // Set sequences
+        let seq = Array.from(html_object[i].seq.children);
+        seq.forEach(function(key, index) {    
+            let patterns = offspring.pool;
+            key.classList.toggle("is-empty", !patterns[i].sequence[index]);
+        });
+    }
 }
 
 /**
@@ -235,6 +243,6 @@ setupSample().then((samples) => {
         kick  = samples[0]; snare = samples[1]; hihat = samples[2];
         metro1 = samples[3]; metro2 = samples[4]; 
         
+        audioCtx.suspend();
         start_button.onclick = start; 
-        audioCtx.resume();
 });
