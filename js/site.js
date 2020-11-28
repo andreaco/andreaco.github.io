@@ -15,11 +15,11 @@ function start() {
     btn.classList.toggle("is-error",   audioCtx.state === 'running')
 
     if (audioCtx.state === 'suspended') {
-        btn.innerHTML = "Mute";
+        btn.innerHTML = "Stop";
         audioCtx.resume();
     }
     else {
-        btn.innerHTML = "Unmute"
+        btn.innerHTML = "Play"
         audioCtx.suspend();
     }
 }
@@ -42,7 +42,14 @@ let scheduleAheadTime = 0.1;    // How far ahead to schedule audio (sec)
 let currentNote = 0;            // Init current note to 0
 let nextNoteTime = 0.0;         // When the next note is due.
 //Currently Playing / Currently Displayed Pattern
-kick_pattern  = Array(steps).fill(0.0)
+kick_pattern   = Array(steps).fill(0.0)
+snare_pattern  = Array(steps).fill(0.0)
+hihat_pattern  = Array(steps).fill(0.0)
+
+unmuteKick  = false
+unmuteSnare = false
+unmuteHihat = false
+unmuteMetro = false
 
 /**
  * Advance note in sequence and schedule it in time
@@ -67,11 +74,18 @@ function nextNote() {
  */
 function scheduleNote(beatNumber, time) {
 
-    if (beatNumber % 16 === 0) playSample(audioCtx, metro1, 0.5);
-    else if (beatNumber % 4 === 0) playSample(audioCtx, metro2, 0.5);
+    if (unmuteMetro) {
+        if (beatNumber % 16 === 0) playSample(audioCtx, metro1, 0.5);
+        else if (beatNumber % 4 === 0) playSample(audioCtx, metro2, 0.5);
+    }
 
-    if (kick_pattern[beatNumber] !== 0.0)
-        playSample(audioCtx, kick, kick_pattern[beatNumber]);
+    if (unmuteKick  && kick_pattern[beatNumber] !== 0.0)
+        playSample(audioCtx,  kick, kick_pattern[beatNumber]);
+    if (unmuteSnare && snare_pattern[beatNumber] !== 0.0)
+        playSample(audioCtx, snare, snare_pattern[beatNumber]);
+    if (unmuteHihat && hihat_pattern[beatNumber] !== 0.0)
+        playSample(audioCtx, hihat, hihat_pattern[beatNumber]);
+    
 }
 
 
@@ -125,11 +139,13 @@ function advanceGeneration() {
 
 /**
  * Function used to assign 
+ * TODO: highlight currently playing logic
  */
 function setOnClick() {
     // Play Buttons
     for(let i = 0; i < html_object.length; i++){
         html_object[i].button.onclick = function() {
+            html_object[i].button.classList.toggle('is-dark')
             assign_pattern(i)
         }
     }
@@ -144,6 +160,7 @@ function setOnClick() {
 /**
  * Creates a global html_object that stores the references for
  * the interactive html elements for each element representation
+ * FIXME: Button is the entire div now
  */
 // HTML Elements Array
 let html_object = []
@@ -153,9 +170,9 @@ function getElementView(){
     for(let i=0; i<element.length; i++){    
         let b = element[i].querySelector(".play_button");
         let v = element[i].querySelector(".vote");
-        let s = element[i].querySelector(".seq");
+        let s = element[i].querySelectorAll(".seq");
         let object = {
-            button : b,
+            button : element[i],
             vote : v,
             seq : s
         }
@@ -166,20 +183,26 @@ function getElementView(){
 function createHtmlElement(index, n_steps) {
     let html_seq = '';
     for (let i = 0; i < n_steps; ++i) {
-        //html_seq += '<div class="key"></div>'
-        html_seq += '<div class="nes-icon is-small star is-empty"></div>'
+        html_seq += 
+                    '<div class="horizontal-container nes-icon is-small star is-empty"></div>'
     }
     let html = /*html*/
     `
-        <button class="play_button nes-btn">Play n° ${index}</button>
+        <p class="title">Pattern ${index}</p>
         <input class="vote" type="number" value=0 min=0 max=10>
+        <div class="seq">
+            ${html_seq}
+        </div>
+        <div class="seq">
+            ${html_seq}
+        </div>
         <div class="seq">
             ${html_seq}
         </div>
     `;
     let div = document.createElement('div');
     div.id = 'element'+index;
-    div.classList.add('nes-container', 'is-dark')
+    div.classList.add('nes-container', 'is-dark', 'with-title')
     div.classList.add('element', 'vertical-container');
 
     div.innerHTML = html;
@@ -206,10 +229,20 @@ function render() {
 
     for(let i=0; i<html_object.length; i++){
         // Set sequences
-        let seq = Array.from(html_object[i].seq.children);
+        let seq = Array.from(html_object[i].seq[0].children);
         seq.forEach(function(key, index) {    
             let patterns = offspring.pool;
-            key.classList.toggle("is-empty", !patterns[i].sequence[index]);
+            key.classList.toggle("is-empty", !patterns[i].kickSeq[index]);
+        });
+        seq = Array.from(html_object[i].seq[1].children);
+        seq.forEach(function(key, index) {    
+            let patterns = offspring.pool;
+            key.classList.toggle("is-empty", !patterns[i].snareSeq[index]);
+        });
+        seq = Array.from(html_object[i].seq[2].children);
+        seq.forEach(function(key, index) {    
+            let patterns = offspring.pool;
+            key.classList.toggle("is-empty", !patterns[i].hihatSeq[index]);
         });
     }
 }
@@ -220,7 +253,9 @@ function render() {
  */
 function assign_pattern(index) {
     let patterns = offspring.pool;
-    kick_pattern = patterns[index].sequence;
+    kick_pattern  = patterns[index].kickSeq;
+    snare_pattern = patterns[index].snareSeq;
+    hihat_pattern = patterns[index].hihatSeq;
 }
 
 /**
@@ -245,4 +280,24 @@ setupSample().then((samples) => {
         
         audioCtx.suspend();
         start_button.onclick = start; 
+        kick_button.onclick = function() {
+            kick_button.classList.toggle("is-success", !unmuteKick)
+            kick_button.classList.toggle("is-error",  unmuteKick)
+            unmuteKick = !unmuteKick
+        }
+        snare_button.onclick = function() {
+            snare_button.classList.toggle("is-success", !unmuteSnare)
+            snare_button.classList.toggle("is-error",  unmuteSnare)
+            unmuteSnare = !unmuteSnare
+        }
+        hihat_button.onclick = function() {
+            hihat_button.classList.toggle("is-success", !unmuteHihat)
+            hihat_button.classList.toggle("is-error",   unmuteHihat)
+            unmuteHihat = !unmuteHihat
+        }
+        metro_button.onclick = function() {
+            metro_button.classList.toggle("is-success", !unmuteMetro)
+            metro_button.classList.toggle("is-error",   unmuteMetro)
+            unmuteMetro = !unmuteMetro
+        }
 });
