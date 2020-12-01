@@ -1,4 +1,3 @@
-
 class Pattern {
     _kickSeq;           /// Kick Sequence array
     _snareSeq;          /// Kick Sequence array
@@ -135,7 +134,7 @@ class Offspring {
     constructor(n_elements, steps) {
         this._pool = Array(n_elements)
         this._generation = 0;
-        for (let i = 0; i< n_elements; i++){
+        for (let i = 0; i < n_elements; i++){
             this._pool[i] = new Pattern(steps)
         }
     }

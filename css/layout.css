@@ -2,10 +2,16 @@ html, body, pre, code, kbd, samp {
   font-family: "Press Start 2P";
 }
 
+
+/* 
+
+  justify-content?????
+
+*/
 .main-container {
   display: flex;
   flex-direction: column;
-  align-content: space-evenly;
+  justify-content: space-evenly;
   position: absolute;
 }
 
@@ -13,14 +19,14 @@ html, body, pre, code, kbd, samp {
 .horizontal-container {
   display: flex;
   flex-direction: row;
-  align-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 /* Vertical Flexbox */
 .vertical-container {
   display: flex;
   flex-direction: column;
-  align-content: space-evenly;
+  justify-content: space-evenly;
 }
 
 /* Element (Play, Vote, Seq) */
@@ -37,6 +43,8 @@ input[type=number] {
   text-align: center;
 }
 
+
+
 /*----------------------------*/
 .seq {
   /*
@@ -50,6 +58,6 @@ input[type=number] {
 }
 
 
-.background-gray {
+.nes-container.with-title.background-gray {
   background-color: gray;
 }

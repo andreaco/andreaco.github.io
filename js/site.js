@@ -109,6 +109,7 @@ function scheduler() {
  */
 offspring = new Offspring(5, steps);
 
+
  
 /**
  * -------------------------------------------------------------------------
@@ -137,15 +138,21 @@ function advanceGeneration() {
     render();
 }
 
+function setAllElementDark() {
+    for(let i = 0; i < html_object.length; i++){
+        html_object[i].button.classList.toggle('background-gray', false)
+    }
+}
+
 /**
  * Function used to assign 
- * TODO: highlight currently playing logic
  */
 function setOnClick() {
     // Play Buttons
     for(let i = 0; i < html_object.length; i++){
         html_object[i].button.onclick = function() {
-            html_object[i].button.classList.toggle('is-dark')
+            setAllElementDark();
+            html_object[i].button.classList.toggle('background-gray', true)
             assign_pattern(i)
         }
     }
