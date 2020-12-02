@@ -4,7 +4,9 @@ class Pattern {
     _hihatSeq;          /// Kick Sequence array
 
     _timeSignature;     /// Time signature
-    _vote;              /// Vote assigned by user
+    _score;             /// Fitness score 
+    
+
 
     /**
      * Constructor
@@ -44,7 +46,11 @@ class Pattern {
     get hihatSeq() {
         return this._hihatSeq
     }
-    
+        
+    getScore() {
+        return this._score;
+    }
+
     getVote() {
         return this._vote
     }
@@ -56,6 +62,9 @@ class Pattern {
         this._vote = vote;
     }
 
+    setScore(value) {
+        this._score = value;
+    }
     /**
      * Function used to initialize the sequence to random values
      */
@@ -79,14 +88,13 @@ class Pattern {
      * Returns a child pattern by alternating from this parent and the other
      * @param {Pattern} matePattern Pattern to mate with
      * @param {int} index alternating factor (1 stands for 1 every other)
-     * FIXME: Now is combining only kick
      */
     matingAlternate(matePattern, index = 1) { 
         let patternB_kick = matePattern.kickSeq;
         let patternB_snare = matePattern.kickSeq;
         let patternB_hihat = matePattern.kickSeq;
 
-        let child = new Pattern(this.length);
+        let child = new Pattern(this.steps);
 
         child._kickSeq = this.kickSeq.slice();
         child._snareSeq = this.snareSeq.slice();
@@ -131,10 +139,13 @@ class Pattern {
         }
     }
     */
+   mating(patternB){
+    return this.matingAlternate(patternB, 8);
+   }
 }
 
 
-class Offspring {
+class Population {
     _generation;        /// Current generation index
     _pool;              /// Array containing the patterns of current gen
 
@@ -164,23 +175,47 @@ class Offspring {
         return this._pool.length;
     }
 
-    /**
-     * Function that allows the offspring to mate and advance to next generation
-     * 
-     * FIXME: funziona solo se c'è una pool con nelementi dispari
-     */
-    mating() {
-        this._pool.sort((a,b) => (b.getVote() - a.getVote()))
-        let newPool = Array(this.numberOfElements)
-        newPool[0] = this._pool[0];
-        for (let i = 1; i< this._pool.length; i+=2){
-            newPool[i] = this._pool[i].matingAlternate(this._pool[i+1])
-            newPool[i+1] = this._pool[i+1].matingAlternate(this._pool[i])
-            
-
-            
-        }
+    newGeneration(){
+        let selected = this.selection();
+        let offspring = this.crossover(selected);
+        offspring = this.mutation(offspring);
+        this._pool = offspring; 
         this._generation++;
-        this._pool = newPool
+    }
+
+    selection(){
+        for(let i=0; i<this._pool.length; i++){
+            this.pool[i].score = this.fitness(this.pool[i]);
+        }
+        this._pool.sort((a,b) => (b.getScore() - a.getScore()))
+        let trimmedOffspring = Math.floor(0.7*this.numberOfElements);
+        if(trimmedOffspring % 2  !== 0){
+            trimmedOffspring -=1;
+        }
+        let selected = this.pool.slice(0, trimmedOffspring); 
+        return selected;
+    }
+
+    crossover(selected_pool){
+        let newPool = Array(selected_pool.length)
+        for (let i = 0; i< selected_pool.length; i+=2){
+            newPool[i] = selected_pool[i].mating(selected_pool[i+1])
+            newPool[i+1] = selected_pool[i+1].mating(selected_pool[i])
+        }
+        return newPool; 
+    }
+
+    mutation(offspring){
+        return offspring; 
+    }
+
+    fitness(element){
+        let score = 0; 
+        for (let i=0; i<element.kickSeq.length; i++){
+            score += element.kickSeq[i];
+            score += element.hihatSeq[i];
+            score += element.snareSeq[i];
+        }
+        return score;
     }
 }

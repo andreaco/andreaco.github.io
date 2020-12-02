@@ -107,7 +107,7 @@ function scheduler() {
  * GENETIC STUFF
  * -------------------------------------------------------------------------
  */
-offspring = new Offspring(5, steps);
+population = new Population(500, steps);
 
 
  
@@ -123,7 +123,7 @@ offspring = new Offspring(5, steps);
 function setVotes() {
     for (let j = 0; j< html_object.length; j++){
         let vote = html_object[j].vote.value;
-        offspring.pool[j].setVote(vote);
+        population.pool[j].setVote(vote);
     }
 }
 
@@ -131,7 +131,8 @@ function setVotes() {
  * Function used to advance the generation and refresh the representation
  */
 function advanceGeneration() {
-    offspring.mating();
+
+    population.newGeneration();
     for (let i = 0; i < html_object.length; ++i) {
         html_object[i].vote.value = 0;
     }
@@ -238,17 +239,20 @@ function render() {
         // Set sequences
         let seq = Array.from(html_object[i].seq[0].children);
         seq.forEach(function(key, index) {    
-            let patterns = offspring.pool;
+            let patterns =
+            population.pool;
             key.classList.toggle("is-empty", !patterns[i].kickSeq[index]);
         });
         seq = Array.from(html_object[i].seq[1].children);
         seq.forEach(function(key, index) {    
-            let patterns = offspring.pool;
+            let patterns =
+            population.pool;
             key.classList.toggle("is-empty", !patterns[i].snareSeq[index]);
         });
         seq = Array.from(html_object[i].seq[2].children);
         seq.forEach(function(key, index) {    
-            let patterns = offspring.pool;
+            let patterns =
+            population.pool;
             key.classList.toggle("is-empty", !patterns[i].hihatSeq[index]);
         });
     }
@@ -259,7 +263,8 @@ function render() {
  * @param {number} index 
  */
 function assign_pattern(index) {
-    let patterns = offspring.pool;
+    let patterns =
+    population.pool;
     kick_pattern  = patterns[index].kickSeq;
     snare_pattern = patterns[index].snareSeq;
     hihat_pattern = patterns[index].hihatSeq;
