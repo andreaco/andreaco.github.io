@@ -131,7 +131,6 @@ function setVotes() {
  * Function used to advance the generation and refresh the representation
  */
 function advanceGeneration() {
-
     population.newGeneration();
     for (let i = 0; i < html_object.length; ++i) {
         html_object[i].vote.value = 0;
@@ -256,6 +255,9 @@ function render() {
             key.classList.toggle("is-empty", !patterns[i].hihatSeq[index]);
         });
     }
+
+    document.getElementById("numel").innerHTML = "Number of elements: " + population.pool.length;
+    document.getElementById("numgen").innerHTML = "Generation #" + population.getGeneration();
 }
 
 /**
