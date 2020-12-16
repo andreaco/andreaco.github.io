@@ -77,7 +77,7 @@ class GeneticAlgorithm {
      */
     fitnessSetup(fitnessStrategyName, numberOfFinalElements) {
         this._numberOfFinalElements = numberOfFinalElements;
-        _fitnessFunction = fitnessStrategyManager.getStrategy(fitnessStrategyName);
+        this._fitnessFunction = fitnessStrategyManager.getStrategy(fitnessStrategyName);
     }
 
     /**
@@ -86,7 +86,7 @@ class GeneticAlgorithm {
      */
     selectionSetup(selectionStrategyName, survivalRate) {
         this._survivalRate = survivalRate;
-        _selectionFunction = selectionStrategyManager.getStrategy(selectionStrategyName);
+        this._selectionFunction = selectionStrategyManager.getStrategy(selectionStrategyName);
     }
 
     /**
@@ -95,7 +95,7 @@ class GeneticAlgorithm {
      */
     crossoverSetup(crossoverStrategyName, crossoverProbability) {
         this._crossoverProbability = crossoverProbability;
-        _crossoverFunction = crossoverStrategyManager.getStrategy(crossoverStrategyName);
+        this._crossoverFunction = crossoverStrategyManager.getStrategy(crossoverStrategyName);
     }
 
     /**
@@ -104,9 +104,10 @@ class GeneticAlgorithm {
      */
     mutationSetup(mutationStrategyName, mutationProbability) {
         this._mutationProbability = mutationProbability;
-        _mutationFunction = mutationStrategyManager.getStrategy(mutationStrategyName);
+        this._mutationFunction = mutationStrategyManager.getStrategy(mutationStrategyName);
     }
 
+    // TODO: Gather statitics for each generation
     start() {
         if(_fitnessFunction   === undefined || _selectionFunction === undefined
             || _crossoverFunction === undefined || _mutationFunction  === undefined) {
@@ -115,7 +116,8 @@ class GeneticAlgorithm {
         else {
             while (this._population.length > this._numberOfFinalElements) {
                 computeScores();
-                let selected  = this._selectionFunction.compute(this._population, this._survivalRate);
+                let populationCopy = this._population.slice();
+                let selected  = this._selectionFunction.compute(populationCopy, this._survivalRate);
                 let offspring = this._crossoverFunction.compute(selected, this._crossoverProbability);
                 let mutated   = this._mutationFunction.compute(offspring);
                 this._population = mutated;

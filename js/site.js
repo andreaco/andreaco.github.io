@@ -315,3 +315,50 @@ setupSample().then((samples) => {
             unmuteMetro = !unmuteMetro
         }
 });
+
+
+
+/**
+ *
+ * // INITIALIZE SECTION
+ *          numberOfStartingElements = Number of starting elements
+ *          fitnessName = Type of fitness (string)
+ *          finalElements = Number of final elements
+ * 
+ * // SELECTION SECTION
+ *          Type of selection (string)
+ *          Survival rate %
+ * 
+ * // CROSSOVER SECTION
+ *          Type of crossover (string)
+ *          crossover probability %
+ * 
+ * // MUTATION SECTION
+ *          Type of mutation (string)
+ *          Mutation probability %
+ */
+
+ /**
+  * > User press start
+  * > Gather parameters from GUI forms
+  * 
+  * GA = new GeneticAlgorithm(numberOfStartingElements, numberOfSequences=3, numberOfSteps=16)
+  * GA.fitnessSetup(fitnessName, finalElements)
+  * GA.selectionSetup(...)
+  * GA.crossoverSetup(...)
+  * GA.mutationSetup(...)
+  * 
+  * GA.start()
+  * > Wait GA to finish
+  * > Display GA._population to user
+  * 
+  * 
+  * 
+  * 
+
+    GA = new GeneticAlgorithm(10)
+    GA.fitnessSetup("FitnessStrategy1", 10)
+    GA.selectionSetup("RouletteWheelStochasticAcceptance", 0.9)
+    GA.computeScores()
+    GA._selectionFunction.compute(GA._population, 0.9)
+  */

@@ -17,11 +17,11 @@ class FitnessStrategyManager {
 }
 
 class FitnessStrategy1 {
-    name = "FitnessStrategy1"
+    _name = "FitnessStrategy1"
     constructor() {}
 
     compute(pattern) {
-        return score;
+        return Math.random();
     }
 }
 
@@ -34,7 +34,7 @@ class SelectionStrategyManager {
 
     constructor() {
         this._strategies = [
-            new SelectionStrategy1()
+            new SelectionRouletteWheelStochasticAcceptance()
         ];
     }
 
@@ -43,18 +43,44 @@ class SelectionStrategyManager {
     }
 }
 
-class SelectionStrategy1 {
-    name = "SelectionStrategy1"
+class SelectionRouletteWheelStochasticAcceptance {
+    _name = "RouletteWheelStochasticAcceptance"
     constructor() {}
 
     /**
      * @param {Array} population Population to be selected
      * @param {float} survivalRate Percentage of elements that should survive 
      */
-    compute(population, survivalRate) {
-        let selected = population;
-        // fitness score è in population[i].score
+    compute(population, survivalRate = 0.9) {
+        
+        let numberOfSurvivors = Math.floor(population.length * survivalRate)
+        let maxScore = this.getMaxScore(population);
+
+        let selected = Array(numberOfSurvivors);
+
+        for(let i=0; i < selected.length; ++i) {
+            do {
+                let index = Math.floor(Math.random()*population.length)
+                let survivalProbability = population[index].score / maxScore;
+            } while(Math.random() > survivalProbability)
+            
+            selected[i] = population[index];
+            population.splice(index, 1);
+        }
         return selected;
+    }
+
+    /**
+     * Utility function to obtain the maximum score, for normalization purposes
+     * @param {Array} population 
+     */
+    getMaxScore(population) {
+        let max = population[0].score;
+        for (let i=1; i < population.length; ++i) {
+            if (population[i] > max)
+                max = population[i].score()
+        }
+        return max
     }
 }
 
@@ -79,7 +105,7 @@ class CrossoverStrategyManager {
 }
 
 class CrossoverStrategy1 {
-    name = "CrossoverStrategy1";
+    _name = "CrossoverStrategy1";
     constructor() {}
 
     /**
@@ -113,7 +139,7 @@ class MutationStrategyManager {
 }
 
 class MutationStrategy1 {
-    name = "MutationStrategy1";
+    _name = "MutationStrategy1";
     constructor() {}
 
     /**
@@ -128,7 +154,7 @@ class MutationStrategy1 {
 }
 
 class MutationStrategy2 {
-    name = "MutationStrategy2";
+    _name = "MutationStrategy2";
     constructor() {}
 
     /**
