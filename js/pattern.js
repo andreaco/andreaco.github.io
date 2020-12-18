@@ -7,8 +7,8 @@ class Pattern {
      * @param {int} N Number of sequences
      * @param {int} S Number of steps
      */
-    constructor(N, S) {
-        if (N > 0 && S  > 0) {
+    constructor(N = 0, S = 0) {
+        if (N >= 0 && S  >= 0) {
             // Random sequences of 0s and 1s
             this._sequences = nj.random(N, S).round();
         }
@@ -30,6 +30,9 @@ class Pattern {
         return this._sequences;
     }
 
+    set sequences(value) {
+        this._sequences = value;
+    }
 }
 
 

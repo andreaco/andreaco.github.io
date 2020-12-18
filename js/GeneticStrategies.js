@@ -6,7 +6,7 @@ class FitnessStrategyManager {
 
     constructor() {
         this._strategies = [
-            new FitnessStrategy1()
+            new FitnessBEH()
         ];
     }
 
@@ -16,12 +16,73 @@ class FitnessStrategyManager {
 
 }
 
-class FitnessStrategy1 {
-    _name = "FitnessStrategy1"
+class FitnessBEH {
+    _name = "Fitness BEH"
     constructor() {}
 
+    p2x(patternList){
+        let result = []
+        let N = p.length
+        for (let i = 0; i < N; i++){
+            if (p[i]!==0){
+                result.push(i/N);
+            }
+        }
+        return result;
+    }
+
+    x2z(x){
+        let z = [];
+        for (let i = 0; i < x.length; i++){
+            let twoPiJ = math.complex(0,2*math.pi);
+            z.push(math.exp(math.multiply(x[i], twoPiJ)))
+        }
+        return z
+    }
+
+    summation(z){
+        let sum = math.complex(0, 0);
+        for (let i = 0; i < z.length; i++){
+            sum  = math.add(sum, z[i]);
+        }
+        return sum;
+    }
+
+    balance(z){
+        let N = z.length; 
+        if (N === 0){
+            return 0
+        }
+
+        else{
+            return 1 - math.abs(this.summation(z))/N
+        }
+    }
+
+    evenness(z){
+        let N = z.length;
+        if (N == 0) return 0
+        let e = 0
+        for (let k=0; k < z.length; ++k) {
+            let minusTwoPij = math.complex(0, -2*math.pi);
+            let exponent = math.multiply(minusTwoPij, k);
+            exponent = math.divide(exponent, N)
+            let tmp = math.multiply(z[k], math.exp(exponent))
+            e = math.add(e, tmp)
+        }
+        e = math.abs(e)
+        e = math.divide(e,N)
+        return e
+}
+
     compute(pattern) {
-        return Math.random();
+        let list = pattern.sequences.tolist();
+        for (let i = 0; i < list.length; i++){
+            p = list[i];
+            x = p2x(p);
+        }
+
+        return score;
     }
 }
 
@@ -57,11 +118,13 @@ class SelectionRouletteWheelStochasticAcceptance {
         let maxScore = this.getMaxScore(population);
 
         let selected = Array(numberOfSurvivors);
-
+        
         for(let i=0; i < selected.length; ++i) {
+            let survivalProbability
+            let index
             do {
-                let index = Math.floor(Math.random()*population.length)
-                let survivalProbability = population[index].score / maxScore;
+                index = Math.floor(Math.random()*population.length)
+                survivalProbability = population[index].score / maxScore;
             } while(Math.random() > survivalProbability)
             
             selected[i] = population[index];
@@ -95,7 +158,8 @@ class CrossoverStrategyManager {
 
     constructor() {
         this._strategies = [
-            new CrossoverStrategy1()
+            new SinglePointCrossover(),
+            new TwoPointCrossover()
         ];
     }
 
@@ -104,8 +168,8 @@ class CrossoverStrategyManager {
     }
 }
 
-class CrossoverStrategy1 {
-    _name = "CrossoverStrategy1";
+class SinglePointCrossover {
+    _name = "Single Point Crossover";
     constructor() {}
 
     /**
@@ -113,9 +177,64 @@ class CrossoverStrategy1 {
      * @param {float} crossoverProbability Probability to mating instead of surviving
      */
     compute(selected, crossoverProbability) {
-        let offspring = selected;
-        // Apply Chosen Crossover
+        let N = selected.length;
+        let offspring = selected.slice();
+
+        for(let i = 0; i <  N-1; i+=2){
+            if(Math.random() < crossoverProbability){
+
+                offspring[i]  = this.singlePointMating(selected[i], selected[i+1]);
+                offspring[i+1]  = this.singlePointMating(selected[i+1], selected[i]);
+            }
+           
+        }
         return offspring;
+    }
+
+    singlePointMating(a, b, crossoverPoint = 0.5){
+        let M = Math.floor(crossoverPoint * a.sequences.shape[1]);
+        let firstChromosome = a.sequences.slice([null],[0, M]);
+        let secondChromosome = b.sequences.slice([null], [M, b.sequences.shape[1]]);
+        let child = new Pattern()
+        child.sequences = nj.concatenate(firstChromosome, secondChromosome);
+        return child
+    }
+}
+class TwoPointCrossover {
+    _name = "Two Point Crossover";
+    constructor() {}
+
+    /**
+     * @param {Array} selected Selected population to crossover
+     * @param {float} crossoverProbability Probability to mating instead of surviving
+     */
+    compute(selected, crossoverProbability) {
+        let N = selected.length;
+        let offspring = selected.slice();
+
+        for(let i = 0; i <  N-1; i+=2){
+            if(Math.random() < crossoverProbability){
+
+                offspring[i] = this.twoPointMating(selected[i], selected[i+1]);
+                offspring[i+1] = this.twoPointMating(selected[i+1], selected[i]);
+            }
+        }
+        return offspring;
+    }
+
+    /*
+    FIXME: ritorna array vuoti
+    */
+    twoPointMating(a, b, start, end){
+        let startingIndex = Math.floor(start * a.sequences.shape[1]);
+        let finalIndex = Math.floor(end * a.sequences.shape[1]);
+        let firstChromosome = a.sequences.slice([null],[0, startingIndex]);
+        let secondChromosome = b.sequences.slice([null],[startingIndex, finalIndex]);
+        let thirdChromosome = b.sequences.slice([null],[finalIndex, b.sequences.shape[1]]);
+        let child = new Pattern();
+        let seq = nj.concatenate(firstChromosome, secondChromosome);
+        child.sequences = nj.concatenate(seq, thirdChromosome);
+        return child
     }
 }
 
