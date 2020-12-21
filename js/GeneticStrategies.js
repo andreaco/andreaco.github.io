@@ -20,7 +20,7 @@ class FitnessBEH {
     _name = "Fitness BEH"
     constructor() {}
 
-    p2x(patternList){
+    p2x(p){
         let result = []
         let N = p.length
         for (let i = 0; i < N; i++){
@@ -37,7 +37,7 @@ class FitnessBEH {
             let twoPiJ = math.complex(0,2*math.pi);
             z.push(math.exp(math.multiply(x[i], twoPiJ)))
         }
-        return z
+        return z;
     }
 
     summation(z){
@@ -72,8 +72,49 @@ class FitnessBEH {
         }
         e = math.abs(e)
         e = math.divide(e,N)
-        return e
-}
+        return e;
+    }
+
+
+    distance(p){
+        let ons = []
+        let tmp = []
+        let N = p.length;
+
+        for (let i = 0; i < N; i++){
+            if (p[i]!==0){
+                ons.push(i);
+            }
+        }
+
+        if(ons.length > 0){
+            ons.push(N+ons[0]);
+        }
+        else ons.push(N);
+        
+        for (let i = 0; i < ons.length-1; i++){ 
+            tmp.push(ons[i+1] - ons[i]);
+        }
+
+        return tmp;
+    }
+
+
+    IOI(p){
+        let ans = [];
+        let g = distance(p);
+
+        
+
+
+        return ans;
+    }
+
+
+
+
+
+    
 
     compute(pattern) {
         let list = pattern.sequences.tolist();
@@ -247,8 +288,7 @@ class MutationStrategyManager {
 
     constructor() {
         this._strategies = [
-            new MutationStrategy1(),
-            new MutationStrategy2()
+            new MutationStrategy1()
         ];
     }
 
@@ -262,30 +302,49 @@ class MutationStrategy1 {
     constructor() {}
 
     /**
-     * @param {Array} offspring Population after crossover
+     * @param {Array} mutated Population after mutation
      * @param {float} mutationProbability Probability of mutation
      */
     compute(offspring, mutationProbability) {
-        let mutated = offspring;
-        // Apply Chosen mutation
+        let N = offspring.length;
+        let mutated = offspring.slice();
+   
+        for(let i = 0; i < N; i++){
+            if(Math.random() < mutationProbability){
+
+                mutated[i]  = this.bitstring_mutation(offspring[i]);
+                
+            }
+           
+        }
+    
         return mutated;
+    }
+
+    bitstring_mutation(p){
+           
+            let N = p.steps;
+            let num_seq = p.numSequences;
+            let prob = 1 / N;
+
+            for (let i = 0; i < num_seq; i++){
+                for(let j = 0; j < N; j++){
+                    if(Math.random() < prob){
+
+                        let val = p.sequences.get(i, j);
+                        if(val==1){
+                            p.sequences.set(i, j, 0);}
+                        else p.sequences.set(i, j, 1);        
+                    }
+                }
+            }
+
+            return p;
+        
     }
 }
 
-class MutationStrategy2 {
-    _name = "MutationStrategy2";
-    constructor() {}
 
-    /**
-     * @param {Array} offspring Population after crossover
-     * @param {float} mutationProbability Probability of mutation
-     */
-    compute(offspring, mutationProbability) {
-        let mutated = offspring;
-        // Apply Chosen mutation
-        return mutated;
-    }
-}
 
 
 
