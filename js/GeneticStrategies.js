@@ -20,7 +20,11 @@ class FitnessBEH {
     _name = "Fitness BEH"
     constructor() {}
 
-    p2x(p){
+    /**
+     * Function to convert from p notation to x notation
+     * @param {Array} p Array of onsets in p notation
+     */
+    p2x(p) {
         let result = []
         let N = p.length
         for (let i = 0; i < N; i++){
@@ -31,7 +35,11 @@ class FitnessBEH {
         return result;
     }
 
-    x2z(x){
+    /**
+     * Function to convert from x notation to z notation
+     * @param {Array} x Array of onsets in x notation
+     */
+    x2z(x) {
         let z = [];
         for (let i = 0; i < x.length; i++){
             let twoPiJ = math.complex(0,2*math.pi);
@@ -40,6 +48,10 @@ class FitnessBEH {
         return z;
     }
 
+    /**
+     * Utility funcution to compute the sum over the array
+     * @param {Array} z Array to be summed
+     */
     summation(z){
         let sum = math.complex(0, 0);
         for (let i = 0; i < z.length; i++){
@@ -48,6 +60,10 @@ class FitnessBEH {
         return sum;
     }
 
+    /**
+     * Compute balance of pattern
+     * @param {Array} z Pattern in z notation
+     */
     balance(z){
         let N = z.length; 
         if (N === 0){
@@ -59,6 +75,10 @@ class FitnessBEH {
         }
     }
 
+    /**
+     * Compute evenness of pattern
+     * @param {Array} z Pattern in z notation
+     */
     evenness(z){
         let N = z.length;
         if (N == 0) return 0
@@ -75,8 +95,12 @@ class FitnessBEH {
         return e;
     }
 
-
-    distance(p){
+    /**
+     * Utility function to compute the distance
+     * from one onset from the others
+     * @param {Array} p Pattern in p notation 
+     */
+    distance(p) {
         let ons = []
         let tmp = []
         let N = p.length;
@@ -99,7 +123,10 @@ class FitnessBEH {
         return tmp;
     }
 
-
+    /**
+     * Utility function to compute the Inter Onset Interval
+     * @param {Array} p Pattern in p notation 
+     */
     IOI(p){
         let ans = [];
         let g = distance(p);
@@ -111,11 +138,10 @@ class FitnessBEH {
     }
 
 
-
-
-
-    
-
+    /**
+     * Fitness Function
+     * @param {Array} pattern Pattern 
+     */
     compute(pattern) {
         let list = pattern.sequences.tolist();
         for (let i = 0; i < list.length; i++){
@@ -146,7 +172,7 @@ class SelectionStrategyManager {
 }
 
 class SelectionRouletteWheelStochasticAcceptance {
-    _name = "RouletteWheelStochasticAcceptance"
+    _name = "Roulette Wheel Stochastic Acceptance"
     constructor() {}
 
     /**
@@ -322,25 +348,22 @@ class MutationStrategy1 {
     }
 
     bitstring_mutation(p){
-           
             let N = p.steps;
             let num_seq = p.numSequences;
             let prob = 1 / N;
 
             for (let i = 0; i < num_seq; i++){
                 for(let j = 0; j < N; j++){
-                    if(Math.random() < prob){
-
+                    if(Math.random() < prob) {
                         let val = p.sequences.get(i, j);
-                        if(val==1){
-                            p.sequences.set(i, j, 0);}
-                        else p.sequences.set(i, j, 1);        
+                        if(val==1)
+                            p.sequences.set(i, j, 0);
+                        else
+                            p.sequences.set(i, j, 1);        
                     }
                 }
             }
-
             return p;
-        
     }
 }
 
