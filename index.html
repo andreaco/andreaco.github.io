@@ -10,15 +10,53 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/layout.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-  <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css"/>
 </head>
 <body>
+
+
+  
+  <h1 class="ui center aligned header">Genetic Algorithm</h1>
+  <h3 class="ui center aligned header">Fitness</h3>
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">Column1</div>
+      <div class="column">Column2</div>
+    </div>
+    <div class="ui vertical divider">
+      Or
+    </div>
+    
+
+  </div>
+  <div class="ui divider"></div>
+  <h3 class="ui center aligned header">Selection</h3>
+  
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column grid">
+    </div>
+  </div>
+  <div class="ui divider"></div>
+  <h3 class="ui center aligned header">Crossover</h3>
+  <div class="ui raised very padded text container segment">
+    
+    <div class="ui two column grid">
+    </div>
+  </div>
+  <div class="ui divider"></div>
+  <h3 class="ui center aligned header">Mutation</h3>
+  <div class="ui raised very padded text container segment">
+    
+    <div class="ui two column grid">
+    </div>
+  </div>
   <!-- Root -->
+  
   <div id="root">
     <div class="main-container nes-container is-dark with-title is-centered">
       <p class="title">Geneticsss</p>
       <!-- Start Button -->
+      
       <button id="start_button" type="button" class="nes-btn is-error">Play</button>
       <button id="kick_button" type="button" class="nes-btn is-error">Kick</button>
       <button id="snare_button" type="button" class="nes-btn is-error">Snare</button>
@@ -36,8 +74,11 @@
   <!-- JS -->
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
   <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script>!window.jQuery && document.write('<script src="js/lib/jquery-1.4.2.min.js"><\/script>')</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+
+
   <script src="js/sampleplayer.js"></script>
   <script src="js/GeneticStrategies.js"></script>
   <script src="js/pattern.js"></script>
