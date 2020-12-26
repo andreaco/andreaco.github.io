@@ -112,13 +112,13 @@ class GeneticAlgorithm {
 
     // TODO: Gather statitics for each generation
     start() {
-        if(_fitnessFunction   === undefined || _selectionFunction === undefined
-            || _crossoverFunction === undefined || _mutationFunction  === undefined) {
+        if(this._fitnessFunction   == undefined || this._selectionFunction == undefined
+            || this._crossoverFunction == undefined || this._mutationFunction  == undefined) {
             console.error("Cannot start due to some uninitialized functions");
         }
         else {
             while (this._population.length > this._numberOfFinalElements) {
-                computeScores();
+                this.computeScores();
                 let populationCopy = this._population.slice();
                 let selected  = this._selectionFunction.compute(populationCopy, this._survivalRate);
                 let offspring = this._crossoverFunction.compute(selected, this._crossoverProbability);

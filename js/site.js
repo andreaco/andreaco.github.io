@@ -115,248 +115,6 @@ function scheduler() {
  * GENETIC STUFF
  * -------------------------------------------------------------------------
  */
-population = new Population(500, steps);
-
-
- 
-/**
- * -------------------------------------------------------------------------
- * VIEW
- * -------------------------------------------------------------------------
- */
-
-  /**
-  * Function used to gset the sliders
-  */
-
- var slider = document.getElementById("myRange");
- var slider1 = document.getElementById("myRange1");
- var slider2 = document.getElementById("myRange2");
- var output = document.getElementById("demo");
- output.innerHTML = slider.value; // Display the default slider value
- 
- // Update the current slider value (each time you drag the slider handle)
- slider.oninput = function() {
-   output.innerHTML = this.value;
- }
- slider1.oninput = function() {
-    output.innerHTML = this.value;
-  }
-  slider2.oninput = function() {
-    output.innerHTML = this.value;
-  }
-
- function updateTextInput(val) {
-    document.getElementById('textInput').value=val;
-  }
-function updateTextInput1(val) {
-    document.getElementById('textInput1').value=val;
-  }
-function updateTextInput2(val) {
-    document.getElementById('textInput2').value=val;
-  }
-
-
-
- /**
-  * Function used to get votes from html and assign them to the population
-  */
-function setVotes() {
-    for (let j = 0; j< html_object.length; j++){
-        let vote = html_object[j].vote.value;
-        population.pool[j].setVote(vote);
-    }
-}
-
-/**
- * Function used to advance the generation and refresh the representation
- */
-function advanceGeneration() {
-    population.newGeneration();
-    for (let i = 0; i < html_object.length; ++i) {
-        html_object[i].vote.value = 0;
-    }
-    render();
-}
-
-function setAllElementDark() {
-    for(let i = 0; i < html_object.length; i++){
-        html_object[i].button.classList.toggle('background-gray', false)
-    }
-}
-
-/**
- * Function used to assign 
- */
-function setOnClick() {
-    // Play Buttons
-    for(let i = 0; i < html_object.length; i++){
-        html_object[i].button.onclick = function() {
-            setAllElementDark();
-            html_object[i].button.classList.toggle('background-gray', true)
-            assign_pattern(i)
-        }
-    }
-    // Vote button
-    let voteButton = document.getElementById("vote_btn");
-    voteButton.onclick = setVotes;
-    // Next generation button
-    let nextGen = document.getElementById("next_gen");
-    nextGen.onclick = advanceGeneration;
-}
-
-/**
- * Creates a global html_object that stores the references for
- * the interactive html elements for each element representation
- * FIXME: Button is the entire div now
- */
-// HTML Elements Array
-let html_object = []
-function getElementView(){
-    let listElement = document.getElementById("playcontainer");
-    let element = listElement.children;
-    for(let i=0; i<element.length; i++){    
-        let b = element[i].querySelector(".play_button");
-        let v = element[i].querySelector(".vote");
-        let s = element[i].querySelectorAll(".seq");
-        let object = {
-            button : element[i],
-            vote : v,
-            seq : s
-        }
-        html_object.push(object);
-    }
-}
-
-function createHtmlElement(index, n_steps) {
-    let html_seq = '';
-    for (let i = 0; i < n_steps; ++i) {
-        html_seq += 
-                    '<div class="horizontal-container nes-icon is-small star is-empty"></div>'
-    }
-    let html = /*html*/
-    `
-        <p class="title">Pattern ${index}</p>
-        <input class="vote" type="number" value=0 min=0 max=10>
-        <div class="seq">
-            ${html_seq}
-        </div>
-        <div class="seq">
-            ${html_seq}
-        </div>
-        <div class="seq">
-            ${html_seq}
-        </div>
-    `;
-    let div = document.createElement('div');
-    div.id = 'element'+index;
-    div.classList.add('nes-container', 'is-dark', 'with-title')
-    div.classList.add('element', 'vertical-container');
-
-    div.innerHTML = html;
-    return div;
-}
-
-function addHtmlElements(n_elements) {
-    let container = document.getElementById("playcontainer");
-    
-    for (let i = 0; i < n_elements; i++) {
-        container.appendChild(createHtmlElement(i, steps))
-    }
-}
-
-addHtmlElements(5);
-getElementView();
-setOnClick();
-
-/** 
- * Render function
- */
-
-function render() {
-
-    for(let i=0; i<html_object.length; i++){
-        // Set sequences
-        let seq = Array.from(html_object[i].seq[0].children);
-        seq.forEach(function(key, index) {    
-            let patterns =
-            population.pool;
-            key.classList.toggle("is-empty", !patterns[i].kickSeq[index]);
-        });
-        seq = Array.from(html_object[i].seq[1].children);
-        seq.forEach(function(key, index) {    
-            let patterns =
-            population.pool;
-            key.classList.toggle("is-empty", !patterns[i].snareSeq[index]);
-        });
-        seq = Array.from(html_object[i].seq[2].children);
-        seq.forEach(function(key, index) {    
-            let patterns =
-            population.pool;
-            key.classList.toggle("is-empty", !patterns[i].hihatSeq[index]);
-        });
-    }
-
-    document.getElementById("numel").innerHTML = "Number of elements: " + population.pool.length;
-    document.getElementById("numgen").innerHTML = "Generation #" + population.getGeneration();
-}
-
-/**
- * Change the displayed/current playback sequence
- * @param {number} index 
- */
-function assign_pattern(index) {
-    let patterns =
-    population.pool;
-    kick_pattern  = patterns[index].kickSeq;
-    snare_pattern = patterns[index].snareSeq;
-    hihat_pattern = patterns[index].hihatSeq;
-}
-
-/**
- * -------------------------------------------------------------------------
- * STARTUP CODE
- * -------------------------------------------------------------------------
- */
-// First render
-render();
-
-/**
- * Setup samples, then assign them to sample vars and prepare to play
- */
-setupSample().then((samples) => {
-        currentNote = 0;                        // Start sequence from 0
-        nextNoteTime = audioCtx.currentTime;    // First note time
-        scheduler();                            // Start scheduling
-
-        // Sample Variable Instantiation <0>
-        kick  = samples[0]; snare = samples[1]; hihat = samples[2];
-        metro1 = samples[3]; metro2 = samples[4]; 
-        
-        audioCtx.suspend();
-        start_button.onclick = start; 
-        kick_button.onclick = function() {
-            kick_button.classList.toggle("is-success", !unmuteKick)
-            kick_button.classList.toggle("is-error",  unmuteKick)
-            unmuteKick = !unmuteKick
-        }
-        snare_button.onclick = function() {
-            snare_button.classList.toggle("is-success", !unmuteSnare)
-            snare_button.classList.toggle("is-error",  unmuteSnare)
-            unmuteSnare = !unmuteSnare
-        }
-        hihat_button.onclick = function() {
-            hihat_button.classList.toggle("is-success", !unmuteHihat)
-            hihat_button.classList.toggle("is-error",   unmuteHihat)
-            unmuteHihat = !unmuteHihat
-        }
-        metro_button.onclick = function() {
-            metro_button.classList.toggle("is-success", !unmuteMetro)
-            metro_button.classList.toggle("is-error",   unmuteMetro)
-            unmuteMetro = !unmuteMetro
-        }
-});
-
 
 
 /**
@@ -403,5 +161,64 @@ setupSample().then((samples) => {
     GA.computeScores()
     GA._selectionFunction.compute(GA._population, 0.9)
   */
+
+var GA = undefined;
+function initGeneticAlgorithm() {
+    var nSeq = 3;
+    var nStep = 16;
+    var parametersModel = createParametersModel();
+    GA = new GeneticAlgorithm(parametersModel.startingPopulation, nSeq, nStep);
+    GA.fitnessSetup(parametersModel.fitnessType, 10); // Final elements hardcoded to 10
+    GA.selectionSetup(parametersModel.selectionType, parametersModel.survivalRate / 100);
+    GA.crossoverSetup(parametersModel.crossoverType, parametersModel.crossoverProbability / 100);
+    GA.mutationSetup(parametersModel.mutationType, parametersModel.mutationProbability / 100);
+
+    GA.start();
+}
+
+
+/**
+ * -------------------------------------------------------------------------
+ * STARTUP CODE
+ * -------------------------------------------------------------------------
+ */
+// First render
+render();
+
+/**
+ * Setup samples, then assign them to sample vars and prepare to play
+ */
+setupSample().then((samples) => {
+        currentNote = 0;                        // Start sequence from 0
+        nextNoteTime = audioCtx.currentTime;    // First note time
+        scheduler();                            // Start scheduling
+
+        // Sample Variable Instantiation <0>
+        kick  = samples[0]; snare = samples[1]; hihat = samples[2];
+        metro1 = samples[3]; metro2 = samples[4]; 
+        
+        audioCtx.suspend();
+        start_button.onclick = start; 
+        kick_button.onclick = function() {
+            kick_button.classList.toggle("is-success", !unmuteKick)
+            kick_button.classList.toggle("is-error",  unmuteKick)
+            unmuteKick = !unmuteKick
+        }
+        snare_button.onclick = function() {
+            snare_button.classList.toggle("is-success", !unmuteSnare)
+            snare_button.classList.toggle("is-error",  unmuteSnare)
+            unmuteSnare = !unmuteSnare
+        }
+        hihat_button.onclick = function() {
+            hihat_button.classList.toggle("is-success", !unmuteHihat)
+            hihat_button.classList.toggle("is-error",   unmuteHihat)
+            unmuteHihat = !unmuteHihat
+        }
+        metro_button.onclick = function() {
+            metro_button.classList.toggle("is-success", !unmuteMetro)
+            metro_button.classList.toggle("is-error",   unmuteMetro)
+            unmuteMetro = !unmuteMetro
+        }
+});
 
 

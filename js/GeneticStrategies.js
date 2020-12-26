@@ -14,6 +14,14 @@ class FitnessStrategyManager {
         return this._strategies.find(strategy => strategy._name === name);
     }
 
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
+    }
+
 }
 
 class FitnessBEH {
@@ -145,8 +153,8 @@ class FitnessBEH {
     compute(pattern) {
         let list = pattern.sequences.tolist();
         for (let i = 0; i < list.length; i++){
-            p = list[i];
-            x = p2x(p);
+            let p = list[i];
+            let x = p2x(p);
         }
 
         return score;
@@ -168,6 +176,14 @@ class SelectionStrategyManager {
 
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
+    }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
     }
 }
 
@@ -232,6 +248,14 @@ class CrossoverStrategyManager {
 
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
+    }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
     }
 }
 
@@ -320,6 +344,14 @@ class MutationStrategyManager {
 
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
+    }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
     }
 }
 
