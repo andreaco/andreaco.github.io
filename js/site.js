@@ -2,6 +2,10 @@ $('.ui.accordion')
   .accordion()
 ;
 
+$('.menu .item')
+  .tab()
+;
+
 /**
  * -------------------------------------------------------------------------
  * AUDIO CONTEXT
@@ -120,6 +124,39 @@ population = new Population(500, steps);
  * VIEW
  * -------------------------------------------------------------------------
  */
+
+  /**
+  * Function used to gset the sliders
+  */
+
+ var slider = document.getElementById("myRange");
+ var slider1 = document.getElementById("myRange1");
+ var slider2 = document.getElementById("myRange2");
+ var output = document.getElementById("demo");
+ output.innerHTML = slider.value; // Display the default slider value
+ 
+ // Update the current slider value (each time you drag the slider handle)
+ slider.oninput = function() {
+   output.innerHTML = this.value;
+ }
+ slider1.oninput = function() {
+    output.innerHTML = this.value;
+  }
+  slider2.oninput = function() {
+    output.innerHTML = this.value;
+  }
+
+ function updateTextInput(val) {
+    document.getElementById('textInput').value=val;
+  }
+function updateTextInput1(val) {
+    document.getElementById('textInput1').value=val;
+  }
+function updateTextInput2(val) {
+    document.getElementById('textInput2').value=val;
+  }
+
+
 
  /**
   * Function used to get votes from html and assign them to the population
@@ -366,3 +403,5 @@ setupSample().then((samples) => {
     GA.computeScores()
     GA._selectionFunction.compute(GA._population, 0.9)
   */
+
+

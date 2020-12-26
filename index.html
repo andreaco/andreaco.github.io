@@ -18,58 +18,230 @@
   
   <h1 class="ui center aligned header">Genetic Algorithm</h1>
   <h3 class="ui center aligned header">Fitness</h3>
+  
   <div class="ui raised very padded text container segment">
     <div class="ui two column very relaxed stackable grid">
-      <div class="column">Column1</div>
-      <div class="column">Column2</div>
-    </div>
-    <div class="ui vertical divider">
-      Or
-    </div>
-    
+      <div class="column">
 
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           STARTING POPULATION 
+          </div>
+          <div class="content">
+            <p>Number of elements of the population 0.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="column">INPUT</div>
+    </div>
   </div>
+
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+     
+      </div>
+      <div class="column"></div>
+    </div>
+  </div>
+
+
   <div class="ui divider"></div>
+
+
   <h3 class="ui center aligned header">Selection</h3>
   
   <div class="ui raised very padded text container segment">
-    <div class="ui two column grid">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           SURVIVAL RATE
+          </div>
+          <div class="content">
+            <p>Percentage of the population that survive at each selection.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="column">
+
+        <div class="slidecontainer" name="perc">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange" onchange="updateTextInput(this.value);">
+        </div>
+        <input type="text" id="textInput" value="">
+
+      </div>
     </div>
   </div>
+
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+     
+      </div>
+      <div class="column"></div>
+    </div>
+  </div>
+
+
   <div class="ui divider"></div>
+
   <h3 class="ui center aligned header">Crossover</h3>
-  <div class="ui raised very padded text container segment">
-    
-    <div class="ui two column grid">
+   <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           CROSSOVER PROBABILITY
+          </div>
+          <div class="content">
+            <p>Probability of each element to copulate.</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="column">
+
+        <div class="slidecontainer" name="perc">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange1" onchange="updateTextInput1(this.value);">
+        </div>
+        <input type="text" id="textInput1" value="">
+
+      </div>
     </div>
   </div>
+
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           CROSSOVER STRATEGY
+          </div>
+          <div class="content">
+            <p>Crossover Srategies: 
+              -Single Point Crossover 
+              -Two Point Crossover
+            </p>
+          </div>
+        </div>
+     
+      </div>
+      <div class="column">
+
+        <select class="ui search selection dropdown" id="search-select">
+          <option value="" selected disabled hidden>CHOOSE A STRATEGY</option>
+          <option value="SP">SINGLE POINT CROSSOVER</option>
+          <option value="2P">TWO POINTS CROSSOVER</option>
+        </select>
+        
+
+      </div>
+    </div>
+  </div>
+
   <div class="ui divider"></div>
+
   <h3 class="ui center aligned header">Mutation</h3>
-  <div class="ui raised very padded text container segment">
-    
-    <div class="ui two column grid">
+    <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           MUTATION PROBABILITY
+          </div>
+          <div class="content">
+            <p>Probability of each element to be mutated</p>
+          </div>
+        </div>
+
+      </div>
+      <div class="column">
+
+        <div class="slidecontainer" name="perc">
+          <input type="range" min="1" max="100" value="50" class="slider" id="myRange2" onchange="updateTextInput2(this.value);">
+        </div>
+        <input type="text" id="textInput2" value="">
+
+
+      </div>
     </div>
   </div>
+
+  <div class="ui raised very padded text container segment">
+    <div class="ui two column very relaxed stackable grid">
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           MUTATION STRATEGY
+          </div>
+          <div class="content">
+            <p>Mutation Srategies: 
+          
+            </p>
+          </div>
+        </div>
+     
+      </div>
+      <div class="column">
+        
+        <select class="ui search selection dropdown" id="search-select">
+          <option value="" selected disabled hidden>CHOOSE A STRATEGY</option>
+          <option value="BS">BIT STRING MUTATION</option>
+          <option value="SH">SHIFT???</option>
+        </select>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="ui top attached tabular menu">
+    <a class="item" data-tab="player">Player</a>
+    <a class="item" data-tab="stats">Statistics</a>
+    <a class="item" data-tab="visual">Visual Representation</a>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="player">
+    First
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="stats">
+    Second
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="visual">
+    Third
+  </div>
+
+
   <!-- Root -->
   
   <div id="root">
-    <div class="main-container nes-container is-dark with-title is-centered">
       <p class="title">Geneticsss</p>
       <!-- Start Button -->
-      
-      <button id="start_button" type="button" class="nes-btn is-error">Play</button>
-      <button id="kick_button" type="button" class="nes-btn is-error">Kick</button>
-      <button id="snare_button" type="button" class="nes-btn is-error">Snare</button>
-      <button id="hihat_button" type="button" class="nes-btn is-error">Hihat</button>
-      <button id="metro_button" type="button" class="nes-btn is-error">Metronome</button>
+      <button id="start_button" type="button">Play</button>
+      <button id="kick_button" type="button">Kick</button>
+      <button id="snare_button" type="button">Snare</button>
+      <button id="hihat_button" type="button">Hihat</button>
+      <button id="metro_button" type="button">Metronome</button>
       <!-- Element Container -->
       <div id="playcontainer" class="horizontal-container"></div>
-      <!-- Vote Button -->
-      <button class="nes-btn" id="vote_btn"> Vote! </button>
       <button class="nes-btn is-primary" id="next_gen">NEXT GEN</button>
       <div class="nes-container" id="numgen"></div>
       <div class="nes-container" id="numel"></div>
-    </div>
   </div>
   <!-- JS -->
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
@@ -77,6 +249,8 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+
+
 
 
   <script src="js/sampleplayer.js"></script>
