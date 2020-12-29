@@ -123,18 +123,41 @@ class FitnessBEH {
         return tmp;
     }
 
+    countOccurrences(array) {
+        const countOccurrences = arr => arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
+        return countOccurrences(array)
+    }
     /**
      * Utility function to compute the Inter Onset Interval
      * @param {Array} p Pattern in p notation 
      */
     IOI(p){
-        let ans = [];
-        let g = distance(p);
+        let g = this.distance(p);
+        let occurrencesDict = this.countOccurrences(g);
 
+        //N is the number of intervals (== number of onsets)
+        let N = 0;
+        Object.keys(occurrencesDict).forEach(function(key) {
+            N += occurrencesDict[key];
+         });
         
-
-
+        // Len of pattern + 1, taking into account seq with only one onset (distance 16 needs index 16)
+        let ans = Array(p.length+1).fill(0)
+        Object.entries(occurrencesDict).forEach(function(pair) {
+            ans[pair[0]] = pair[1] / N
+        });
+        
         return ans;
+    }
+
+    entropy(ioi) {
+        let N = ioi.length
+        let sum = 0;
+        let eps = 0.00000000001
+        for(let i=0; i < N; ++i) {
+            sum += (ioi[i]*Math.log(ioi[i]+eps))
+        }
+        return - sum / Math.log(N);
     }
 
 
