@@ -23,12 +23,23 @@
 
   
   <h1 class="ui center aligned header">Genetic Algorithm</h1>
+
+
+
+
+<!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
+
   <h3 class="ui center aligned header">Fitness</h3>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
-      <div class="column">
+  <!--------------------STARTING POPULATION SEGMENT---------------------->
 
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
         <div class="ui accordion">
           <div class="title">
             <i class="dropdown icon"></i>
@@ -40,19 +51,28 @@
         </div>
 
       </div>
-      <div class="column">
 
+
+      <!--INPUT COLOUMN (SLIDER)-->
+      <div class="column">
         <div id="startingPopulationSlider">
           <input class="slider"  type="range" min="20" max="500" value="250" onchange="updateTextBox('startingPopulationSlider', this.value);">
           <input class="textbox" type="text" value="">
         </div>
-
       </div>
+
     </div>
   </div>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+  <!----------------------NUMBER OF FINAL ELEMENTS SEGMENT---------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+
+      <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->      
       <div class="column">
     
         <div class="ui accordion">
@@ -66,6 +86,9 @@
         </div>
      
       </div>
+
+
+      <!-------INPUT COLOUMN (SLIDER)------->
       <div class="column">
 
         <div id="numberOfFinalElementsSlider">
@@ -74,13 +97,19 @@
         </div>
 
       </div>
+
     </div>
   </div>
 
 
+  <!----------------------FITNESS STRATEGY SEGMENT------------------------>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->   
       <div class="column">
 
         <div class="ui accordion">
@@ -94,6 +123,10 @@
         </div>
 
       </div>
+
+
+
+      <!-------INPUT COLOUMN (DROPDOWN MENU)------->
       <div class="column">
 
         <div id="fitnessTypeDropdown" class="ui dropdown fitness">
@@ -103,17 +136,29 @@
         </div>
       
       </div>
+
     </div>
   </div>
+
+
 
 
   <div class="ui divider"></div>
 
 
+
+
+<!---------------------------------------------SELECTION SECTION--------------------------------------------------------------->
+
   <h3 class="ui center aligned header">Selection</h3>
-  
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+  <!--------------------SURVIVAL RATE SEGMENT-------------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -127,6 +172,8 @@
         </div>
 
       </div>
+
+      <!--INPUT COLOUMN (SLIDER)-->
       <div class="column">
 
         <div id="survivalRateSlider">
@@ -135,11 +182,18 @@
         </div>
 
       </div>
+
     </div>
+
   </div>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+  <!--------------------SELECTION STRATEGY SEGMENT--------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -150,9 +204,12 @@
           <div class="content">
             <p></p>
           </div>
+
         </div>
 
       </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
 
         <div id="selectionTypeDropdown" class="ui dropdown selection">
@@ -164,15 +221,30 @@
       
 
       </div>
+
     </div>
+
   </div>
+
+
 
 
   <div class="ui divider"></div>
 
+
+
+
+<!---------------------------------------------CROSSOVER SECTION--------------------------------------------------------------->
+
   <h3 class="ui center aligned header">Crossover</h3>
-   <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+   <!--------------------CROSSOVER PROBABILITY SEGMENT-------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -186,6 +258,9 @@
         </div>
 
       </div>
+
+
+      <!--INPUT COLOUMN (SLIDER)-->
       <div class="column">
 
         <div id="crossoverProbabilitySlider">
@@ -194,11 +269,19 @@
         </div>
 
       </div>
+
     </div>
+
   </div>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+  <!--------------------CROSSOVER STRATEGY SEGMENT------------------------>
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -215,6 +298,8 @@
         </div>
      
       </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
 
         <div id="crossoverTypeDropdown" class="ui dropdown crossover">
@@ -225,14 +310,30 @@
         
 
       </div>
+
     </div>
+
   </div>
+
+
+
 
   <div class="ui divider"></div>
 
+
+
+
+  <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
+
   <h3 class="ui center aligned header">Mutation</h3>
-    <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+  <!--------------------MUTATION PROBABILITY SEGMENT--------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -246,21 +347,30 @@
         </div>
 
       </div>
+
+      <!--INPUT COLOUMN (SLIDER)-->
       <div class="column">
 
         <div id="mutationProbabilitySlider">
           <input class="slider"  type="range" min="1" max="100" value="50" onchange="updateTextBox('mutationProbabilitySlider', this.value);">
           <input class="textbox" type="text" value="">
         </div>
-      
-
 
       </div>
+
     </div>
+
   </div>
 
-  <div class="ui raised very padded text container segment">
-    <div class="ui two column very relaxed stackable grid">
+
+  <!--------------------MUTATION STRATEGY SEGMENT------------------------>
+
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
       <div class="column">
 
         <div class="ui accordion">
@@ -276,6 +386,8 @@
         </div>
      
       </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
         
         <div id="mutationTypeDropdown" class="ui dropdown mutation">
@@ -285,10 +397,18 @@
         </div>  
 
       </div>
+
     </div>
+
   </div>
 
 
+
+
+
+
+
+<!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
   <div class="ui top attached tabular menu">
     <a class="item" data-tab="player">Player</a>
