@@ -1,8 +1,13 @@
+
 .ui.center.aligned.header {
   margin: 1.5em 0;
   font-size:2.5em;
 }
 
+
+.parametersContainer { 
+  margin: 50px;
+}
 /*
 html, body, pre, code, kbd, samp {
   font-family: "Press Start 2P";
@@ -77,7 +82,7 @@ input[type=number] {
 .slider {
   -webkit-appearance: none;
   width: 100%;
-  height: 15px;
+  height: 10px;
   border-radius: 5px;  
   background: #d3d3d3;
   outline: none;
@@ -89,17 +94,239 @@ input[type=number] {
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 25px;
-  height: 25px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%; 
   background: #000000;
   cursor: pointer;
 }
 
 .slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   background: #000000;
   cursor: pointer;
+}
+
+
+
+
+/* BACKGROUND */
+
+@pageBackground: #F7F7F7;
+
+/*
+body {
+  background-color: #2e3440;
+}
+*/
+body {
+    background-color:#2e3440;
+    color: rgba(255, 255, 255, 0.9);
+}
+.dnacontainer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dnaBackground {
+  height: 35%;
+  width: 140%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -20%;
+  right: 0;
+  margin: auto;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  animation: rotateDna 60s linear infinite;
+}
+.dnaBackground .spike {
+  height: 80%;
+  width: 0;
+  position: relative;
+}
+.dnaBackground .spike::before, .dnaBackground .spike::after {
+  content: "";
+  position: absolute;
+  height: 1rem;
+  width: 1rem;
+  left: 0;
+  right: 0;
+  transform: translate(-50%);
+  border-radius: 500px;
+  margin: auto;
+}
+.dnaBackground .spike::before {
+  top: 0;
+  background-color: #5e81ac;
+  animation: beforeAnimate 1.5s linear infinite;
+}
+.dnaBackground .spike::after {
+  bottom: 0;
+  background-color: #a3be8c;
+  animation: afterAnimate 1.5s linear infinite;
+}
+@keyframes beforeAnimate {
+  0% {
+    top: 0;
+    transform: translateX(-50%) translateY(0) scale(0.5);
+    opacity: 0.25;
+ }
+  25% {
+    transform: translateX(-50%) translateY(-100%) scale(0.5);
+    opacity: 0.5;
+    z-index: -1;
+ }
+  50% {
+    top: 100%;
+    transform: translateX(-50%) translateY(-100%) scale(0.5);
+    opacity: 0.75;
+ }
+  75% {
+    transform: translateX(-50%) translateY(-100%) scale(1.5);
+    opacity: 1;
+    z-index: -1;
+ }
+  100% {
+    top: 0;
+    transform: translateX(-50%), translateY(0), scale(0.5);
+    opacity: 0.75;
+ }
+}
+.spike:nth-child(1)::before, .spike:nth-child(1)::after {
+  animation-delay: 0.15s;
+}
+.spike:nth-child(2)::before, .spike:nth-child(2)::after {
+  animation-delay: 0.3s;
+}
+.spike:nth-child(3)::before, .spike:nth-child(3)::after {
+  animation-delay: 0.45s;
+}
+.spike:nth-child(4)::before, .spike:nth-child(4)::after {
+  animation-delay: 0.6s;
+}
+.spike:nth-child(5)::before, .spike:nth-child(5)::after {
+  animation-delay: 0.75s;
+}
+.spike:nth-child(6)::before, .spike:nth-child(6)::after {
+  animation-delay: 0.9s;
+}
+.spike:nth-child(7)::before, .spike:nth-child(7)::after {
+  animation-delay: 1.05s;
+}
+.spike:nth-child(8)::before, .spike:nth-child(8)::after {
+  animation-delay: 1.2s;
+}
+.spike:nth-child(9)::before, .spike:nth-child(9)::after {
+  animation-delay: 1.35s;
+}
+.spike:nth-child(10)::before, .spike:nth-child(10)::after {
+  animation-delay: 1.5s;
+}
+.spike:nth-child(11)::before, .spike:nth-child(11)::after {
+  animation-delay: 1.65s;
+}
+.spike:nth-child(12)::before, .spike:nth-child(12)::after {
+  animation-delay: 1.8s;
+}
+.spike:nth-child(13)::before, .spike:nth-child(13)::after {
+  animation-delay: 1.95s;
+}
+.spike:nth-child(14)::before, .spike:nth-child(14)::after {
+  animation-delay: 2.1s;
+}
+.spike:nth-child(15)::before, .spike:nth-child(15)::after {
+  animation-delay: 2.25s;
+}
+.spike:nth-child(16)::before, .spike:nth-child(16)::after {
+  animation-delay: 2.4s;
+}
+.spike:nth-child(17)::before, .spike:nth-child(17)::after {
+  animation-delay: 2.55s;
+}
+.spike:nth-child(18)::before, .spike:nth-child(18)::after {
+  animation-delay: 2.7s;
+}
+.spike:nth-child(19)::before, .spike:nth-child(19)::after {
+  animation-delay: 2.85s;
+}
+.spike:nth-child(20)::before, .spike:nth-child(20)::after {
+  animation-delay: 3s;
+}
+.spike:nth-child(21)::before, .spike:nth-child(21)::after {
+  animation-delay: 3.15s;
+}
+.spike:nth-child(22)::before, .spike:nth-child(22)::after {
+  animation-delay: 3.3s;
+}
+.spike:nth-child(23)::before, .spike:nth-child(23)::after {
+  animation-delay: 3.45s;
+}
+.spike:nth-child(24)::before, .spike:nth-child(24)::after {
+  animation-delay: 3.6s;
+}
+.spike:nth-child(25)::before, .spike:nth-child(25)::after {
+  animation-delay: 3.75s;
+}
+.spike:nth-child(26)::before, .spike:nth-child(26)::after {
+  animation-delay: 3.9s;
+}
+.spike:nth-child(27)::before, .spike:nth-child(27)::after {
+  animation-delay: 4.05s;
+}
+.spike:nth-child(28)::before, .spike:nth-child(28)::after {
+  animation-delay: 4.2s;
+}
+.spike:nth-child(29)::before, .spike:nth-child(29)::after {
+  animation-delay: 4.35s;
+}
+.spike:nth-child(30)::before, .spike:nth-child(30)::after {
+  animation-delay: 4.5s;
+}
+@keyframes afterAnimate {
+  0% {
+    bottom: 0;
+    transform: translateX(-50%) translateY(0) scale(0.5);
+    opacity: 0.25;
+ }
+  25% {
+    transform: translateX(-50%) translateY(-100%) scale(1.5);
+    opacity: 0.5;
+    z-index: 1;
+ }
+  50% {
+    bottom: 100%;
+    transform: translateX(-50%) translateY(100%) scale(0.5);
+    opacity: 0.75;
+ }
+  75% {
+    transform: translateX(-50%) translateY(-100%) scale(0.5);
+    opacity: 0.5;
+    z-index: -1;
+ }
+  100% {
+    bottom: 0;
+    transform: translateX(-50%), translateY(0), scale(0.5);
+    opacity: 0.25;
+ }
+}
+@keyframes rotateDna {
+  100% {
+    transform: rotate(360deg);
+ }
+}
+@-webkit-keyframes rotateDna {
+  100% {
+    -webkit-transform: rotate(360deg);
+ }
 }
