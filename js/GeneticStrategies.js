@@ -17,6 +17,14 @@ class FitnessStrategyManager {
         return this._strategies.find(strategy => strategy._name === name);
     }
 
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
+    }
+
 }
 
 class FitnessEntropy {
@@ -435,6 +443,14 @@ class SelectionStrategyManager {
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
     }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
+    }
 }
 
 class SelectionRouletteWheelStochasticAcceptance {
@@ -498,6 +514,14 @@ class CrossoverStrategyManager {
 
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
+    }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
     }
 }
 
@@ -598,6 +622,14 @@ class MutationStrategyManager {
 
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
+    }
+
+    getStrategyNames() {
+        let list = []
+        for (let i=0; i < this._strategies.length; ++i) {
+            list.push(this._strategies[i]._name)
+        }
+        return list
     }
 }
 

@@ -10,37 +10,473 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/layout.css" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
-  <link href="https://unpkg.com/nes.css/css/nes.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css"/>
 </head>
 <body>
+
+
+
+
+  
+
+  <!-------------------- TMP -------------------->
+
+  
+  <h1 class="ui center aligned header">Genetic Algorithm</h1>
+
+
+
+
+<!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
+
+  <h3 class="ui center aligned header">Fitness</h3>
+
+  <!--------------------STARTING POPULATION SEGMENT---------------------->
+
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           STARTING POPULATION 
+          </div>
+          <div class="content">
+            <p>Number of elements of the population 0.</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--INPUT COLOUMN (SLIDER)-->
+      <div class="column">
+        <div id="startingPopulationSlider">
+          <input class="slider"  type="range" min="20" max="500" value="20" onchange="updateTextBox('startingPopulationSlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="20" readonly>
+            <div class="ui basic label">
+              elements
+            </div>          
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!----------------------NUMBER OF FINAL ELEMENTS SEGMENT---------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+
+      <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->      
+      <div class="column">
+    
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+              NUMBER OF FINAL ELEMENTS
+          </div>
+          <div class="content">
+            <p></p>
+          </div>
+        </div>
+     
+      </div>
+
+
+      <!-------INPUT COLOUMN (SLIDER)------->
+      <div class="column">
+
+        <div id="numberOfFinalElementsSlider">
+          <input class="slider"  type="range" min="1" max="10" value="1" onchange="updateTextBox('numberOfFinalElementsSlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="1" readonly>
+            <div class="ui basic label">
+              elements
+            </div>          
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+  <!----------------------FITNESS STRATEGY SEGMENT------------------------>
+
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->   
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+              FITNESS STRATEGY
+          </div>
+          <div class="content">
+            <p>Fitness strategies:</p>
+          </div>
+        </div>
+
+      </div>
+
+
+
+      <!-------INPUT COLOUMN (DROPDOWN MENU)------->
+      <div class="column">
+
+        <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
+          <div class="default text"></div>
+          <i class="dropdown icon"></i>
+        </div>
+      
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+  <div class="ui divider"></div>
+
+
+
+
+<!---------------------------------------------SELECTION SECTION--------------------------------------------------------------->
+
+  <h3 class="ui center aligned header">Selection</h3>
+
+  <!--------------------SURVIVAL RATE SEGMENT-------------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           SURVIVAL RATE
+          </div>
+          <div class="content">
+            <p>Percentage of the population that survive at each selection.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!--INPUT COLOUMN (SLIDER)-->
+      <div class="column">
+
+        <div id="survivalRateSlider">
+          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('survivalRateSlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="1" readonly>
+            <div class="ui basic label">
+              %
+            </div>          
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!--------------------SELECTION STRATEGY SEGMENT--------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+              SELECTION STRATEGY
+          </div>
+          <div class="content">
+            <p></p>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
+      <div class="column">
+
+        <div id="selectionTypeDropdown" class="ui dropdown selection select">
+          <div class="default text"></div>
+          <i class="dropdown icon"></i>
+        </div>
+      
+      
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="ui divider"></div>
+
+
+
+
+<!---------------------------------------------CROSSOVER SECTION--------------------------------------------------------------->
+
+  <h3 class="ui center aligned header">Crossover</h3>
+
+   <!--------------------CROSSOVER PROBABILITY SEGMENT-------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           CROSSOVER PROBABILITY
+          </div>
+          <div class="content">
+            <p>Probability of each element to copulate.</p>
+          </div>
+        </div>
+
+      </div>
+
+
+      <!--INPUT COLOUMN (SLIDER)-->
+      <div class="column">
+
+        <div id="crossoverProbabilitySlider">
+          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('crossoverProbabilitySlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="1" readonly>
+            <div class="ui basic label">
+              %
+            </div>          
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!--------------------CROSSOVER STRATEGY SEGMENT------------------------>
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           CROSSOVER STRATEGY
+          </div>
+          <div class="content">
+            <p>Crossover Srategies: 
+              -Single Point Crossover 
+              -Two Point Crossover
+            </p>
+          </div>
+        </div>
+     
+      </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
+      <div class="column">
+
+        <div id="crossoverTypeDropdown" class="ui dropdown selection crossover">
+          <div class="default text"></div>
+          <i class="dropdown icon"></i>
+        </div>
+        
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+  <div class="ui divider"></div>
+
+
+
+
+  <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
+
+  <h3 class="ui center aligned header">Mutation</h3>
+
+  <!--------------------MUTATION PROBABILITY SEGMENT--------------------->
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           MUTATION PROBABILITY
+          </div>
+          <div class="content">
+            <p>Probability of each element to be mutated</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!--INPUT COLOUMN (SLIDER)-->
+      <div class="column">
+
+        <div id="mutationProbabilitySlider">
+          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('mutationProbabilitySlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="1" readonly>
+            <div class="ui basic label">
+              %
+            </div>          
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!--------------------MUTATION STRATEGY SEGMENT------------------------>
+
+  <div class="ui segment">
+
+    <!-------TITLE|INPUT GRID----->
+    <div class="ui two column grid">
+
+      <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+      <div class="column">
+
+        <div class="ui accordion">
+          <div class="title">
+            <i class="dropdown icon"></i>
+           MUTATION STRATEGY
+          </div>
+          <div class="content">
+            <p>Mutation Srategies: 
+          
+            </p>
+          </div>
+        </div>
+     
+      </div>
+
+      <!--INPUT COLOUMN (DROPDOWN MENU)-->
+      <div class="column">
+        
+        <div id="mutationTypeDropdown" class="ui dropdown selection mutation">
+          <div class="default text"></div>
+          <i class="dropdown icon"></i>
+        </div>  
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+
+
+
+
+<!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
+
+  <div class="ui top attached tabular menu">
+    <a class="item" data-tab="player">Player</a>
+    <a class="item" data-tab="stats">Statistics</a>
+    <a class="item" data-tab="visual">Visual Representation</a>
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="player">
+    First
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="stats">
+    Second
+  </div>
+  <div class="ui bottom attached tab segment" data-tab="visual">
+    Third
+  </div>
+
+
   <!-- Root -->
+  
   <div id="root">
-    <div class="main-container nes-container is-dark with-title is-centered">
       <p class="title">Geneticsss</p>
       <!-- Start Button -->
-      <button id="start_button" type="button" class="nes-btn is-error">Play</button>
-      <button id="kick_button" type="button" class="nes-btn is-error">Kick</button>
-      <button id="snare_button" type="button" class="nes-btn is-error">Snare</button>
-      <button id="hihat_button" type="button" class="nes-btn is-error">Hihat</button>
-      <button id="metro_button" type="button" class="nes-btn is-error">Metronome</button>
+      <button id="start_button" type="button">Play</button>
+      <button id="kick_button" type="button">Kick</button>
+      <button id="snare_button" type="button">Snare</button>
+      <button id="hihat_button" type="button">Hihat</button>
+      <button id="metro_button" type="button">Metronome</button>
       <!-- Element Container -->
       <div id="playcontainer" class="horizontal-container"></div>
-      <!-- Vote Button -->
-      <button class="nes-btn" id="vote_btn"> Vote! </button>
-      <button class="nes-btn is-primary" id="next_gen">NEXT GEN</button>
-      <div class="nes-container" id="numgen"></div>
-      <div class="nes-container" id="numel"></div>
-    </div>
+      <button id="next_gen">NEXT GEN</button>
+      <div id="numgen"></div>
+      <div id="numel"></div>
   </div>
   <!-- JS -->
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
   <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-  <script>!window.jQuery && document.write('<script src="js/lib/jquery-1.4.2.min.js"><\/script>')</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+
+
+
+
   <script src="js/sampleplayer.js"></script>
   <script src="js/GeneticStrategies.js"></script>
   <script src="js/pattern.js"></script>
+  <script src="js/gui.js"></script>
   <script src="js/site.js"></script>
 </body>
 </html>
