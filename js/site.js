@@ -6,6 +6,16 @@ $('.menu .item')
   .tab()
 ;
 
+$('.ui.sticky')
+  .sticky({
+    context: '#example1'
+  })
+;
+
+$('.parametername')
+  .popup()
+;
+
 /**
  * -------------------------------------------------------------------------
  * AUDIO CONTEXT
