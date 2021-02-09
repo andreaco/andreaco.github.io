@@ -84,9 +84,13 @@
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
           <div id="startingPopulationSlider">
-            <input class="slider" type="range" min="20" max="500" value="250"
-              onchange="updateTextBox('startingPopulationSlider', this.value);">
-            <input class="textbox" type="text" value="">
+            <input class="slider"  type="range" min="20" max="500" value="20" oninput="updateTextBox('startingPopulationSlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="20" readonly>
+            <div class="ui inverted label">
+              elements
+            </div>          
+          </div>
           </div>
         </div>
 
@@ -121,9 +125,13 @@
         <div class="column">
 
           <div id="numberOfFinalElementsSlider">
-            <input class="slider" type="range" min="1" max="500" value="250"
-              onchange="updateTextBox('numberOfFinalElementsSlider', this.value);">
-            <input class="textbox" type="text" value="">
+            <input class="slider"  type="range" min="1" max="10" value="1" oninput="updateTextBox('numberOfFinalElementsSlider', this.value);">
+            <div class="ui right labeled input">
+              <input type="text" class="textbox" value="1" readonly>
+              <div class="ui inverted label">
+                elements
+              </div>          
+            </div>
           </div>
 
         </div>
@@ -159,9 +167,8 @@
         <!-------INPUT COLOUMN (DROPDOWN MENU)------->
         <div class="column">
 
-          <div id="fitnessTypeDropdown" class="ui dropdown fitness">
-            <div class="text"></div>
-            <div class="default text">Select a Fitness Strategy</div>
+            <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
+              <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
 
@@ -207,9 +214,13 @@
         <div class="column">
 
           <div id="survivalRateSlider">
-            <input class="slider" type="range" min="1" max="100" value="50"
-              onchange="updateTextBox('survivalRateSlider', this.value);">
-            <input class="textbox" type="text" value="">
+            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('survivalRateSlider', this.value);">
+          <div class="ui right labeled input">
+            <input type="text" class="textbox" value="1" readonly>
+            <div class="ui inverted label">
+              %
+            </div>          
+          </div>
           </div>
 
         </div>
@@ -243,9 +254,8 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="selectionTypeDropdown" class="ui dropdown selection">
-            <div class="text"></div>
-            <div class="default text">Select a Selection Strategy</div>
+          <div id="selectionTypeDropdown" class="ui dropdown selection select">
+            <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
 
@@ -295,11 +305,13 @@
         <div class="column">
 
           <div id="crossoverProbabilitySlider">
-            <input class="slider" type="range" min="1" max="100" value="50"
-              onchange="updateTextBox('crossoverProbabilitySlider', this.value);">
-            <input class="textbox" type="text" value="">
+            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
+            <div class="ui right labeled input">
+              <input type="text" class="textbox" value="1" readonly>
+              <div class="ui inverted inverted label">
+                %
+              </div>          
           </div>
-
         </div>
 
       </div>
@@ -334,9 +346,8 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="crossoverTypeDropdown" class="ui dropdown crossover">
-            <div class="text"></div>
-            <div class="default text">Select a Crossover Strategy</div>
+          <div id="crossoverTypeDropdown" class="ui dropdown selection crossover">
+            <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
 
@@ -384,9 +395,15 @@
         <div class="column">
 
           <div id="mutationProbabilitySlider">
-            <input class="slider" type="range" min="1" max="100" value="50"
-              onchange="updateTextBox('mutationProbabilitySlider', this.value);">
-            <input class="textbox" type="text" value="">
+            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('mutationProbabilitySlider', this.value);">
+            <div class="ui right inverted labeled input">
+              <input type="text" class="textbox" value="1" readonly>
+              <div class="ui inverted inverted label">
+                %
+              </div>          
+            </div>
+          </div>
+  
           </div>
 
         </div>
@@ -423,9 +440,8 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="mutationTypeDropdown" class="ui dropdown mutation">
-            <div class="text"></div>
-            <div class="default text">Select a Mutation Strategy</div>
+          <div id="mutationTypeDropdown" class="ui dropdown selection mutation">
+            <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
 
