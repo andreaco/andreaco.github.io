@@ -53,185 +53,392 @@
     </div>
   </div>
 
-  <!--Title Section-->
   <h1 class="ui center aligned header">Genetic Algorithm</h1>
-  <!--Parameters Main Container-->
+
+  <!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
   <div class="parametersContainer main ui container">
-    <!--Fitness Section Title-->
-    <div>
-      <div class="ui large header">
-        <div class="content">
-          Fitness
-        </div>
-      </div>
-      <p>A fitness function is a particular type of objective function that is used to summarise, as a single figure of
-        merit, how close a given design solution is to achieving the set aims.</p>
-    </div>
-    <!--Fitness Container-->
+    <h3 class="ui center aligned header">Fitness</h3>
+
+    <!--------------------STARTING POPULATION inverted segment---------------------->
+
     <div class="ui inverted segment">
-      <!--Starting Population-->
-      <div>
-        <div class="parametername" data-content="Number of elements in the starting pool" data-position="right center">
-          <h4>Starting Population</h4>
-        </div>
-        <p></p>
-        <p></p>
-        <!--Parameter Input-->
-        <div class="ui two column grid middle aligned" id="startingPopulationSlider">
-          <div class="eleven wide column">
-            <input class="slider" type="range" min="20" max="500" value="20"
-              oninput="updateTextBox('startingPopulationSlider', this.value);">
-          </div>
-          <div class="right floated four wide column">
-            <div class="ui fluid right labeled input">
-              <input type="text" class="textbox" value="20" readonly>
-              <div class="ui inverted label">
-                elements
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
-      <div class="ui divider"></div>
-
-      <!--Final Population-->
-      <div>
-        <div class="parametername" data-content="Number of elements in the final pool" data-position="right center">
-          <h4>Final Elements</h4>
-        </div>
-        <p></p>
-        <p></p>
-
-        <!--Parameter Input-->
-        <div class="ui two column grid middle aligned" id="finalPopulationSlider">
-          <div class="eleven wide column">
-            <input class="slider" type="range" min="1" max="10" value="20"
-              oninput="updateTextBox('finalPopulationSlider', this.value);">
-          </div>
-          <div class="right floated four wide column">
-            <div class="ui fluid right labeled input">
-              <input type="text" class="textbox" value="20" readonly>
-              <div class="ui inverted label">
-                elements
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="ui divider"></div>
-
-      <!--Fitness Strategy-->
-      <!--Name of parameter | Input-->
+      <!-------TITLE|INPUT GRID----->
       <div class="ui two column grid">
-        <!--Parameter Title & Description-->
-        <div class="parametername" data-content="Type of fitness to be used" data-position="right center">
-          <h4>Fitness Function</h4>
-        </div>
-        <p></p>
-        <p></p>
-        <!--Parameter Input-->
-        <div class="ui grid middle aligned">
-          <div class="column">
-            <div id="fitnessTypeDropdown" style="right: 0;left: auto;" class="ui dropdown selection fitness">
-              <div class="default text"></div>
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+          <div class="ui parametername accordion">
+            <div class="title">
               <i class="dropdown icon"></i>
+              STARTING POPULATION
             </div>
-          </div>
-        </div>
-
-      </div>
-
-
-    </div>
-
-
-    <!--Selection Section-->
-    <div>
-      <div class="ui large header">
-        <div class="content">
-          Selection
-        </div>
-      </div>
-      <p>Selection is the stage of a genetic algorithm in which individual genomes are chosen from a population for
-        later breeding</p>
-      <div class="ui inverted segment">
-        <!--Starting Population-->
-        <div>
-          <div class="parametername" data-content="Percentage of population that survives at each iteration"
-            data-position="right center">
-            <h4>Survival Rate</h4>
-          </div>
-          <p></p>
-          <p></p>
-          <!--Parameter Input-->
-          <div class="ui two column grid middle aligned" id="survivalRateSlider">
-            <div class="eleven wide column">
-              <input class="slider" type="range" min="1" max="100" value="1"
-                oninput="updateTextBox('survivalRateSlider', this.value);">
+            <div class="content">
+              <p>Number of elements of the population 0.</p>
             </div>
-            <div class="right floated four wide column">
-              <div class="ui right labeled input">
-                <input type="text" class="textbox" value="1" readonly>
-                <div class="ui inverted label">
-                  %
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="ui divider"></div>
-        <div>
-
-          <!-------TITLE|INPUT GRID----->
-          <div class="ui two column grid">
-
-            <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
-            <div class="parametername" data-content="Type of selection to be used" data-position="right center">
-              <h4>Selection Strategy</h4>
-            </div>
-            <p></p>
-            <p></p>
-
-            <!--INPUT COLOUMN (DROPDOWN MENU)-->
-            <div class="column">
-
-              <div id="selectionTypeDropdown" class="ui dropdown selection select">
-                <div class="default text"></div>
-                <i class="dropdown icon"></i>
-              </div>
-
-
-
-            </div>
-
           </div>
 
         </div>
 
+
+        <!--INPUT COLOUMN (SLIDER)-->
+        <div class="column">
+          <div id="startingPopulationSlider">
+            <input class="slider" type="range" min="20" max="500" value="250"
+              onchange="updateTextBox('startingPopulationSlider', this.value);">
+            <input class="textbox" type="text" value="">
+          </div>
+        </div>
 
       </div>
     </div>
 
+
+    <!----------------------NUMBER OF FINAL ELEMENTS inverted segment---------------->
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+
+        <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              NUMBER OF FINAL ELEMENTS
+            </div>
+            <div class="content">
+              <p></p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-------INPUT COLOUMN (SLIDER)------->
+        <div class="column">
+
+          <div id="numberOfFinalElementsSlider">
+            <input class="slider" type="range" min="1" max="500" value="250"
+              onchange="updateTextBox('numberOfFinalElementsSlider', this.value);">
+            <input class="textbox" type="text" value="">
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+    <!----------------------FITNESS STRATEGY inverted segment------------------------>
+
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              FITNESS STRATEGY
+            </div>
+            <div class="content">
+              <p>Fitness strategies:</p>
+            </div>
+          </div>
+
+        </div>
+
+
+
+        <!-------INPUT COLOUMN (DROPDOWN MENU)------->
+        <div class="column">
+
+          <div id="fitnessTypeDropdown" class="ui dropdown fitness">
+            <div class="text"></div>
+            <div class="default text">Select a Fitness Strategy</div>
+            <i class="dropdown icon"></i>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+
+
+
+    <div class="ui divider"></div>
+
+
+
+
+    <!---------------------------------------------SELECTION SECTION--------------------------------------------------------------->
+
+    <h3 class="ui center aligned header">Selection</h3>
+
+    <!--------------------SURVIVAL RATE inverted inverted segment-------------------------->
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              SURVIVAL RATE
+            </div>
+            <div class="content">
+              <p>Percentage of the population that survive at each selection.</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!--INPUT COLOUMN (SLIDER)-->
+        <div class="column">
+
+          <div id="survivalRateSlider">
+            <input class="slider" type="range" min="1" max="100" value="50"
+              onchange="updateTextBox('survivalRateSlider', this.value);">
+            <input class="textbox" type="text" value="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!--------------------SELECTION STRATEGY inverted inverted segment--------------------->
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              SELECTION STRATEGY
+            </div>
+            <div class="content">
+              <p></p>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!--INPUT COLOUMN (DROPDOWN MENU)-->
+        <div class="column">
+
+          <div id="selectionTypeDropdown" class="ui dropdown selection">
+            <div class="text"></div>
+            <div class="default text">Select a Selection Strategy</div>
+            <i class="dropdown icon"></i>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+    <div class="ui divider"></div>
+
+
+
+
+    <!---------------------------------------------CROSSOVER SECTION--------------------------------------------------------------->
+
+    <h3 class="ui center aligned header">Crossover</h3>
+
+    <!--------------------CROSSOVER PROBABILITY inverted segment-------------------->
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              CROSSOVER PROBABILITY
+            </div>
+            <div class="content">
+              <p>Probability of each element to copulate.</p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!--INPUT COLOUMN (SLIDER)-->
+        <div class="column">
+
+          <div id="crossoverProbabilitySlider">
+            <input class="slider" type="range" min="1" max="100" value="50"
+              onchange="updateTextBox('crossoverProbabilitySlider', this.value);">
+            <input class="textbox" type="text" value="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!--------------------CROSSOVER STRATEGY inverted segment------------------------>
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              CROSSOVER STRATEGY
+            </div>
+            <div class="content">
+              <p>Crossover Srategies:
+                -Single Point Crossover
+                -Two Point Crossover
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!--INPUT COLOUMN (DROPDOWN MENU)-->
+        <div class="column">
+
+          <div id="crossoverTypeDropdown" class="ui dropdown crossover">
+            <div class="text"></div>
+            <div class="default text">Select a Crossover Strategy</div>
+            <i class="dropdown icon"></i>
+          </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+
+    <div class="ui divider"></div>
+
+
+
+
+    <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
+
+    <h3 class="ui center aligned header">Mutation</h3>
+
+    <!--------------------MUTATION PROBABILITY inverted segment--------------------->
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              MUTATION PROBABILITY
+            </div>
+            <div class="content">
+              <p>Probability of each element to be mutated</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!--INPUT COLOUMN (SLIDER)-->
+        <div class="column">
+
+          <div id="mutationProbabilitySlider">
+            <input class="slider" type="range" min="1" max="100" value="50"
+              onchange="updateTextBox('mutationProbabilitySlider', this.value);">
+            <input class="textbox" type="text" value="">
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!--------------------MUTATION STRATEGY inverted segment------------------------>
+
+    <div class="ui inverted segment">
+
+      <!-------TITLE|INPUT GRID----->
+      <div class="ui two column grid">
+
+        <!--TITLE/DESCRIPTION COLOUMN (ACCORDION)-->
+        <div class="column">
+
+          <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              MUTATION STRATEGY
+            </div>
+            <div class="content">
+              <p>Mutation Srategies:
+
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!--INPUT COLOUMN (DROPDOWN MENU)-->
+        <div class="column">
+
+          <div id="mutationTypeDropdown" class="ui dropdown mutation">
+            <div class="text"></div>
+            <div class="default text">Select a Mutation Strategy</div>
+            <i class="dropdown icon"></i>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
-  <div class="resultsContainer main ui container">
-    <div class="ui top attached inverted tabular menu">
-      <a class="item" data-tab="player">Player</a>
-      <a class="item" data-tab="stats">Statistics</a>
-      <a class="item" data-tab="visual">Visual Representation</a>
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="player">
-      First
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="stats">
-      Second
-    </div>
-    <div class="ui bottom attached tab segment" data-tab="visual">
-      Third
-    </div>
-  </div>
+
+
+
   <!-- JS -->
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
   <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
