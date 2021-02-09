@@ -490,7 +490,7 @@ class SelectionRouletteWheelStochasticAcceptance {
         let max = population[0].score;
         for (let i=1; i < population.length; ++i) {
             if (population[i] > max)
-                max = population[i].score()
+                max = population[i].score
         }
         return max
     }
@@ -643,7 +643,7 @@ class FlipBitMutation {
      */
     compute(offspring, mutationProbability) {
         let N = offspring.length;
-        let mutated = offspring.slice;
+        let mutated = offspring.slice();
    
         for(let i = 0; i < N; i++){
             if(Math.random() < mutationProbability){
@@ -684,7 +684,7 @@ class MutationStrategy1 {
      */
     compute(offspring, mutationProbability) {
         let N = offspring.length;
-        let mutated = offspring.slice;
+        let mutated = offspring.slice();
    
         for(let i = 0; i < N; i++){
             if(Math.random() < mutationProbability){

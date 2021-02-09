@@ -113,7 +113,7 @@ class GeneticAlgorithm {
     // TODO: Gather statitics for each generation
     start() {
         if(this._fitnessFunction   == undefined || this._selectionFunction == undefined
-            || this._crossoverFunction == undefined || this._mutationFunction  == undefined) {
+            || this._crossoverFunction == undefined || this._mutationFunction  == undefined ){
             console.error("Cannot start due to some uninitialized functions");
         }
         else {
@@ -125,7 +125,7 @@ class GeneticAlgorithm {
                 let mutated   = this._mutationFunction.compute(offspring);
                 this._population = mutated;
             }
-            console.log("Final Population: ", this._population);
+            console.log("Final Population: ", this._population[0]);
         }
     }
 

@@ -86,7 +86,7 @@
           <div id="startingPopulationSlider">
             <input class="slider"  type="range" min="20" max="500" value="20" oninput="updateTextBox('startingPopulationSlider', this.value);">
           <div class="ui right labeled input">
-            <input type="text" class="textbox" value="20" readonly>
+            <input id= "startingPopulationSlider"type="text" class="textbox" value="20" readonly>
             <div class="ui inverted label">
               elements
             </div>          
@@ -311,6 +311,7 @@
               <div class="ui inverted inverted label">
                 %
               </div>          
+            </div>
           </div>
         </div>
 
@@ -403,8 +404,6 @@
               </div>          
             </div>
           </div>
-  
-          </div>
 
         </div>
 
@@ -450,6 +449,12 @@
       </div>
 
     </div>
+
+
+    <button class="fluid huge ui inverted button" onclick="initGeneticAlgorithm()">
+      Start Process
+    </button>
+
   </div>
 
 

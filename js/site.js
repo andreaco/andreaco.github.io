@@ -172,13 +172,33 @@ function scheduler() {
     GA._selectionFunction.compute(GA._population, 0.9)
   */
 
-var GA = undefined;
+
+
+ var GA = undefined;
+
+ function createParametersModel(){
+
+    var parameterModel = {
+        startingPopulation : document.getElementById("startingPopulationSlider").firstElementChild.value,
+        finalPopulation : document.getElementById("numberOfFinalElementsSlider").firstElementChild.value,
+        fitnessType : $('#fitnessTypeDropdown').dropdown('get value'),
+        selectionType  : $('#selectionTypeDropdown').dropdown('get value'),
+        crossoverType : $('#crossoverTypeDropdown').dropdown('get value'),
+        mutationType : $('#mutationTypeDropdown').dropdown('get value'),
+        crossoverProbability : document.getElementById("crossoverProbabilitySlider").firstElementChild.value,
+        survivalRate : document.getElementById("survivalRateSlider").firstElementChild.value,
+        mutationProbability : document.getElementById("mutationProbabilitySlider").firstElementChild.value,
+    }
+    return parameterModel;
+ }
+
+
 function initGeneticAlgorithm() {
     var nSeq = 3;
     var nStep = 16;
     var parametersModel = createParametersModel();
     GA = new GeneticAlgorithm(parametersModel.startingPopulation, nSeq, nStep);
-    GA.fitnessSetup(parametersModel.fitnessType, 10); // Final elements hardcoded to 10
+    GA.fitnessSetup(parametersModel.fitnessType, parametersModel.finalPopulation); 
     GA.selectionSetup(parametersModel.selectionType, parametersModel.survivalRate / 100);
     GA.crossoverSetup(parametersModel.crossoverType, parametersModel.crossoverProbability / 100);
     GA.mutationSetup(parametersModel.mutationType, parametersModel.mutationProbability / 100);
