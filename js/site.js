@@ -6,6 +6,25 @@ $('.menu .item')
   .tab()
 ;
 
+$('.ui.sticky')
+  .sticky({
+    context: '#context'
+  })
+;
+
+$('.special.cards .image').dimmer({
+    on: 'hover'
+  });
+
+
+$('.ui.sidebar')
+    .sidebar({
+    context: $('#visualization')})
+  .sidebar('attach events', '.top.ui.menu .item.sidebar')
+;
+
+
+
 /**
  * -------------------------------------------------------------------------
  * AUDIO CONTEXT
@@ -220,5 +239,6 @@ setupSample().then((samples) => {
             unmuteMetro = !unmuteMetro
         }
 });
+
 
 

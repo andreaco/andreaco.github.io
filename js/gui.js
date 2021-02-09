@@ -1,5 +1,9 @@
 /**
+ * TODO: Default text for dropdown menus
+ * TODO: Name Value dropdown representation
  * TODO: Update slider textbox in realtime
+ * TODO: Slider default value textbox
+ * TODO: Slider Ranges
  */
 
 function updateTextBox(parentID, value) {
@@ -41,26 +45,22 @@ var mutationValues  = getDropdownValues(mutationStrategyManager .getStrategyName
 // Dropdown Menus Setup
 $('.ui.dropdown.fitness')
   .dropdown({
-    values: fitnessValues,
-    placeholder: "Select Fitness Strategy"
+    values: fitnessValues
   })
 ;
-$('.ui.dropdown.select')
+$('.ui.dropdown.selection')
   .dropdown({
-    values: selectionValues,
-    placeholder: "Select Selection Strategy"
+    values: selectionValues
   })
 ;
 $('.ui.dropdown.crossover')
   .dropdown({
-    values: crossoverValues,
-    placeholder: "Select Crossover Strategy"
+    values: crossoverValues
   })
 ;
 $('.ui.dropdown.mutation')
   .dropdown({
-    values: mutationValues,
-    placeholder: "Select Mutation Strategy"
+    values: mutationValues
   })
 ;
 

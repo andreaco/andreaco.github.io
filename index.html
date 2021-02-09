@@ -15,20 +15,13 @@
 <body>
 
 
-
-
-  
-
-  <!-------------------- TMP -------------------->
+<!-------------------- TMP -------------------->
 
   
   <h1 class="ui center aligned header">Genetic Algorithm</h1>
 
-
-
-
-<!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
-
+ <!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
+  
   <h3 class="ui center aligned header">Fitness</h3>
 
   <!--------------------STARTING POPULATION SEGMENT---------------------->
@@ -56,13 +49,8 @@
       <!--INPUT COLOUMN (SLIDER)-->
       <div class="column">
         <div id="startingPopulationSlider">
-          <input class="slider"  type="range" min="20" max="500" value="20" onchange="updateTextBox('startingPopulationSlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="20" readonly>
-            <div class="ui basic label">
-              elements
-            </div>          
-          </div>
+          <input class="slider"  type="range" min="20" max="500" value="250" onchange="updateTextBox('startingPopulationSlider', this.value);">
+          <input class="textbox" type="text" value="">
         </div>
       </div>
 
@@ -97,13 +85,8 @@
       <div class="column">
 
         <div id="numberOfFinalElementsSlider">
-          <input class="slider"  type="range" min="1" max="10" value="1" onchange="updateTextBox('numberOfFinalElementsSlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="1" readonly>
-            <div class="ui basic label">
-              elements
-            </div>          
-          </div>
+          <input class="slider"  type="range" min="1" max="500" value="250" onchange="updateTextBox('numberOfFinalElementsSlider', this.value);">
+          <input class="textbox" type="text" value="">
         </div>
 
       </div>
@@ -139,8 +122,9 @@
       <!-------INPUT COLOUMN (DROPDOWN MENU)------->
       <div class="column">
 
-        <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
-          <div class="default text"></div>
+        <div id="fitnessTypeDropdown" class="ui dropdown fitness">
+          <div class="text"></div>
+          <div class="default text">Select a Fitness Strategy</div>
           <i class="dropdown icon"></i>
         </div>
       
@@ -186,13 +170,8 @@
       <div class="column">
 
         <div id="survivalRateSlider">
-          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('survivalRateSlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="1" readonly>
-            <div class="ui basic label">
-              %
-            </div>          
-          </div>
+          <input class="slider"  type="range" min="1" max="100" value="50" onchange="updateTextBox('survivalRateSlider', this.value);">
+          <input class="textbox" type="text" value="">
         </div>
 
       </div>
@@ -226,8 +205,9 @@
       <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
 
-        <div id="selectionTypeDropdown" class="ui dropdown selection select">
-          <div class="default text"></div>
+        <div id="selectionTypeDropdown" class="ui dropdown selection">
+          <div class="text"></div>
+          <div class="default text">Select a Selection Strategy</div>
           <i class="dropdown icon"></i>
         </div>
       
@@ -251,7 +231,7 @@
 
   <h3 class="ui center aligned header">Crossover</h3>
 
-   <!--------------------CROSSOVER PROBABILITY SEGMENT-------------------->
+  <!--------------------CROSSOVER PROBABILITY SEGMENT-------------------->
   <div class="ui segment">
 
     <!-------TITLE|INPUT GRID----->
@@ -277,13 +257,8 @@
       <div class="column">
 
         <div id="crossoverProbabilitySlider">
-          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('crossoverProbabilitySlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="1" readonly>
-            <div class="ui basic label">
-              %
-            </div>          
-          </div>
+          <input class="slider"  type="range" min="1" max="100" value="50" onchange="updateTextBox('crossoverProbabilitySlider', this.value);">
+          <input class="textbox" type="text" value="">
         </div>
 
       </div>
@@ -320,8 +295,9 @@
       <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
 
-        <div id="crossoverTypeDropdown" class="ui dropdown selection crossover">
-          <div class="default text"></div>
+        <div id="crossoverTypeDropdown" class="ui dropdown crossover">
+          <div class="text"></div>
+          <div class="default text">Select a Crossover Strategy</div>
           <i class="dropdown icon"></i>
         </div>
         
@@ -340,7 +316,7 @@
 
 
 
-  <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
+<!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
 
   <h3 class="ui center aligned header">Mutation</h3>
 
@@ -369,13 +345,8 @@
       <div class="column">
 
         <div id="mutationProbabilitySlider">
-          <input class="slider"  type="range" min="1" max="100" value="1" onchange="updateTextBox('mutationProbabilitySlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="1" readonly>
-            <div class="ui basic label">
-              %
-            </div>          
-          </div>
+          <input class="slider"  type="range" min="1" max="100" value="50" onchange="updateTextBox('mutationProbabilitySlider', this.value);">
+          <input class="textbox" type="text" value="">
         </div>
 
       </div>
@@ -412,8 +383,9 @@
       <!--INPUT COLOUMN (DROPDOWN MENU)-->
       <div class="column">
         
-        <div id="mutationTypeDropdown" class="ui dropdown selection mutation">
-          <div class="default text"></div>
+        <div id="mutationTypeDropdown" class="ui dropdown mutation">
+          <div class="text"></div>
+          <div class="default text">Select a Mutation Strategy</div>
           <i class="dropdown icon"></i>
         </div>  
 
@@ -426,29 +398,108 @@
 
 
 
-
-
+  <div class="ui divider"></div>
 
 <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
-  <div class="ui top attached tabular menu">
-    <a class="item" data-tab="player">Player</a>
-    <a class="item" data-tab="stats">Statistics</a>
-    <a class="item" data-tab="visual">Visual Representation</a>
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="player">
-    First
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="stats">
-    Second
-  </div>
-  <div class="ui bottom attached tab segment" data-tab="visual">
-    Third
-  </div>
+
+
+  <!--------------------VISUALIZATION MENU------------------------>
+
+  <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
+
+  <div class="ui segment" id='visualization'>
+
+
+    <!--------LATERAL PATTERN MENU------>
+    <div class="ui sidebar inverted vertical menu">
+      <a class="item">
+        PATTERN 1
+      </a>
+      <a class="item">
+        PATTERN 2
+      </a>
+      <a class="item">
+        PATTERN 3
+      </a>
+    </div>
+
+    <!--------CONTENT------>
+    <div class="pusher">
+
+      <!--------ICON LATERAL PATTERN MENU------>
+      <div class="top ui secondary menu">
+        <a class="item sidebar"><i class="icon sidebar"></i>List of patterns</a>
+      </div>
+
+
+      <!--------FEATURES------>
+      <div class="ui grid">
+
+        <!--------MENU------>
+        <div class="three wide column">
+          
+          <div class="ui vertical fluid tabular menu">
+            <a class="item">
+              OVERVIEW
+            </a>
+            <a class="item">
+              ENTROPY
+            </a>
+            <a class="item active">
+              BALANCE
+            </a>
+            <a class="item">
+              EVENESS
+            </a>
+          </div>
+
+        </div>
+
+        <!--------FEATURE CONTENT (CARD)------>
+        <div class="twelve wide column">
+          
+          <div class="ui segment">
+
+            <div class="ui card">
+
+              <!--------CANVAS------>
+              <div class="container">
+                <h4 onclick="newrandomseq()">New Random Seq</h4>
+                <h1> Dwight </h1>
+                <hr style="width:50%;text-align:center"> 
+                <h3> Euclidean Rhythm </h3>
+                <canvas id="circles" width="300" height="300"></canvas>
+                <hr style="width:50%;text-align:center">
+              </div>
+
+              <!-------TITLE/DESCRIPTION------>
+              <div class="content">
+                <a class="header">PATTERN 1</a>
+                <div class="meta">
+                  <span class="date">Overview</span>
+                </div>
+                <div class="description">
+                  Kick, snare, hihat (description)
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          
+        </div>
+        
+      </div>
+ 
+    </div>
+
 
 
   <!-- Root -->
   
+
   <div id="root">
       <p class="title">Geneticsss</p>
       <!-- Start Button -->
@@ -470,7 +521,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
 
-
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
 
 
   <script src="js/sampleplayer.js"></script>
