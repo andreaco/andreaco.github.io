@@ -4,6 +4,19 @@
   font-size:2.5em;
 }
 
+canvas {
+  padding-left: 0;
+  padding-right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+  color: #434c5e;
+}
+
 
 .parametersContainer { 
   margin: 50px;

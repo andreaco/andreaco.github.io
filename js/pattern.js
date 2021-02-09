@@ -1,7 +1,7 @@
 class Pattern {
     _sequences; // 2D array N sequences * S steps
     score = 0; // fitness score to be computed
-
+    name = "StillUnknown";
     /**
      * Constructor
      * @param {int} N Number of sequences
@@ -127,6 +127,7 @@ class GeneticAlgorithm {
             }
             console.log("Final Population: ", this._population[0]);
         }
+        return this._population;
     }
 
     computeScores() {

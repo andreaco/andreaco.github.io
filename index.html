@@ -84,13 +84,14 @@
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
           <div id="startingPopulationSlider">
-            <input class="slider"  type="range" min="20" max="500" value="20" oninput="updateTextBox('startingPopulationSlider', this.value);">
-          <div class="ui right labeled input">
-            <input id= "startingPopulationSlider"type="text" class="textbox" value="20" readonly>
-            <div class="ui inverted label">
-              elements
-            </div>          
-          </div>
+            <input class="slider" type="range" min="20" max="500" value="20"
+              oninput="updateTextBox('startingPopulationSlider', this.value);">
+            <div class="ui right labeled input">
+              <input id="startingPopulationSlider" type="text" class="textbox" value="20" readonly>
+              <div class="ui inverted label">
+                elements
+              </div>
+            </div>
           </div>
         </div>
 
@@ -125,12 +126,13 @@
         <div class="column">
 
           <div id="numberOfFinalElementsSlider">
-            <input class="slider"  type="range" min="1" max="10" value="1" oninput="updateTextBox('numberOfFinalElementsSlider', this.value);">
+            <input class="slider" type="range" min="1" max="10" value="1"
+              oninput="updateTextBox('numberOfFinalElementsSlider', this.value);">
             <div class="ui right labeled input">
               <input type="text" class="textbox" value="1" readonly>
               <div class="ui inverted label">
                 elements
-              </div>          
+              </div>
             </div>
           </div>
 
@@ -156,7 +158,9 @@
               FITNESS STRATEGY
             </div>
             <div class="content">
-              <p>The fitness function determines how fit an individual is (the ability of an individual to compete with other individuals). It gives a fitness score to each individual. The probability that an individual will be selected for reproduction is based on its fitness score.</p>
+              <p>The fitness function determines how fit an individual is (the ability of an individual to compete with
+                other individuals). It gives a fitness score to each individual. The probability that an individual will
+                be selected for reproduction is based on its fitness score.</p>
             </div>
           </div>
 
@@ -167,8 +171,8 @@
         <!-------INPUT COLOUMN (DROPDOWN MENU)------->
         <div class="column">
 
-            <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
-              <div class="default text"></div>
+          <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
+            <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
 
@@ -204,7 +208,8 @@
               SURVIVAL RATE
             </div>
             <div class="content">
-              <p>During selection phase the fittest individuals are selected: they will pass their main features to the next generation.</p>
+              <p>During selection phase the fittest individuals are selected: they will pass their main features to the
+                next generation.</p>
             </div>
           </div>
 
@@ -214,13 +219,14 @@
         <div class="column">
 
           <div id="survivalRateSlider">
-            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('survivalRateSlider', this.value);">
-          <div class="ui right labeled input">
-            <input type="text" class="textbox" value="1" readonly>
-            <div class="ui inverted label">
-              %
-            </div>          
-          </div>
+            <input class="slider" type="range" min="1" max="100" value="1"
+              oninput="updateTextBox('survivalRateSlider', this.value);">
+            <div class="ui right labeled input">
+              <input type="text" class="textbox" value="1" readonly>
+              <div class="ui inverted label">
+                %
+              </div>
+            </div>
           </div>
 
         </div>
@@ -294,8 +300,9 @@
               CROSSOVER PROBABILITY
             </div>
             <div class="content">
-              <p>Probability of each element to be part of the Crossover phase. 
-                 During this phase pairs of individuals are combinated in order to create a new Offspring characterized by the predominant features of the previous generation.
+              <p>Probability of each element to be part of the Crossover phase.
+                During this phase pairs of individuals are combinated in order to create a new Offspring characterized
+                by the predominant features of the previous generation.
               </p>
             </div>
           </div>
@@ -307,12 +314,13 @@
         <div class="column">
 
           <div id="crossoverProbabilitySlider">
-            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
+            <input class="slider" type="range" min="1" max="100" value="1"
+              oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
             <div class="ui right labeled input">
               <input type="text" class="textbox" value="1" readonly>
               <div class="ui inverted inverted label">
                 %
-              </div>          
+              </div>
             </div>
           </div>
         </div>
@@ -338,7 +346,8 @@
             </div>
             <div class="content">
               <p>The combination of two patterns is made through an exchange of the values that compose them.
-                 The strategies apply one (Single Point) or two (Two Point) subdivisions of the two patterns and create the Offspring throung the exchange of the resulted sections. 
+                The strategies apply one (Single Point) or two (Two Point) subdivisions of the two patterns and create
+                the Offspring throung the exchange of the resulted sections.
               </p>
             </div>
           </div>
@@ -388,7 +397,7 @@
             </div>
             <div class="content">
               <p>Probability of each element to be subjected to a mutation.
-                 Mutation occurs to maintain diversity within the population and prevent premature convergence.
+                Mutation occurs to maintain diversity within the population and prevent premature convergence.
               </p>
             </div>
           </div>
@@ -399,12 +408,13 @@
         <div class="column">
 
           <div id="mutationProbabilitySlider">
-            <input class="slider"  type="range" min="1" max="100" value="1" oninput="updateTextBox('mutationProbabilitySlider', this.value);">
+            <input class="slider" type="range" min="1" max="100" value="1"
+              oninput="updateTextBox('mutationProbabilitySlider', this.value);">
             <div class="ui right inverted labeled input">
               <input type="text" class="textbox" value="1" readonly>
               <div class="ui inverted inverted label">
                 %
-              </div>          
+              </div>
             </div>
           </div>
 
@@ -458,76 +468,92 @@
       Start Process
     </button>
 
-  
 
-  
+
+
     <div class="ui divider"></div>
 
     <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
-    
-    
-    
-      <!--------------------VISUALIZATION PATTERNS------------------------>
-    
-      <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
-    
-      <div class="ui segment" id='visualization'>
-          
-          <h3 class="ui header">LIST OF PATTERNS</h3>
-    
-          <div class="ui grid">
-    
-            <!--------PATTERNS MENU------>
-            <div class="three wide column">
-              
-              <div class="ui vertical fluid  tabular menu">
-                <a class="item">
-                  PATTERN 1
-                </a>
-                <a class="item">
-                  PATTERN 2
-                </a>
-                <a class="item active">
-                  PATTERN 3
-                </a>
-              </div>
-    
-            </div>
-    
-            <!--------PATTERN FEATURES CONTENT------>
-            <div class="thirteen wide column">
-              
-              <div class="ui segment">
-    
-                
-      
-    
-              </div>
-              
-            </div>
-            
-          </div> 
-    
-    
-        <!--------------------PLAYER------------------------>
-        
-          <div class="ui segment" id='player_visualization'>
-    
-            <!-- Start Button -->
-            <button id="start_button" type="button">Play</button>
-            <button id="kick_button" type="button">Kick</button>
-            <button id="snare_button" type="button">Snare</button>
-            <button id="hihat_button" type="button">Hihat</button>
-            <button id="metro_button" type="button">Metronome</button>
-        
-            <!-- Element Container -->
-            <div id="playcontainer" class="horizontal-container"></div>
-            <button id="next_gen">NEXT GEN</button>
-            <div id="numgen"></div>
-            <div id="numel"></div>
-        
+
+
+
+    <!--------------------VISUALIZATION PATTERNS------------------------>
+
+    <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
+
+    <div class="ui inverted segment" id='visualization'>
+
+      <h3 class="ui header">LIST OF PATTERNS</h3>
+
+      <div class="ui grid">
+
+        <!--------PATTERNS MENU------>
+        <div class="three wide column">
+
+          <div class="ui vertical fluid  tabular menu">
+            <a class="item">
+              PATTERN 1
+            </a>
+            <a class="item">
+              PATTERN 2
+            </a>
+            <a class="item active">
+              PATTERN 3
+            </a>
           </div>
+
+        </div>
+
+        <!--------PATTERN FEATURES CONTENT------>
+        <div class="thirteen wide column">
+
+          <div class="ui segment">
+            
+            <h1> Dwight </h1>
+            <hr style="width:50%;text-align:center">
+            <h3> Euclidean Rhythm </h3>
+            <canvas id="circles" width="300" height="300"></canvas>
+            <hr style="width:50%;text-align:center">
+            <h3> Balance </h3>
+            <canvas id="balance" width="300" height="300"></canvas>
+            <hr style="width:50%;text-align:center">
+
+            <h3> Evenness </h3>
+            <canvas id="evenness" width="300" height="300"></canvas>
+            <hr style="width:50%;text-align:center">
+
+            <h3> Entropy </h3>
+            <canvas id="entropy" width="300" height="300"></canvas>
+            <hr style="width:50%;text-align:center">
+
+
+
+          </div>
+
+        </div>
+
       </div>
+
+
+      <!--------------------PLAYER------------------------>
+
+      <div class="ui segment" id='player_visualization'>
+
+        <!-- Start Button -->
+        <button id="start_button" type="button">Play</button>
+        <button id="kick_button" type="button">Kick</button>
+        <button id="snare_button" type="button">Snare</button>
+        <button id="hihat_button" type="button">Hihat</button>
+        <button id="metro_button" type="button">Metronome</button>
+
+        <!-- Element Container -->
+        <div id="playcontainer" class="horizontal-container"></div>
+        <button id="next_gen">NEXT GEN</button>
+        <div id="numgen"></div>
+        <div id="numel"></div>
+
+      </div>
+    </div>
     <div class="ui divider"></div>
 
   </div>

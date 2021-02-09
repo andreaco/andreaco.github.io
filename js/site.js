@@ -91,7 +91,7 @@ function nextNote() {
  * @param {number} time Time in which the note is scheduled
  */
 function scheduleNote(beatNumber, time) {
-
+    draw(beatNumber)
     if (unmuteMetro) {
         if (beatNumber % 16 === 0) playSample(audioCtx, metro1, 0.5);
         else if (beatNumber % 4 === 0) playSample(audioCtx, metro2, 0.5);
@@ -250,5 +250,247 @@ setupSample().then((samples) => {
             unmuteMetro = !unmuteMetro
         }
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+let kickColor = '#b48ead'
+let snareColor = '#bf616a'  
+let hihatColor = '#ebcb8b'
+
+let sequences = [kick_pattern, snare_pattern, hihat_pattern]
+
+
+function drawEuclideanBase(ctx, w, h, radius, seq) {
+  let center = [h/2, w/2]
+  let theta = 0
+  let x = center[0] + Math.cos(theta)*radius
+  let y = center[1] + Math.sin(theta)*radius
+  ctx.beginPath();
+  ctx.strokeStyle = '#434c5e'
+  ctx.lineWidth = 5;
+  let firstPoint = -1;
+  for(let i=0; i < seq.length; ++i) {
+
+    if(firstPoint == -1) firstPoint = i
+
+    theta = 2*Math.PI*i/seq.length
+    x = center[0] + Math.cos(theta)*radius
+    y = center[1] + Math.sin(theta)*radius
+
+    ctx.lineTo(x, y);
+
+  }
+  if(firstPoint != -1) {
+    theta = 2*Math.PI*firstPoint/seq.length
+    x = center[0] + Math.cos(theta)*radius
+    y = center[1] + Math.sin(theta)*radius
+
+    ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+}
+
+function drawEuclideanSteps(ctx, w, h, radius, count, seq, color) {
+  // Active step
+  let center = [h/2, w/2]
+  let theta = 0
+  let x = center[0] + Math.cos(theta)*radius
+  let y = center[1] + Math.sin(theta)*radius
+  for(let i=0; i < seq.length; ++i) {
+    if(seq[i] > 0) {
+      theta = 2*Math.PI*i/seq.length
+      x = center[0] + Math.cos(theta)*radius
+      y = center[1] + Math.sin(theta)*radius
+      ctx.beginPath();
+      if(i == count) {
+        ctx.arc(x, y, 10, 0, 2 * Math.PI, false);
+        ctx.fillStyle = '#a3be8c';
+      }
+      else {
+        ctx.arc(x, y, 8, 0, 2 * Math.PI, false);
+        ctx.fillStyle = color;
+      }
+      ctx.fill();
+    }
+  } 
+}
+
+
+function drawSequences(count) {
+  // Canvas vars
+  var canvas = document.getElementById('circles');
+  var ctx = canvas.getContext('2d');
+
+  // Utility vars
+  var w = canvas.width;
+  var h = canvas.height;
+  var status = count / sequences[0].length
+
+  var radius = 0.45 * w
+  var center = [h/2, w/2]
+
+  //Backgroun clear 
+  ctx.clearRect(0, 0, w, h, radius);
+  drawEuclideanBase(ctx, w, h, radius, sequences[0])
+  drawEuclideanSteps(ctx, w, h, radius, count, sequences[0], kickColor)
+
+  drawEuclideanBase(ctx, w, h, radius*0.7, sequences[1])
+  drawEuclideanSteps(ctx, w, h, radius*0.7, count,sequences[1], snareColor)
+
+  drawEuclideanBase(ctx, w, h, radius*0.4, sequences[2])
+  drawEuclideanSteps(ctx, w, h, radius*0.4, count, sequences[2], hihatColor)
+}
+
+function drawBalance() {
+  // Canvas vars
+  var canvas = document.getElementById('balance');
+  var ctx = canvas.getContext('2d');
+
+  // Utility vars
+  var w = canvas.width;
+  var h = canvas.height;
+
+  var radius = 0.45 * w
+  var center = [h/2, w/2]
+
+  ctx.clearRect(0, 0, w, h, radius);
+
+  // Outer circle
+  drawEuclideanBase(ctx, w, h, radius, sequences[0])
+
+  drawBalanceCenter(ctx, w, h, radius, sequences[0], kickColor)
+  drawBalanceCenter(ctx, w, h, radius, sequences[1], snareColor)
+  drawBalanceCenter(ctx, w, h, radius, sequences[2], hihatColor)
+
+  drawBalanceSteps(ctx, w, h, radius, sequences[0], kickColor, 14)
+  drawBalanceSteps(ctx, w, h, radius, sequences[1], snareColor, 10)
+  drawBalanceSteps(ctx, w, h, radius, sequences[2], hihatColor, 6)
+
+}
+
+function drawBalanceCenter(ctx, w, h, radius, seq, color) {
+  var center = [h/2, w/2]
+
+  let balanceX = 0;
+  let balanceY = 0;
+  let N = 0;
+
+  for(let i=0; i < seq.length; ++i) {
+    if(seq[i] > 0) {
+      theta = 2*Math.PI*i/seq.length
+      x = center[0] + Math.cos(theta)*radius
+      y = center[1] + Math.sin(theta)*radius
+
+      balanceX += x
+      balanceY += y
+      N+=1;
+    }
+  } 
+  balanceX /= N
+  balanceY /= N
+  ctx.beginPath();
+  ctx.arc(balanceX, balanceY, 10, 0, 2 * Math.PI, false);
+  ctx.fillStyle = color;
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.strokeStyle = color
+  ctx.lineWidth = 3;
+  ctx.lineTo(center[0], center[1])
+  ctx.lineTo(balanceX, balanceY);
+  ctx.stroke();
+}
+
+function drawBalanceSteps(ctx, w, h, radius, seq, color, size) {
+  // Active step
+  let center = [h/2, w/2]
+  let theta = 0
+  let x = center[0] + Math.cos(theta)*radius
+  let y = center[1] + Math.sin(theta)*radius
+  for(let i=0; i < seq.length; ++i) {
+    if(seq[i] > 0) {
+      theta = 2*Math.PI*i/seq.length
+      x = center[0] + Math.cos(theta)*radius
+      y = center[1] + Math.sin(theta)*radius
+      ctx.beginPath();
+
+
+      ctx.arc(x, y, size, 0, 2 * Math.PI, false);
+      ctx.fillStyle = color;
+
+      ctx.fill();
+    }
+  } 
+}
+
+function drawEvenness() {
+  // Canvas vars
+  var canvas = document.getElementById('evenness');
+  var ctx = canvas.getContext('2d');
+
+  // Utility vars
+  var w = canvas.width;
+  var h = canvas.height;
+
+  var radius = 0.45 * w;
+  var center = [h/2, w/2];
+
+  ctx.clearRect(0, 0, w, h, radius);
+
+  drawColumn(ctx, w, h, w/5, 0.4, w*0/4, kickColor);
+  drawColumn(ctx, w, h, w/5, 0.2, w*1/4, snareColor);
+  drawColumn(ctx, w, h, w/5, 0.5, w*2/4, hihatColor);
+  drawColumn(ctx, w, h, w/5, 0.9, w*3/4, "#00aaaa");
+}
+
+function drawEntropy() {
+  // Canvas vars
+  var canvas = document.getElementById('entropy');
+  var ctx = canvas.getContext('2d');
+
+  // Utility vars
+  var w = canvas.width;
+  var h = canvas.height;
+
+  var radius = 0.45 * w;
+  var center = [h/2, w/2];
+
+  ctx.clearRect(0, 0, w, h, radius);
+
+  drawColumn(ctx, w, h, w/5, 0.5, w*0/4, kickColor);
+  drawColumn(ctx, w, h, w/5, 0.2, w*1/4, snareColor);
+  drawColumn(ctx, w, h, w/5, 0.1, w*2/4, hihatColor);
+  drawColumn(ctx, w, h, w/5, 0.4, w*3/4, "#00aaaa");
+}
+
+
+function drawColumn(ctx, w, h, rectwidth, amount, xstart, color) {
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  let ystart = h-amount*h;
+  ctx.rect(xstart, ystart, rectwidth, h-ystart);
+  ctx.fill();
+}
+
+function draw(count){
+    drawSequences(count);
+    drawBalance();
+    drawEvenness();
+    drawEntropy();
+  }
 
 
