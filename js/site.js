@@ -19,13 +19,26 @@ $('.parametername')
 
 //=================    POP UP     =======================================================================================================
 $(function(){
-	$("#test").click(function(){
-		$(".test").modal('show');
-	});
 	$(".test").modal({
 		closable: true
 	});
 });
+
+//=================    TABS VISUAL REPRESENTATION     =======================================================================================================
+
+$(document).ready(function() {
+    $(".tab_content").hide();
+    $("#tab1").show();
+    $(".tab:first-child").addClass("active");
+    
+    $(".tab").click(function(event){
+      event.preventDefault();
+      $(".tab").removeClass("active");
+      $(".tab_content").hide();
+      $(this).addClass("active");
+      $("#"+$(this).attr("rel")).show();
+    });
+  });
 
 
 /**
@@ -251,6 +264,8 @@ function initGeneticAlgorithm() {
 
         patternMenu.appendChild(element);
     }
+
+    $(".test").modal('show');
 }
 
 

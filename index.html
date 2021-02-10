@@ -14,6 +14,7 @@
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css" />-->
 
   <link rel="stylesheet" href="css/semantic.superhero.css" type="text/css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/components/icon.min.css">
 </head>
 
 <body>
@@ -466,7 +467,7 @@
 
 
 
-    <!---------------------------------------------REPRESENTATION SECTION---------------------------------------------------------------->
+    <!---------------------------------------------REPRESENTATION SECTION (BUTTON/POP UP)---------------------------------------------------------------->
 
 
     <div class="ui inverted segment">
@@ -476,7 +477,7 @@
       </button>
 
       <div class="ui modal test">
-        <i class="close icon"></i>
+        <i class="window close outline icon"></i>
 
           <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
@@ -489,7 +490,7 @@
             <div class="three wide column">
               <h4 class="ui header">LIST OF PATTERNS</h4>
     
-              <div id="patternSelectionDiv" class="ui vertical fluid  tabular menu">
+              <div id="patternSelectionDiv" class="ui vertical fluid tabular menu">
               </div>
     
             </div>
@@ -498,25 +499,59 @@
             <div class="thirteen wide column">
     
               <div class="ui segment">
-    
+
                 <h1 id="patternName"></h1>
-                <hr style="width:50%;text-align:center">
-                <h3> Euclidean Rhythm </h3>
-                <canvas id="circles" width="300" height="300"></canvas>
-                <hr style="width:50%;text-align:center">
-                <h3> Balance </h3>
-                <canvas id="balance" width="300" height="300"></canvas>
-                <hr style="width:50%;text-align:center">
-    
-                <h3> Evenness </h3>
-                <canvas id="evenness" width="300" height="300"></canvas>
-                <hr style="width:50%;text-align:center">
-    
-                <h3> Entropy </h3>
-                <canvas id="entropy" width="300" height="300"></canvas>
-                <hr style="width:50%;text-align:center">
-    
-    
+
+                <!--------TAB FEATURES------>
+
+                <div class="ui top attached tabular menu">
+                  <a class="item active" data-tab="overtab">OVERVIEW</a>
+                  <a class="item" data-tab="balancetab">BALANCE</a>
+                  <a class="item" data-tab="evenesstab">EVENESS</a>
+                  <a class="item" data-tab="entropytab">ENTROPY</a>
+                </div>
+                
+                <!--------TABS CONTENT------>
+
+                <div class="ui bottom attached tab segment active" data-tab="overtab">
+                  <h3> Euclidean Rhythm </h3>
+                  <canvas id="circles" width="300" height="300"></canvas>
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="balancetab">
+                  <h3> Balance </h3>
+                  <canvas id="balance" width="300" height="300"></canvas>
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="evenesstab">
+                  <h3> Evenness </h3>
+                  <canvas id="evenness" width="300" height="300"></canvas>
+                </div>
+
+                <div class="ui bottom attached tab segment" data-tab="entropytab">
+                  <h3> Entropy </h3>
+                  <canvas id="entropy" width="300" height="300"></canvas>
+                </div>
+
+                <!--------PLAYER------>
+
+                <div class="ui segment" id='player_visualization'>
+
+                  <!-- Start Button -->
+                  <button id="start_button" type="button">Play</button>
+                  <button id="kick_button" type="button">Kick</button>
+                  <button id="snare_button" type="button">Snare</button>
+                  <button id="hihat_button" type="button">Hihat</button>
+                  <button id="metro_button" type="button">Metronome</button>
+          
+                  <!-- Element Container -->
+                  <div id="playcontainer" class="horizontal-container"></div>
+                  <button id="next_gen">NEXT GEN</button>
+                  <div id="numgen"></div>
+                  <div id="numel"></div>
+          
+                </div>
+
     
               </div>
     
@@ -525,22 +560,7 @@
           </div>
 
 
-          <div class="ui segment" id='player_visualization'>
-
-            <!-- Start Button -->
-            <button id="start_button" type="button">Play</button>
-            <button id="kick_button" type="button">Kick</button>
-            <button id="snare_button" type="button">Snare</button>
-            <button id="hihat_button" type="button">Hihat</button>
-            <button id="metro_button" type="button">Metronome</button>
-    
-            <!-- Element Container -->
-            <div id="playcontainer" class="horizontal-container"></div>
-            <button id="next_gen">NEXT GEN</button>
-            <div id="numgen"></div>
-            <div id="numel"></div>
-    
-          </div>
+          
 
 
         </div>
