@@ -22,7 +22,7 @@ async function setupSample() {
                         'audio/hihat.wav',
                         'audio/metronome1.wav',
                         'audio/metronome2.wav',
-                        'audio/pad.wav'];
+                        'audio/pad.mp3'];
     const samples = []
     for (let i=0; i < filePaths.length; ++i) {
         console.log("Loading: " + filePaths[i] + "...")
