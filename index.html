@@ -14,7 +14,8 @@
   <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/semantic.css" />-->
 
   <link rel="stylesheet" href="css/semantic.superhero.css" type="text/css">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/components/icon.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/fomantic-ui/2.8.7/components/icon.min.css">
 </head>
 
 <body>
@@ -84,13 +85,17 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-          <div id="startingPopulationSlider">
-            <input class="slider" type="range" min="20" max="500" value="20"
+          <div id="startingPopulationSlider" class="ui two column grid">
+            <div class="left floated ten wide column">
+              <input class="slider" type="range" min="20" max="500" value="260"
               oninput="updateTextBox('startingPopulationSlider', this.value);">
-            <div class="ui right labeled input">
-              <input id="startingPopulationSlider" type="text" class="textbox" value="20" readonly>
-              <div class="ui inverted label">
-                elements
+            </div>
+            <div class="right floated five wide column">
+              <div class="ui fluid right inverted labeled input">
+                <input type="text" class="textbox" value="260" readonly>
+                <div class="ui inverted inverted label">
+                  elements
+                </div>
               </div>
             </div>
           </div>
@@ -98,50 +103,6 @@
 
       </div>
     </div>
-
-
-    <!----------------------NUMBER OF FINAL ELEMENTS inverted segment---------------->
-    <div class="ui inverted segment">
-
-      <!-------TITLE|INPUT GRID----->
-      <div class="ui two column grid">
-
-
-        <!---TITLE/DESCRIPTION COLOUMN (ACCORDION)--->
-        <div class="column">
-
-          <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-              NUMBER OF FINAL ELEMENTS
-            </div>
-            <div class="content">
-              <p>Number of patterns that will survive after the process of Natural Selection.</p>
-            </div>
-          </div>
-
-        </div>
-
-
-        <!-------INPUT COLOUMN (SLIDER)------->
-        <div class="column">
-
-          <div id="numberOfFinalElementsSlider">
-            <input class="slider" type="range" min="1" max="10" value="1"
-              oninput="updateTextBox('numberOfFinalElementsSlider', this.value);">
-            <div class="ui right labeled input">
-              <input type="text" class="textbox" value="1" readonly>
-              <div class="ui inverted label">
-                elements
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </div>
-
 
     <!----------------------FITNESS STRATEGY inverted segment------------------------>
 
@@ -172,7 +133,7 @@
         <!-------INPUT COLOUMN (DROPDOWN MENU)------->
         <div class="column">
 
-          <div id="fitnessTypeDropdown" class="ui dropdown selection fitness">
+          <div id="fitnessTypeDropdown" class="ui fluid dropdown selection fitness">
             <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
@@ -218,18 +179,20 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-
-          <div id="survivalRateSlider">
-            <input class="slider" type="range" min="1" max="100" value="1"
+          <div id="survivalRateSlider" class="ui two column grid">
+            <div class="left floated ten wide column">
+              <input class="slider" type="range" min="60" max="100" value="80"
               oninput="updateTextBox('survivalRateSlider', this.value);">
-            <div class="ui right labeled input">
-              <input type="text" class="textbox" value="1" readonly>
-              <div class="ui inverted label">
-                %
+            </div>
+            <div class="right floated five wide column">
+              <div class="ui fluid right inverted labeled input">
+                <input type="text" class="textbox" value="80" readonly>
+                <div class="ui inverted inverted label">
+                  %
+                </div>
               </div>
             </div>
           </div>
-
         </div>
 
       </div>
@@ -261,7 +224,7 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="selectionTypeDropdown" class="ui dropdown selection select">
+          <div id="selectionTypeDropdown" class="ui fluid dropdown selection select">
             <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
@@ -313,14 +276,17 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-
-          <div id="crossoverProbabilitySlider">
-            <input class="slider" type="range" min="1" max="100" value="1"
-              oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
-            <div class="ui right labeled input">
-              <input type="text" class="textbox" value="1" readonly>
-              <div class="ui inverted inverted label">
-                %
+          <div id="crossoverProbabilitySlider" class="ui two column grid">
+            <div class="left floated ten wide column">
+              <input class="slider" type="range" min="30" max="100" value="65"
+                oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
+            </div>
+            <div class="right floated five wide column">
+              <div class="ui fluid right inverted labeled input">
+                <input type="text" class="textbox" value="65" readonly>
+                <div class="ui inverted inverted label">
+                  %
+                </div>
               </div>
             </div>
           </div>
@@ -358,7 +324,7 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="crossoverTypeDropdown" class="ui dropdown selection crossover">
+          <div id="crossoverTypeDropdown" class="ui fluid dropdown selection crossover">
             <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
@@ -407,18 +373,20 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-
-          <div id="mutationProbabilitySlider">
-            <input class="slider" type="range" min="1" max="100" value="1"
-              oninput="updateTextBox('mutationProbabilitySlider', this.value);">
-            <div class="ui right inverted labeled input">
-              <input type="text" class="textbox" value="1" readonly>
-              <div class="ui inverted inverted label">
-                %
+          <div id="mutationProbabilitySlider" class="ui two column grid">
+            <div class="left floated ten wide column">
+              <input class="slider" type="range" min="0" max="100" value="50"
+                oninput="updateTextBox('mutationProbabilitySlider', this.value);">
+            </div>
+            <div class="right floated five wide column">
+              <div class="ui fluid right inverted labeled input">
+                <input type="text" class="textbox" value="50" readonly>
+                <div class="ui inverted inverted label">
+                  %
+                </div>
               </div>
             </div>
           </div>
-
         </div>
 
       </div>
@@ -453,7 +421,7 @@
         <!--INPUT COLOUMN (DROPDOWN MENU)-->
         <div class="column">
 
-          <div id="mutationTypeDropdown" class="ui dropdown selection mutation">
+          <div id="mutationTypeDropdown" class="ui fluid dropdown selection mutation">
             <div class="default text"></div>
             <i class="dropdown icon"></i>
           </div>
@@ -472,14 +440,14 @@
 
     <div class="ui inverted segment">
 
-      <button class="fluid ui button" onclick="initGeneticAlgorithm()" type="button" id="test">
+      <button class="fluid ui button" onclick="initGeneticAlgorithm()">
         Start Process
       </button>
 
-      <div class="ui modal test">
+      <div class="ui modal featuremodal">
         <i class="window close outline icon"></i>
 
-          <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
+        <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
         <div class="ui inverted segment" id='visualization'>
           <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
@@ -489,15 +457,15 @@
 
             <div class="three wide column">
               <h4 class="ui header">LIST OF PATTERNS</h4>
-    
+
               <div id="patternSelectionDiv" class="ui vertical fluid tabular menu">
               </div>
-    
+
             </div>
-    
+
             <!--------PATTERN FEATURES CONTENT------>
             <div class="thirteen wide column">
-    
+
               <div class="ui segment">
 
                 <h1 id="patternName"></h1>
@@ -510,7 +478,7 @@
                   <a class="item" data-tab="evenesstab">EVENESS</a>
                   <a class="item" data-tab="entropytab">ENTROPY</a>
                 </div>
-                
+
                 <!--------TABS CONTENT------>
 
                 <div class="ui bottom attached tab segment active" data-tab="overtab">
@@ -533,43 +501,44 @@
                   <canvas id="entropy" width="300" height="300"></canvas>
                 </div>
 
-                <!--------PLAYER------>
 
+
+                <!--------PLAYER------>
                 <div class="ui segment" id='player_visualization'>
 
-                  <!-- Start Button -->
-                  <button id="start_button" type="button">Play</button>
-                  <button id="kick_button" type="button">Kick</button>
-                  <button id="snare_button" type="button">Snare</button>
-                  <button id="hihat_button" type="button">Hihat</button>
-                  <button id="metro_button" type="button">Metronome</button>
-          
-                  <!-- Element Container -->
-                  <div id="playcontainer" class="horizontal-container"></div>
-                  <button id="next_gen">NEXT GEN</button>
-                  <div id="numgen"></div>
-                  <div id="numel"></div>
-          
+                  <div class="five ui buttons">
+                    <button class="ui button playbutton" id="start_button">Play</button>
+                    <button class="ui button orange kickbutton" id="kick_button">Kick</button>
+                    <button class="ui button blue snarebutton" id="snare_button">Snare</button>
+                    <button class="ui button purple hihatbutton" id="hihat_button">Hihat</button>
+                    <button class="ui button metronomebutton" id="metro_button">Metronome</button>
+                  </div>
                 </div>
 
-    
+
               </div>
-    
+
             </div>
-    
+
           </div>
 
 
-          
 
 
+
+        </div>
+      </div>
+      <div class="ui modal errormodal">
+        <i class="window close outline icon"></i>
+        <div class="ui inverted segment">
+          <h3 class="ui center aligned header">
+            Something went wrong!
+          </h3>
         </div>
       </div>
 
 
     </div>
-
-    <div class="ui divider"></div>
 
   </div>
 
@@ -590,7 +559,7 @@
     integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
     crossorigin="anonymous"></script>
 
-   
+
 
 
 

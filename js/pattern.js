@@ -117,10 +117,13 @@ class GeneticAlgorithm {
         if(this._fitnessFunction   == undefined || this._selectionFunction == undefined
             || this._crossoverFunction == undefined || this._mutationFunction  == undefined ){
             console.error("Cannot start due to some uninitialized functions");
+            return [];
         }
         else {
+            console.log("Initial Population:" + this._population)
             while (this._population.length > this._numberOfFinalElements) {
                 this.computeScores();
+
                 let populationCopy = this._population.slice();
                 
                 let selected  = this._selectionFunction.compute(populationCopy, this._survivalRate);
@@ -131,10 +134,9 @@ class GeneticAlgorithm {
 
                 this._population = mutated;
             }
-            console.log(this._population)
+            console.log("Final Population:" + this._population)
             return this._population;
         }
-        return [];
         
     }
 

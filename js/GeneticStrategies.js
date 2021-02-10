@@ -675,7 +675,7 @@ class FlipBitMutation {
 
 
 class MutationStrategy1 {
-    _name = "MutationStrategy1";
+    _name = "Bit String Mutation";
     constructor() {}
 
     /**

@@ -102,6 +102,13 @@ input[type=number] {
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  
+  
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 
 .slider::-webkit-slider-thumb {
@@ -118,7 +125,7 @@ input[type=number] {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: #000000;
+  background: greenyellow;
   cursor: pointer;
 }
 
@@ -126,18 +133,14 @@ input[type=number] {
 
 
 /* BACKGROUND */
-
 @pageBackground: #F7F7F7;
 
-/*
-body {
-  background-color: #2e3440;
-}
-*/
 body {
     background-color:#2e3440;
     color: rgba(255, 255, 255, 0.9);
 }
+
+
 .dnacontainer {
   position: fixed;
   top: 0;
@@ -343,5 +346,3 @@ body {
     -webkit-transform: rotate(360deg);
  }
 }
-
-

@@ -19,9 +19,15 @@ $('.parametername')
 
 //=================    POP UP     =======================================================================================================
 $(function(){
-	$(".test").modal({
+	$(".featuremodal").modal({
+        onHide: function() {
+            resetPlayer();
+        },
 		closable: true
 	});
+    $(".errormodal").modal({
+       closable: true 
+    });
 });
 
 //=================    TABS VISUAL REPRESENTATION     =======================================================================================================
@@ -54,9 +60,6 @@ const audioCtx = new AudioContext();
 function start() {
     let btn = document.getElementById("start_button");
 
-    btn.classList.toggle("is-success", audioCtx.state === 'suspended')
-    btn.classList.toggle("is-error", audioCtx.state === 'running')
-
     if (audioCtx.state === 'suspended') {
         btn.innerHTML = "Stop";
         audioCtx.resume();
@@ -66,6 +69,7 @@ function start() {
         audioCtx.suspend();
     }
 }
+
 
 /**
  * -------------------------------------------------------------------------
@@ -202,17 +206,18 @@ function scheduler() {
 
 var GA = undefined;
 
+//TODO: firstElementChild.FirstElementChild sistemare html con id su slider
 function createParametersModel(){
     var parameterModel = {
-        startingPopulation : document.getElementById("startingPopulationSlider").firstElementChild.value,
-        finalPopulation : document.getElementById("numberOfFinalElementsSlider").firstElementChild.value,
+        startingPopulation : document.getElementById("startingPopulationSlider").firstElementChild.firstElementChild.value,
+        finalPopulation : 10,
         fitnessType : $('#fitnessTypeDropdown').dropdown('get value'),
         selectionType  : $('#selectionTypeDropdown').dropdown('get value'),
         crossoverType : $('#crossoverTypeDropdown').dropdown('get value'),
         mutationType : $('#mutationTypeDropdown').dropdown('get value'),
-        crossoverProbability : document.getElementById("crossoverProbabilitySlider").firstElementChild.value,
-        survivalRate : document.getElementById("survivalRateSlider").firstElementChild.value,
-        mutationProbability : document.getElementById("mutationProbabilitySlider").firstElementChild.value,
+        crossoverProbability : document.getElementById("crossoverProbabilitySlider").firstElementChild.firstElementChild.value,
+        survivalRate : document.getElementById("survivalRateSlider").firstElementChild.firstElementChild.value,
+        mutationProbability : document.getElementById("mutationProbabilitySlider").firstElementChild.firstElementChild.value,
     }
     return parameterModel;
  }
@@ -223,49 +228,68 @@ function initGeneticAlgorithm() {
     var nSeq = 3;
     var nStep = 16;
     var parametersModel = createParametersModel();
+    console.log(parametersModel);
+
     GA = new GeneticAlgorithm(parametersModel.startingPopulation, nSeq, nStep);
+    
     GA.fitnessSetup(parametersModel.fitnessType, parametersModel.finalPopulation);
     GA.selectionSetup(parametersModel.selectionType, parametersModel.survivalRate / 100);
     GA.crossoverSetup(parametersModel.crossoverType, parametersModel.crossoverProbability / 100);
     GA.mutationSetup(parametersModel.mutationType, parametersModel.mutationProbability / 100);
 
-    finalPool = GA.start();
-
-    let patternMenu = document.getElementById('patternSelectionDiv');
     
-    for(let i=0; i < finalPool.length; ++i) {
-        let randomIndex = Math.floor(Math.random() * Math.floor(randomNames.length));
-        finalPool[i].name = randomNames[randomIndex];
-        finalPool[i].id   = "id"+i;
-
-        let element = document.createElement('a');
-        element.classList.add('item');
-        element.innerHTML = finalPool[i].name;
-        element.id = finalPool[i].id;
+    finalPool = GA.start();
+    
+    
+    if(finalPool.length == 0) {
+        $(".errormodal").modal('show');
         
-        element.onclick = function () {
-            let clickedPattern = finalPool.find(element => element.id === this.id);
-            let sequences = clickedPattern.sequences.tolist();
-            kick_pattern  = sequences[0];
-            snare_pattern = sequences[1];
-            hihat_pattern = sequences[2];
-
-            document.getElementById('patternName').innerHTML = clickedPattern.name;
-
-            if (!$(this).hasClass('dropdown browse')) {
-                $(this)
-                  .addClass('active')
-                  .closest('.ui.menu')
-                  .find('.item')
-                  .not($(this))
-                  .removeClass('active');
-              }
-        }
-
-        patternMenu.appendChild(element);
     }
+    else {
 
-    $(".test").modal('show');
+        let patternMenu = document.getElementById('patternSelectionDiv');
+        
+        for(let i=0; i < finalPool.length; ++i) {
+            let randomIndex = Math.floor(Math.random() * Math.floor(randomNames.length));
+            finalPool[i].name = randomNames[randomIndex];
+            finalPool[i].id   = "id"+i;
+
+            let element = document.createElement('a');
+            
+            element.classList.add('item');
+            
+            element.innerHTML = finalPool[i].name;
+            element.id = finalPool[i].id;
+            
+            element.onclick = function () {
+                
+                let clickedPattern = finalPool.find(element => element.id === this.id);
+                let sequences = clickedPattern.sequences.tolist();
+                kick_pattern  = sequences[0];
+                snare_pattern = sequences[1];
+                hihat_pattern = sequences[2];
+
+                document.getElementById('patternName').innerHTML = clickedPattern.name;
+
+                if (!$(this).hasClass('dropdown browse')) {
+                    $(this)
+                    .addClass('active')
+                    .closest('.ui.menu')
+                    .find('.item')
+                    .not($(this))
+                    .removeClass('active');
+                }
+                draw();
+            }
+
+
+            patternMenu.appendChild(element);
+        }   
+        patternMenu.firstElementChild.onclick();
+
+        $(".featuremodal").modal('show');
+        
+    }
 }
 
 
@@ -292,23 +316,15 @@ setupSample().then((samples) => {
     audioCtx.suspend();
     start_button.onclick = start;
     kick_button.onclick = function () {
-        kick_button.classList.toggle("is-success", !unmuteKick)
-        kick_button.classList.toggle("is-error", unmuteKick)
         unmuteKick = !unmuteKick
     }
     snare_button.onclick = function () {
-        snare_button.classList.toggle("is-success", !unmuteSnare)
-        snare_button.classList.toggle("is-error", unmuteSnare)
         unmuteSnare = !unmuteSnare
     }
     hihat_button.onclick = function () {
-        hihat_button.classList.toggle("is-success", !unmuteHihat)
-        hihat_button.classList.toggle("is-error", unmuteHihat)
         unmuteHihat = !unmuteHihat
     }
     metro_button.onclick = function () {
-        metro_button.classList.toggle("is-success", !unmuteMetro)
-        metro_button.classList.toggle("is-error", unmuteMetro)
         unmuteMetro = !unmuteMetro
     }
 });
@@ -332,9 +348,9 @@ $.getJSON("first-names.json", function(json) {
 
 
 
-let kickColor = '#b48ead'
-let snareColor = '#bf616a'
-let hihatColor = '#ebcb8b'
+let kickColor = '#f2711c'
+let snareColor = '#2185d0'
+let hihatColor = '#a333c8'
 
 
 function drawEuclideanBase(ctx, w, h, radius, seq) {
@@ -557,3 +573,20 @@ function draw(count) {
 }
 
 
+
+
+
+
+function resetPlayer() {
+    let btn = document.getElementById("start_button");
+    btn.innerHTML = "Stop";
+    audioCtx.suspend();
+
+
+    kick_pattern = Array(steps).fill(0.0);
+    snare_pattern = Array(steps).fill(0.0);
+    hihat_pattern = Array(steps).fill(0.0);
+
+    let patternMenu = document.getElementById('patternSelectionDiv');
+    patternMenu.innerHTML = "";
+}
