@@ -425,7 +425,7 @@
     </div>
 
 
-    <!--------------------MUTATION STRATEGY inverted segment------------------------>
+    <!--------------------MUTATION STRATEGY ------------------------>
 
     <div class="ui inverted segment">
 
@@ -463,93 +463,101 @@
 
     </div>
 
+
+
+
+    <!---------------------------------------------REPRESENTATION SECTION---------------------------------------------------------------->
+
+
     <div class="ui inverted segment">
 
-      <button class="fluid ui button" onclick="initGeneticAlgorithm()">
+      <button class="fluid ui button" onclick="initGeneticAlgorithm()" type="button" id="test">
         Start Process
       </button>
-    </div>
 
+      <div class="ui modal test">
+        <i class="close icon"></i>
 
+          <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
+        <div class="ui inverted segment" id='visualization'>
+          <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
+          <div class="ui grid">
 
-    <div class="ui divider"></div>
+            <!--------PATTERNS MENU------>
 
-    <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
-
-
-
-    <!--------------------VISUALIZATION PATTERNS------------------------>
-
-    <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
-
-    <div class="ui inverted segment" id='visualization'>
-
-      <h3 class="ui header">LIST OF PATTERNS</h3>
-
-      <div class="ui grid">
-
-        <!--------PATTERNS MENU------>
-        <div class="three wide column">
-
-          <div id="patternSelectionDiv" class="ui vertical fluid  tabular menu">
+            <div class="three wide column">
+              <h4 class="ui header">LIST OF PATTERNS</h4>
+    
+              <div id="patternSelectionDiv" class="ui vertical fluid  tabular menu">
+              </div>
+    
+            </div>
+    
+            <!--------PATTERN FEATURES CONTENT------>
+            <div class="thirteen wide column">
+    
+              <div class="ui segment">
+    
+                <h1 id="patternName"></h1>
+                <hr style="width:50%;text-align:center">
+                <h3> Euclidean Rhythm </h3>
+                <canvas id="circles" width="300" height="300"></canvas>
+                <hr style="width:50%;text-align:center">
+                <h3> Balance </h3>
+                <canvas id="balance" width="300" height="300"></canvas>
+                <hr style="width:50%;text-align:center">
+    
+                <h3> Evenness </h3>
+                <canvas id="evenness" width="300" height="300"></canvas>
+                <hr style="width:50%;text-align:center">
+    
+                <h3> Entropy </h3>
+                <canvas id="entropy" width="300" height="300"></canvas>
+                <hr style="width:50%;text-align:center">
+    
+    
+    
+              </div>
+    
+            </div>
+    
           </div>
 
-        </div>
 
-        <!--------PATTERN FEATURES CONTENT------>
-        <div class="thirteen wide column">
+          <div class="ui segment" id='player_visualization'>
 
-          <div class="ui segment">
-
-            <h1 id="patternName"></h1>
-            <hr style="width:50%;text-align:center">
-            <h3> Euclidean Rhythm </h3>
-            <canvas id="circles" width="300" height="300"></canvas>
-            <hr style="width:50%;text-align:center">
-            <h3> Balance </h3>
-            <canvas id="balance" width="300" height="300"></canvas>
-            <hr style="width:50%;text-align:center">
-
-            <h3> Evenness </h3>
-            <canvas id="evenness" width="300" height="300"></canvas>
-            <hr style="width:50%;text-align:center">
-
-            <h3> Entropy </h3>
-            <canvas id="entropy" width="300" height="300"></canvas>
-            <hr style="width:50%;text-align:center">
-
-
-
+            <!-- Start Button -->
+            <button id="start_button" type="button">Play</button>
+            <button id="kick_button" type="button">Kick</button>
+            <button id="snare_button" type="button">Snare</button>
+            <button id="hihat_button" type="button">Hihat</button>
+            <button id="metro_button" type="button">Metronome</button>
+    
+            <!-- Element Container -->
+            <div id="playcontainer" class="horizontal-container"></div>
+            <button id="next_gen">NEXT GEN</button>
+            <div id="numgen"></div>
+            <div id="numel"></div>
+    
           </div>
 
-        </div>
 
+        </div>
       </div>
 
 
-      <!--------------------PLAYER------------------------>
-
-      <div class="ui segment" id='player_visualization'>
-
-        <!-- Start Button -->
-        <button id="start_button" type="button">Play</button>
-        <button id="kick_button" type="button">Kick</button>
-        <button id="snare_button" type="button">Snare</button>
-        <button id="hihat_button" type="button">Hihat</button>
-        <button id="metro_button" type="button">Metronome</button>
-
-        <!-- Element Container -->
-        <div id="playcontainer" class="horizontal-container"></div>
-        <button id="next_gen">NEXT GEN</button>
-        <div id="numgen"></div>
-        <div id="numel"></div>
-
-      </div>
     </div>
+
     <div class="ui divider"></div>
 
   </div>
+
+
+
+
+
+
 
   <!-- JS -->
   <script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
@@ -562,6 +570,7 @@
     integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
     crossorigin="anonymous"></script>
 
+   
 
 
 
