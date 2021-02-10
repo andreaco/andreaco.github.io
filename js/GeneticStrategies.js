@@ -103,11 +103,11 @@ class FitnessEntropy {
      */
     compute(pattern) {
         let list = pattern.sequences.tolist();
-        let h = []; 
+        let h = 0; 
         for (let i = 0; i < list.length; i++){
             let p = list[i];
             let ioi = this.IOI(p);
-            h.push(this.entropy(ioi));
+            h += this.entropy(ioi);
 
         }
 
@@ -173,12 +173,12 @@ class FitnessEvenness {
      */
     compute(pattern) {
         let list = pattern.sequences.tolist();
-        let e = [];
+        let e = 0;
         for (let i = 0; i < list.length; i++){
             let p = list[i];
             let x = this.p2x(p);
             let z = this.x2z(x);
-            e.push(this.evenness(z));
+            e+= this.evenness(z);
         }
 
         return e;
@@ -251,12 +251,12 @@ class FitnessBalance {
      */
     compute(pattern) {
         let list = pattern.sequences.tolist();
-        let b = [];
+        let b = 0;
         for (let i = 0; i < list.length; i++){
             let p = list[i];
             let x = this.p2x(p);
             let z = this.x2z(x);
-            b.push(this.balance(z));
+            b *= this.balance(z);
         }
 
         return b;
@@ -436,7 +436,8 @@ class SelectionStrategyManager {
 
     constructor() {
         this._strategies = [
-            new SelectionRouletteWheelStochasticAcceptance()
+            new SelectionRouletteWheelStochasticAcceptance(),
+            new FittestSurvive()
         ];
     }
 
@@ -489,9 +490,45 @@ class SelectionRouletteWheelStochasticAcceptance {
     getMaxScore(population) {
         let max = population[0].score;
         for (let i=1; i < population.length; ++i) {
-            if (population[i] > max)
+            if (population[i].score > max)
                 max = population[i].score
         }
+        return max
+    }
+}
+
+class FittestSurvive {
+    _name = "Fittest Survive"
+    constructor() {}
+
+    /**
+     * @param {Array} population Population to be selected
+     * @param {float} survivalRate Percentage of elements that should survive 
+     */
+    compute(population, survivalRate = 0.9) {
+        
+        let numberOfSurvivors = Math.floor(population.length * survivalRate)
+
+        let selected = Array(numberOfSurvivors);
+        for(let i=0; i < selected.length; ++i) {
+            selected[i] = this.extractMaxScore(population);
+        }
+        
+
+
+        return selected;
+    }
+
+    extractMaxScore(population) {
+        let max = population[0];
+        let iMax = 0;
+        for (let i=1; i < population.length; ++i) {
+            if (population[i].score > max.score) {
+                max = population[i];
+                iMax = i;
+            }
+        }
+        population.splice(iMax, 1);
         return max
     }
 }

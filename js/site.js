@@ -52,8 +52,9 @@ $(document).ready(function() {
  * AUDIO CONTEXT
  * -------------------------------------------------------------------------
  */
-const AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioCtx = new AudioContext();
+
+
+
 /**
  * Suspend/Resume the AudioContext
  */
@@ -313,6 +314,16 @@ setupSample().then((samples) => {
     kick = samples[0]; snare = samples[1]; hihat = samples[2];
     metro1 = samples[3]; metro2 = samples[4];
 
+    
+    var pad = audioCtx.createBufferSource();
+    const padGain = audioCtx.createGain();
+    padGain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+
+    pad.buffer = samples[5];
+    pad.connect(padGain).connect(audioCtx.destination);
+    pad.start(0);
+    pad.loop = true;
+    
     audioCtx.suspend();
     start_button.onclick = start;
     kick_button.onclick = function () {

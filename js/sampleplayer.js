@@ -1,3 +1,6 @@
+const audioCtx = new AudioContext();
+
+
 /**
  * Get audio files from path
  * @param {AudioContext} audioContext The AudioContext object to be used
@@ -14,11 +17,12 @@ async function getFile(audioContext, filepath) {
  * Setup and return the samples array
  */
 async function setupSample() {
-    const filePaths = ['audio/kick.wav',
-                       'audio/snare.wav',
-                       'audio/hihat.wav',
-                       'audio/metronome1.wav',
-                       'audio/metronome2.wav'];
+    const filePaths =  ['audio/kick.wav',
+                        'audio/snare.wav',
+                        'audio/hihat.wav',
+                        'audio/metronome1.wav',
+                        'audio/metronome2.wav',
+                        'audio/pad.wav'];
     const samples = []
     for (let i=0; i < filePaths.length; ++i) {
         console.log("Loading: " + filePaths[i] + "...")
@@ -27,10 +31,11 @@ async function setupSample() {
     return samples;
 }
 
-function linearToExp(linearGain, steepness){
+function linearToExp(linearGain, steepness) {
     let result = (Math.exp(steepness*linearGain) - 1) / (Math.exp(steepness) - 1);
     return result;
 }
+
 
 /**
  * Create and play a BufferSource from a custom AudioBuffer
