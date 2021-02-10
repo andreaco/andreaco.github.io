@@ -12,7 +12,7 @@ class Pattern {
     constructor(N = 0, S = 0) {
         if (N >= 0 && S  >= 0) {
             // Random sequences of 0s and 1s
-            this._sequences = nj.random(N, S).sround();
+            this._sequences = nj.random(N, S).round();
         }
         else {
             console.error('Error: Could not create Pattern')
