@@ -64,28 +64,7 @@ $('.ui.dropdown.mutation')
   })
 ;
 
-function createParametersModel() {
-    var parametersModel = {
-        startingPopulation      : undefined,
-        fitnessType             : undefined,
-        survivalRate            : undefined,
-        selectionType           : undefined,
-        crossoverProbability    : undefined,
-        crossoverType           : undefined,
-        mutationProbability     : undefined,
-        mutationType            : undefined,
-    }
-    parametersModel.startingPopulation      = startingPopulationSlider.querySelector('.slider').value;
-    parametersModel.fitnessType             = fitnessTypeDropdown.dropdown('get value');
-    parametersModel.survivalRate            = survivalRateSlider.querySelector('.slider').value;
-    parametersModel.selectionType           = selectionTypeDropdown.dropdown('get value');
-    parametersModel.crossoverProbability    = crossoverProbabilitySlider.querySelector('.slider').value;
-    parametersModel.crossoverType           = crossoverTypeDropdown.dropdown('get value');
-    parametersModel.mutationProbability     = mutationProbabilitySlider.querySelector('.slider').value;
-    parametersModel.mutationType            = mutationTypeDropdown.dropdown('get value');
-    
-    return parametersModel;
-}
+
 
 
 

@@ -1,7 +1,9 @@
 class Pattern {
     _sequences; // 2D array N sequences * S steps
     score = 0; // fitness score to be computed
-    name = "StillUnknown";
+    name = undefined;
+    id = undefined;
+
     /**
      * Constructor
      * @param {int} N Number of sequences
@@ -120,14 +122,20 @@ class GeneticAlgorithm {
             while (this._population.length > this._numberOfFinalElements) {
                 this.computeScores();
                 let populationCopy = this._population.slice();
+                
                 let selected  = this._selectionFunction.compute(populationCopy, this._survivalRate);
+
                 let offspring = this._crossoverFunction.compute(selected, this._crossoverProbability);
+
                 let mutated   = this._mutationFunction.compute(offspring);
+
                 this._population = mutated;
             }
-            console.log("Final Population: ", this._population[0]);
+            console.log(this._population)
+            return this._population;
         }
-        return this._population;
+        return [];
+        
     }
 
     computeScores() {

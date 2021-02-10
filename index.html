@@ -463,10 +463,12 @@
 
     </div>
 
+    <div class="ui inverted segment">
 
-    <button class="fluid huge ui inverted button" onclick="initGeneticAlgorithm()">
-      Start Process
-    </button>
+      <button class="fluid ui button" onclick="initGeneticAlgorithm()">
+        Start Process
+      </button>
+    </div>
 
 
 
@@ -490,16 +492,7 @@
         <!--------PATTERNS MENU------>
         <div class="three wide column">
 
-          <div class="ui vertical fluid  tabular menu">
-            <a class="item">
-              PATTERN 1
-            </a>
-            <a class="item">
-              PATTERN 2
-            </a>
-            <a class="item active">
-              PATTERN 3
-            </a>
+          <div id="patternSelectionDiv" class="ui vertical fluid  tabular menu">
           </div>
 
         </div>
@@ -508,8 +501,8 @@
         <div class="thirteen wide column">
 
           <div class="ui segment">
-            
-            <h1> Dwight </h1>
+
+            <h1 id="patternName"></h1>
             <hr style="width:50%;text-align:center">
             <h3> Euclidean Rhythm </h3>
             <canvas id="circles" width="300" height="300"></canvas>
