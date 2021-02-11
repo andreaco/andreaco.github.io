@@ -88,7 +88,7 @@
           <div id="startingPopulationSlider" class="ui two column grid">
             <div class="left floated ten wide column">
               <input class="slider" type="range" min="20" max="500" value="260"
-              oninput="updateTextBox('startingPopulationSlider', this.value);">
+                oninput="updateTextBox('startingPopulationSlider', this.value);">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
@@ -182,7 +182,7 @@
           <div id="survivalRateSlider" class="ui two column grid">
             <div class="left floated ten wide column">
               <input class="slider" type="range" min="60" max="99" value="80"
-              oninput="updateTextBox('survivalRateSlider', this.value);">
+                oninput="updateTextBox('survivalRateSlider', this.value);">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
@@ -430,8 +430,11 @@
 
       </div>
 
+
     </div>
 
+
+    <div class="ui divider"></div>
 
 
 
@@ -540,11 +543,10 @@
 
     </div>
 
+
   </div>
 
-
-
-
+  <div class="ui divider"></div>
 
 
 
@@ -564,7 +566,10 @@
 
 
   <script src="js/sampleplayer.js"></script>
-  <script src="js/GeneticStrategies.js"></script>
+  <script src="js/strategies/fitnessStrategies.js"></script>
+  <script src="js/strategies/crossoverStrategies.js"></script>
+  <script src="js/strategies/selectionStrategies.js"></script>
+  <script src="js/strategies/mutationStrategies.js"></script>
   <script src="js/pattern.js"></script>
   <script src="js/gui.js"></script>
   <script src="js/site.js"></script>
