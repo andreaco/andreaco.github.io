@@ -55,11 +55,11 @@
     </div>
   </div>
 
-  <h1 class="ui center aligned header">Genetic Algorithm</h1>
+  <h1 class="ui center aligned header">Bit Generation</h1>
 
   <!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
   <div class="parametersContainer main ui container">
-    <h3 class="ui center aligned header">Fitness</h3>
+    <h2 class="ui header">Fitness</h2>
 
     <!--------------------STARTING POPULATION inverted segment---------------------->
 
@@ -152,7 +152,7 @@
 
     <!---------------------------------------------SELECTION SECTION--------------------------------------------------------------->
 
-    <h3 class="ui center aligned header">Selection</h3>
+    <h2 class="ui header">Selection</h2>
 
     <!--------------------SURVIVAL RATE inverted inverted segment-------------------------->
     <div class="ui inverted segment">
@@ -245,7 +245,7 @@
 
     <!---------------------------------------------CROSSOVER SECTION--------------------------------------------------------------->
 
-    <h3 class="ui center aligned header">Crossover</h3>
+    <h2 class="ui header">Crossover</h2>
 
     <!--------------------CROSSOVER PROBABILITY inverted segment-------------------->
     <div class="ui inverted segment">
@@ -343,7 +343,7 @@
 
     <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
 
-    <h3 class="ui center aligned header">Mutation</h3>
+    <h2 class="ui header">Mutation</h2>
 
     <!--------------------MUTATION PROBABILITY inverted segment--------------------->
     <div class="ui inverted segment">
@@ -449,7 +449,6 @@
         <!---------------------------------------------VISUALIZATION RESULTS SECTION--------------------------------------------------------------->
 
         <div class="ui inverted segment" id='visualization'>
-          <h3 class="ui center aligned header">PATTERN REPRESENTATION</h3>
           <div class="ui grid">
 
             <!--------PATTERNS MENU------>
@@ -467,7 +466,7 @@
 
               <div class="ui segment">
 
-                <h1 id="patternName"></h1>
+                <h1 id="patternName" class="centered"></h1>
 
                 <!--------TAB FEATURES------>
 
@@ -481,22 +480,22 @@
                 <!--------TABS CONTENT------>
 
                 <div class="ui bottom attached tab segment active" data-tab="overtab">
-                  <h3> Euclidean Rhythm </h3>
+                  <h3 class="centered"> Euclidean Rhythm </h3>
                   <canvas id="circles" width="300" height="300"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="balancetab">
-                  <h3> Balance </h3>
+                  <h3 class="centered"> Balance </h3>
                   <canvas id="balance" width="300" height="300"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="evenesstab">
-                  <h3> Evenness </h3>
+                  <h3 class="centered"> Evenness </h3>
                   <canvas id="evenness" width="300" height="300"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="entropytab">
-                  <h3> Entropy </h3>
+                  <h3 class="centered"> Entropy </h3>
                   <canvas id="entropy" width="300" height="300"></canvas>
                 </div>
 
@@ -505,12 +504,13 @@
                 <!--------PLAYER------>
                 <div class="ui segment" id='player_visualization'>
 
+                  
                   <div class="five ui buttons">
-                    <button class="ui button playbutton" id="start_button">Play</button>
-                    <button class="ui button orange kickbutton" id="kick_button">Kick</button>
-                    <button class="ui button blue snarebutton" id="snare_button">Snare</button>
-                    <button class="ui button purple hihatbutton" id="hihat_button">Hihat</button>
-                    <button class="ui button metronomebutton" id="metro_button">Metronome</button>
+                    <button class="ui basic button grey" id="play_button"></button>
+                    <button class="ui basic button orange" id="kick_button"></button>
+                    <button class="ui basic button blue" id="snare_button"></button>
+                    <button class="ui basic button purple" id="hihat_button"></button>
+                    <button class="ui basic button grey" id="metro_button"></button>
                   </div>
                 </div>
 

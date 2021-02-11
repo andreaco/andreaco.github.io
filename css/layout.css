@@ -4,6 +4,10 @@
   font-size:2.5em;
 }
 
+icon {
+  padding-left:25px;
+}
+
 canvas {
   padding-left: 0;
   padding-right: 0;
@@ -13,13 +17,20 @@ canvas {
 }
 
 h1, h2, h3, h4 {
-  text-align: center;
   color: #434c5e;
+}
+
+.centered {
+  text-align: center;
 }
 
 
 .parametersContainer { 
   margin: 50px;
+}
+
+.item_name {
+  color: #9c9c9c !important;
 }
 /*
 html, body, pre, code, kbd, samp {

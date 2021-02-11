@@ -89,7 +89,7 @@ function renderPatternWindow() {
 
     let element = document.createElement('a');
 
-    element.classList.add('item');
+    element.classList.add('item', 'item_name');
 
     element.innerHTML = finalPool[i].name;
     element.id = finalPool[i].id;

@@ -120,7 +120,6 @@ class GeneticAlgorithm {
             return [];
         }
         else {
-            console.log("Initial Population:" + this._population)
             while (this._population.length > this._numberOfFinalElements) {
                 this.computeScores();
 
@@ -134,7 +133,6 @@ class GeneticAlgorithm {
 
                 this._population = mutated;
             }
-            console.log("Final Population:" + this._population)
             return this._population;
         }
 

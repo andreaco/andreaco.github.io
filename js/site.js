@@ -12,16 +12,34 @@
  * Suspend/Resume the AudioContext
  */
 function start() {
-    let btn = document.getElementById("start_button");
-
-    if (audioCtx.state === 'suspended') {
-        btn.innerHTML = "Stop";
-        audioCtx.resume();
-    }
-    else {
-        btn.innerHTML = "Play"
+    if (playing) {
         audioCtx.suspend();
     }
+    else {
+        audioCtx.resume();
+    }
+    playing = !playing;
+
+    renderPlayer();
+}
+
+play_button.onclick = start;
+
+kick_button.onclick = function () {
+    muteKick = !muteKick;
+    renderPlayer();
+}
+snare_button.onclick = function () {
+    muteSnare = !muteSnare;
+    renderPlayer();
+}
+hihat_button.onclick = function () {
+    muteHihat = !muteHihat;
+    renderPlayer();
+}
+metro_button.onclick = function () {
+    muteMetro = !muteMetro;
+    renderPlayer();
 }
 
 
@@ -47,10 +65,11 @@ kick_pattern = Array(steps).fill(0.0)
 snare_pattern = Array(steps).fill(0.0)
 hihat_pattern = Array(steps).fill(0.0)
 
-unmuteKick = false
-unmuteSnare = false
-unmuteHihat = false
-unmuteMetro = false
+playing   = false;
+muteKick  = true;
+muteSnare = true;
+muteHihat = true;
+muteMetro = true;
 
 /**
  * Advance note in sequence and schedule it in time
@@ -76,16 +95,16 @@ function nextNote() {
 function scheduleNote(beatNumber, time) {
     draw(beatNumber);
 
-    if (unmuteMetro) {
+    if (!muteMetro) {
         if (beatNumber % 16 === 0) playSample(audioCtx, metro1, 0.5);
         else if (beatNumber % 4 === 0) playSample(audioCtx, metro2, 0.5);
     }
 
-    if (unmuteKick && kick_pattern[beatNumber] !== 0.0)
+    if (!muteKick && kick_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, kick, kick_pattern[beatNumber]);
-    if (unmuteSnare && snare_pattern[beatNumber] !== 0.0)
+    if (!muteSnare && snare_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, snare, snare_pattern[beatNumber]);
-    if (unmuteHihat && hihat_pattern[beatNumber] !== 0.0)
+    if (!muteHihat && hihat_pattern[beatNumber] !== 0.0)
         playSample(audioCtx, hihat, hihat_pattern[beatNumber]);
 
 }
@@ -169,6 +188,8 @@ function initGeneticAlgorithm() {
  * Setup samples, then assign them to sample vars and prepare to play
  */
 setupSample().then((samples) => {
+    audioCtx.suspend();
+
     currentNote = 0;                        // Start sequence from 0
     nextNoteTime = audioCtx.currentTime;    // First note time
     scheduler();                            // Start scheduling
@@ -187,20 +208,8 @@ setupSample().then((samples) => {
     pad.start(0);
     pad.loop = true;
     
-    audioCtx.suspend();
-    start_button.onclick = start;
-    kick_button.onclick = function () {
-        unmuteKick = !unmuteKick
-    }
-    snare_button.onclick = function () {
-        unmuteSnare = !unmuteSnare
-    }
-    hihat_button.onclick = function () {
-        unmuteHihat = !unmuteHihat
-    }
-    metro_button.onclick = function () {
-        unmuteMetro = !unmuteMetro
-    }
+
+    renderPlayer();
 });
 
 var randomNames;
@@ -208,20 +217,66 @@ $.getJSON("first-names.json", function(json) {
     randomNames = json;
 });
 
-function resetPlayer() {
-    let btn = document.getElementById("start_button");
-    btn.innerHTML = "Stop";
+function resetPlayer() {    
     audioCtx.suspend();
 
-
-    kick_pattern = Array(steps).fill(0.0);
-    snare_pattern = Array(steps).fill(0.0);
-    hihat_pattern = Array(steps).fill(0.0);
+    kick_pattern = Array(steps).fill(0);
+    snare_pattern = Array(steps).fill(0);
+    hihat_pattern = Array(steps).fill(0);
 
     let patternMenu = document.getElementById('patternSelectionDiv');
     patternMenu.innerHTML = "";
+
+    renderPlayer();
 }
 
+function renderPlayer() {
+    let kick_button   = document.getElementById('kick_button');
+    let snare_button  = document.getElementById('snare_button');
+    let hihat_button  = document.getElementById('hihat_button');
+    let metro_button  = document.getElementById('metro_button');
+    let play_button  = document.getElementById('play_button');
+
+    if(muteKick) {
+        kick_button.innerHTML = '<i class="volume off icon"></i>'
+    }
+    else {
+        kick_button.innerHTML = '<i class="volume up icon"></i>'
+    }
+
+
+    if(muteSnare) {
+        snare_button.innerHTML = '<i class="volume off icon"></i>'
+    }
+    else {
+        snare_button.innerHTML = '<i class="volume up icon"></i>'
+    }
+
+
+    if(muteHihat) {
+        hihat_button.innerHTML = '<i class="volume off icon"></i>'
+    }
+    else {
+        hihat_button.innerHTML = '<i class="volume up icon"></i>'
+    }
+
+
+    if(muteMetro) {
+        metro_button.innerHTML = '<i class="clock outline icon"></i>'
+    }
+    else {
+        metro_button.innerHTML = '<i class="clock icon"></i>'
+    }
+
+
+    if(playing) {
+        play_button.innerHTML = '<i class="pause circle icon"></i>'
+    }
+    else {
+        play_button.innerHTML = '<i class="play circle outline icon"></i>'
+    }
+
+}
 
 
 
