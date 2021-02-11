@@ -10,7 +10,7 @@ class Pattern {
      * @param {int} S Number of steps
      */
     constructor(N = 0, S = 0) {
-        if (N >= 0 && S  >= 0) {
+        if (N >= 0 && S >= 0) {
             // Random sequences of 0s and 1s
             this._sequences = nj.random(N, S).round();
         }
@@ -50,19 +50,19 @@ class GeneticAlgorithm {
     _mutationProbability;
 
     // Strategies to be used
-    _fitnessFunction   = undefined;
+    _fitnessFunction = undefined;
     _selectionFunction = undefined;
     _crossoverFunction = undefined;
-    _mutationFunction  = undefined;
-    
-    
+    _mutationFunction = undefined;
+
+
     /**
      * Constructor
      * @param {int} numberOfElements Number of elements in the starting population
      * @param {int} numberOfSequences Number of sequences for each element in the population
      * @param {int} numberOfSteps Number of steps for each sequences in each element in the population
      */
-    constructor(numberOfElements, numberOfSequences=3, numberOfSteps=16) {    
+    constructor(numberOfElements, numberOfSequences = 3, numberOfSteps = 16) {
         try {
             this._population = Array(numberOfElements);
 
@@ -70,7 +70,7 @@ class GeneticAlgorithm {
                 this._population[i] = new Pattern(numberOfSequences, numberOfSteps);
             }
         }
-        catch(err) {
+        catch (err) {
             console.error("GeneticAlgorithm constructor: " + err.message);
         }
     }
@@ -114,8 +114,8 @@ class GeneticAlgorithm {
 
     // TODO: Gather statitics for each generation
     start() {
-        if(this._fitnessFunction   == undefined || this._selectionFunction == undefined
-            || this._crossoverFunction == undefined || this._mutationFunction  == undefined ){
+        if (this._fitnessFunction == undefined || this._selectionFunction == undefined
+            || this._crossoverFunction == undefined || this._mutationFunction == undefined) {
             console.error("Cannot start due to some uninitialized functions");
             return [];
         }
@@ -125,23 +125,23 @@ class GeneticAlgorithm {
                 this.computeScores();
 
                 let populationCopy = this._population.slice();
-                
-                let selected  = this._selectionFunction.compute(populationCopy, this._survivalRate);
+
+                let selected = this._selectionFunction.compute(populationCopy, this._survivalRate);
 
                 let offspring = this._crossoverFunction.compute(selected, this._crossoverProbability);
 
-                let mutated   = this._mutationFunction.compute(offspring);
+                let mutated = this._mutationFunction.compute(offspring);
 
                 this._population = mutated;
             }
             console.log("Final Population:" + this._population)
             return this._population;
         }
-        
+
     }
 
     computeScores() {
-        for(let i = 0; i < this._population.length; ++i) {
+        for (let i = 0; i < this._population.length; ++i) {
             this._population[i].score = this._fitnessFunction.compute(this._population[i])
         }
     }
