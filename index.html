@@ -85,14 +85,13 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-          <div id="startingPopulationSlider" class="ui two column grid">
+          <div class="ui two column grid">
             <div class="left floated ten wide column">
-              <input class="slider" type="range" min="20" max="500" value="260"
-                oninput="updateTextBox('startingPopulationSlider', this.value);">
+              <input id="startingPopulationSlider" class="slider" type="range">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
-                <input type="text" class="textbox" value="260" readonly>
+                <input id="startingPopulationTextbox" type="text" class="textbox" readonly>
                 <div class="ui inverted inverted label">
                   elements
                 </div>
@@ -179,14 +178,13 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-          <div id="survivalRateSlider" class="ui two column grid">
+          <div class="ui two column grid">
             <div class="left floated ten wide column">
-              <input class="slider" type="range" min="60" max="99" value="80"
-                oninput="updateTextBox('survivalRateSlider', this.value);">
+              <input id="survivalRateSlider" class="slider" type="range">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
-                <input type="text" class="textbox" value="80" readonly>
+                <input id="survivalRateTextbox" type="text" class="textbox" readonly>
                 <div class="ui inverted inverted label">
                   %
                 </div>
@@ -276,14 +274,13 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-          <div id="crossoverProbabilitySlider" class="ui two column grid">
+          <div class="ui two column grid">
             <div class="left floated ten wide column">
-              <input class="slider" type="range" min="30" max="100" value="65"
-                oninput="updateTextBox('crossoverProbabilitySlider', this.value);">
+              <input id="crossoverProbabilitySlider" class="slider" type="range" >
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
-                <input type="text" class="textbox" value="65" readonly>
+                <input id="crossoverProbabilityTextbox" type="text" class="textbox" readonly>
                 <div class="ui inverted inverted label">
                   %
                 </div>
@@ -373,14 +370,13 @@
 
         <!--INPUT COLOUMN (SLIDER)-->
         <div class="column">
-          <div id="mutationProbabilitySlider" class="ui two column grid">
+          <div class="ui two column grid">
             <div class="left floated ten wide column">
-              <input class="slider" type="range" min="0" max="100" value="50"
-                oninput="updateTextBox('mutationProbabilitySlider', this.value);">
+              <input id="mutationProbabilitySlider" class="slider" type="range">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
-                <input type="text" class="textbox" value="50" readonly>
+                <input id = "mutationProbabilityTextbox" type="text" class="textbox" readonly>
                 <div class="ui inverted inverted label">
                   %
                 </div>
@@ -443,7 +439,7 @@
 
     <div class="ui inverted segment">
 
-      <button class="fluid ui button" onclick="initGeneticAlgorithm()">
+      <button id="start_process_button" class="fluid ui button">
         Start Process
       </button>
 
@@ -571,7 +567,9 @@
   <script src="js/strategies/selectionStrategies.js"></script>
   <script src="js/strategies/mutationStrategies.js"></script>
   <script src="js/pattern.js"></script>
-  <script src="js/gui.js"></script>
+  <script src="js/gui/canvas.js"></script>
+  <script src="js/gui/semanticInit.js"></script>
+  <script src="js/gui/gui.js"></script>
   <script src="js/site.js"></script>
 </body>
 

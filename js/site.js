@@ -1,50 +1,3 @@
-$('.ui.accordion')
-    .accordion()
-    ;
-
-$('.menu .item')
-    .tab()
-    ;
-
-$('.ui.sticky')
-    .sticky({
-        context: '#example1'
-    })
-    ;
-
-$('.parametername')
-    .popup()
-    ;
-
-
-//=================    POP UP     =======================================================================================================
-$(function(){
-	$(".featuremodal").modal({
-        onHide: function() {
-            resetPlayer();
-        },
-		closable: true
-	});
-    $(".errormodal").modal({
-       closable: true 
-    });
-});
-
-//=================    TABS VISUAL REPRESENTATION     =======================================================================================================
-
-$(document).ready(function() {
-    $(".tab_content").hide();
-    $("#tab1").show();
-    $(".tab:first-child").addClass("active");
-    
-    $(".tab").click(function(event){
-      event.preventDefault();
-      $(".tab").removeClass("active");
-      $(".tab_content").hide();
-      $(this).addClass("active");
-      $("#"+$(this).attr("rel")).show();
-    });
-  });
 
 
 /**
@@ -158,67 +111,20 @@ function scheduler() {
  */
 
 
-/**
- *
- * // INITIALIZE SECTION
- *          numberOfStartingElements = Number of starting elements
- *          fitnessName = Type of fitness (string)
- *          finalElements = Number of final elements
- * 
- * // SELECTION SECTION
- *          Type of selection (string)
- *          Survival rate %
- * 
- * // CROSSOVER SECTION
- *          Type of crossover (string)
- *          crossover probability %
- * 
- * // MUTATION SECTION
- *          Type of mutation (string)
- *          Mutation probability %
- */
-
-/**
- * > User press start
- * > Gather parameters from GUI forms
- * 
- * GA = new GeneticAlgorithm(numberOfStartingElements, numberOfSequences=3, numberOfSteps=16)
- * GA.fitnessSetup(fitnessName, finalElements)
- * GA.selectionSetup(...)
- * GA.crossoverSetup(...)
- * GA.mutationSetup(...)
- * 
- * GA.start()
- * > Wait GA to finish
- * > Display GA._population to user
- * 
- * 
- * 
- * 
-
-   GA = new GeneticAlgorithm(10)
-   GA.fitnessSetup("FitnessStrategy1", 10)
-   GA.selectionSetup("RouletteWheelStochasticAcceptance", 0.9)
-   GA.computeScores()
-   GA._selectionFunction.compute(GA._population, 0.9)
- */
-
-
-
 var GA = undefined;
 
 //TODO: firstElementChild.FirstElementChild sistemare html con id su slider
 function createParametersModel(){
     var parameterModel = {
-        startingPopulation : document.getElementById("startingPopulationSlider").firstElementChild.firstElementChild.value,
+        startingPopulation : document.getElementById("startingPopulationSlider").value,
         finalPopulation : 10,
         fitnessType : $('#fitnessTypeDropdown').dropdown('get value'),
         selectionType  : $('#selectionTypeDropdown').dropdown('get value'),
         crossoverType : $('#crossoverTypeDropdown').dropdown('get value'),
         mutationType : $('#mutationTypeDropdown').dropdown('get value'),
-        crossoverProbability : document.getElementById("crossoverProbabilitySlider").firstElementChild.firstElementChild.value,
-        survivalRate : document.getElementById("survivalRateSlider").firstElementChild.firstElementChild.value,
-        mutationProbability : document.getElementById("mutationProbabilitySlider").firstElementChild.firstElementChild.value,
+        crossoverProbability : document.getElementById("crossoverProbabilitySlider").value,
+        survivalRate : document.getElementById("survivalRateSlider").value,
+        mutationProbability : document.getElementById("mutationProbabilitySlider").value,
     }
     return parameterModel;
  }
@@ -248,48 +154,7 @@ function initGeneticAlgorithm() {
     }
     else {
 
-        let patternMenu = document.getElementById('patternSelectionDiv');
-        
-        for(let i=0; i < finalPool.length; ++i) {
-            let randomIndex = Math.floor(Math.random() * Math.floor(randomNames.length));
-            finalPool[i].name = randomNames[randomIndex];
-            finalPool[i].id   = "id"+i;
-
-            let element = document.createElement('a');
-            
-            element.classList.add('item');
-            
-            element.innerHTML = finalPool[i].name;
-            element.id = finalPool[i].id;
-            
-            element.onclick = function () {
-                
-                let clickedPattern = finalPool.find(element => element.id === this.id);
-                let sequences = clickedPattern.sequences.tolist();
-                kick_pattern  = sequences[0];
-                snare_pattern = sequences[1];
-                hihat_pattern = sequences[2];
-
-                document.getElementById('patternName').innerHTML = clickedPattern.name;
-
-                if (!$(this).hasClass('dropdown browse')) {
-                    $(this)
-                    .addClass('active')
-                    .closest('.ui.menu')
-                    .find('.item')
-                    .not($(this))
-                    .removeClass('active');
-                }
-                draw();
-            }
-
-
-            patternMenu.appendChild(element);
-        }   
-        patternMenu.firstElementChild.onclick();
-
-        $(".featuremodal").modal('show');
-        
+        renderPatternWindow();
     }
 }
 
@@ -299,8 +164,6 @@ function initGeneticAlgorithm() {
  * STARTUP CODE
  * -------------------------------------------------------------------------
  */
-// First render
-render();
 
 /**
  * Setup samples, then assign them to sample vars and prepare to play
@@ -345,249 +208,6 @@ $.getJSON("first-names.json", function(json) {
     randomNames = json;
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-let kickColor = '#f2711c'
-let snareColor = '#2185d0'
-let hihatColor = '#a333c8'
-
-
-function drawEuclideanBase(ctx, w, h, radius, seq) {
-    let center = [h / 2, w / 2]
-    let theta = 0
-    let x = center[0] + Math.cos(theta) * radius
-    let y = center[1] + Math.sin(theta) * radius
-    ctx.beginPath();
-    ctx.strokeStyle = '#434c5e'
-    ctx.lineWidth = 5;
-    let firstPoint = -1;
-    for (let i = 0; i < seq.length; ++i) {
-
-        if (firstPoint == -1) firstPoint = i
-
-        theta = 2 * Math.PI * i / seq.length
-        x = center[0] + Math.cos(theta) * radius
-        y = center[1] + Math.sin(theta) * radius
-
-        ctx.lineTo(x, y);
-
-    }
-    if (firstPoint != -1) {
-        theta = 2 * Math.PI * firstPoint / seq.length
-        x = center[0] + Math.cos(theta) * radius
-        y = center[1] + Math.sin(theta) * radius
-
-        ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-}
-
-function drawEuclideanSteps(ctx, w, h, radius, count, seq, color) {
-    // Active step
-    let center = [h / 2, w / 2]
-    let theta = 0
-    let x = center[0] + Math.cos(theta) * radius
-    let y = center[1] + Math.sin(theta) * radius
-    for (let i = 0; i < seq.length; ++i) {
-        if (seq[i] > 0) {
-            theta = 2 * Math.PI * i / seq.length
-            x = center[0] + Math.cos(theta) * radius
-            y = center[1] + Math.sin(theta) * radius
-            ctx.beginPath();
-            if (i == count) {
-                ctx.arc(x, y, 10, 0, 2 * Math.PI, false);
-                ctx.fillStyle = '#a3be8c';
-            }
-            else {
-                ctx.arc(x, y, 8, 0, 2 * Math.PI, false);
-                ctx.fillStyle = color;
-            }
-            ctx.fill();
-        }
-    }
-}
-
-
-function drawSequences(count) {
-    // Canvas vars
-    var canvas = document.getElementById('circles');
-    var ctx = canvas.getContext('2d');
-
-    // Utility vars
-    var w = canvas.width;
-    var h = canvas.height;
-    var status = count / kick_pattern.length
-
-    var radius = 0.45 * w
-    var center = [h / 2, w / 2]
-
-    //Backgroun clear 
-    ctx.clearRect(0, 0, w, h, radius);
-    drawEuclideanBase(ctx, w, h, radius, kick_pattern)
-    drawEuclideanSteps(ctx, w, h, radius, count, kick_pattern, kickColor)
-
-    drawEuclideanBase(ctx, w, h, radius * 0.7, snare_pattern)
-    drawEuclideanSteps(ctx, w, h, radius * 0.7, count, snare_pattern, snareColor)
-
-    drawEuclideanBase(ctx, w, h, radius * 0.4, hihat_pattern)
-    drawEuclideanSteps(ctx, w, h, radius * 0.4, count, hihat_pattern, hihatColor)
-}
-
-function drawBalance() {
-    // Canvas vars
-    var canvas = document.getElementById('balance');
-    var ctx = canvas.getContext('2d');
-
-    // Utility vars
-    var w = canvas.width;
-    var h = canvas.height;
-
-    var radius = 0.45 * w
-    var center = [h / 2, w / 2]
-
-    ctx.clearRect(0, 0, w, h, radius);
-
-    // Outer circle
-    drawEuclideanBase(ctx, w, h, radius, kick_pattern)
-
-    drawBalanceCenter(ctx, w, h, radius, kick_pattern, kickColor)
-    drawBalanceCenter(ctx, w, h, radius, snare_pattern, snareColor)
-    drawBalanceCenter(ctx, w, h, radius, hihat_pattern, hihatColor)
-
-    drawBalanceSteps(ctx, w, h, radius, kick_pattern, kickColor, 14)
-    drawBalanceSteps(ctx, w, h, radius, snare_pattern, snareColor, 10)
-    drawBalanceSteps(ctx, w, h, radius, hihat_pattern, hihatColor, 6)
-
-}
-
-function drawBalanceCenter(ctx, w, h, radius, seq, color) {
-    var center = [h / 2, w / 2]
-
-    let balanceX = 0;
-    let balanceY = 0;
-    let N = 0;
-
-    for (let i = 0; i < seq.length; ++i) {
-        if (seq[i] > 0) {
-            theta = 2 * Math.PI * i / seq.length
-            x = center[0] + Math.cos(theta) * radius
-            y = center[1] + Math.sin(theta) * radius
-
-            balanceX += x
-            balanceY += y
-            N += 1;
-        }
-    }
-    balanceX /= N
-    balanceY /= N
-    ctx.beginPath();
-    ctx.arc(balanceX, balanceY, 10, 0, 2 * Math.PI, false);
-    ctx.fillStyle = color;
-    ctx.fill();
-
-    ctx.beginPath();
-    ctx.strokeStyle = color
-    ctx.lineWidth = 3;
-    ctx.lineTo(center[0], center[1])
-    ctx.lineTo(balanceX, balanceY);
-    ctx.stroke();
-}
-
-function drawBalanceSteps(ctx, w, h, radius, seq, color, size) {
-    // Active step
-    let center = [h / 2, w / 2]
-    let theta = 0
-    let x = center[0] + Math.cos(theta) * radius
-    let y = center[1] + Math.sin(theta) * radius
-    for (let i = 0; i < seq.length; ++i) {
-        if (seq[i] > 0) {
-            theta = 2 * Math.PI * i / seq.length
-            x = center[0] + Math.cos(theta) * radius
-            y = center[1] + Math.sin(theta) * radius
-            ctx.beginPath();
-
-
-            ctx.arc(x, y, size, 0, 2 * Math.PI, false);
-            ctx.fillStyle = color;
-
-            ctx.fill();
-        }
-    }
-}
-
-function drawEvenness() {
-    // Canvas vars
-    var canvas = document.getElementById('evenness');
-    var ctx = canvas.getContext('2d');
-
-    // Utility vars
-    var w = canvas.width;
-    var h = canvas.height;
-
-    var radius = 0.45 * w;
-    var center = [h / 2, w / 2];
-
-    ctx.clearRect(0, 0, w, h, radius);
-
-    drawColumn(ctx, w, h, w / 5, 0.4, w * 0 / 4, kickColor);
-    drawColumn(ctx, w, h, w / 5, 0.2, w * 1 / 4, snareColor);
-    drawColumn(ctx, w, h, w / 5, 0.5, w * 2 / 4, hihatColor);
-    drawColumn(ctx, w, h, w / 5, 0.9, w * 3 / 4, "#00aaaa");
-}
-
-function drawEntropy() {
-    // Canvas vars
-    var canvas = document.getElementById('entropy');
-    var ctx = canvas.getContext('2d');
-
-    // Utility vars
-    var w = canvas.width;
-    var h = canvas.height;
-
-    var radius = 0.45 * w;
-    var center = [h / 2, w / 2];
-
-    ctx.clearRect(0, 0, w, h, radius);
-
-    drawColumn(ctx, w, h, w / 5, 0.5, w * 0 / 4, kickColor);
-    drawColumn(ctx, w, h, w / 5, 0.2, w * 1 / 4, snareColor);
-    drawColumn(ctx, w, h, w / 5, 0.1, w * 2 / 4, hihatColor);
-    drawColumn(ctx, w, h, w / 5, 0.4, w * 3 / 4, "#00aaaa");
-}
-
-
-function drawColumn(ctx, w, h, rectwidth, amount, xstart, color) {
-    ctx.fillStyle = color;
-    ctx.beginPath();
-    let ystart = h - amount * h;
-    ctx.rect(xstart, ystart, rectwidth, h - ystart);
-    ctx.fill();
-}
-
-function draw(count) {
-    drawSequences(count);
-    drawBalance();
-    drawEvenness();
-    drawEntropy();
-}
-
-
-
-
-
-
 function resetPlayer() {
     let btn = document.getElementById("start_button");
     btn.innerHTML = "Stop";
@@ -601,3 +221,8 @@ function resetPlayer() {
     let patternMenu = document.getElementById('patternSelectionDiv');
     patternMenu.innerHTML = "";
 }
+
+
+
+
+document.getElementById("start_process_button").onclick = initGeneticAlgorithm; 
