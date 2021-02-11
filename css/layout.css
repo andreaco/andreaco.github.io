@@ -128,7 +128,7 @@ input[type=number] {
   width: 20px;
   height: 20px;
   border-radius: 50%; 
-  background: greenyellow;
+  background: #8bff91;
   cursor: pointer;
 }
 
@@ -136,15 +136,12 @@ input[type=number] {
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: greenyellow;
+  background: #8bff91;
   cursor: pointer;
 }
 
 
 
-
-/* BACKGROUND */
-@pageBackground: #F7F7F7;
 
 body {
     background-color:#2e3440;

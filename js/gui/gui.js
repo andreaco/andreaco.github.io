@@ -1,9 +1,9 @@
 
 // GUI Dropdown values setup
-var fitnessValues = getDropdownValues(fitnessStrategyManager.getStrategyNames());
+var fitnessValues   = getDropdownValues(fitnessStrategyManager.getStrategyNames());
 var selectionValues = getDropdownValues(selectionStrategyManager.getStrategyNames());
 var crossoverValues = getDropdownValues(crossoverStrategyManager.getStrategyNames());
-var mutationValues = getDropdownValues(mutationStrategyManager.getStrategyNames());
+var mutationValues  = getDropdownValues(mutationStrategyManager.getStrategyNames());
 
 // Dropdown Menus Setup
 $('.ui.dropdown.fitness')

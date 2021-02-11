@@ -1,4 +1,4 @@
-let kickColor = '#f2711c'
+let kickColor  = '#f2711c'
 let snareColor = '#2185d0'
 let hihatColor = '#a333c8'
 

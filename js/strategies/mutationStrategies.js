@@ -1,5 +1,6 @@
 /**
- * Mutation Strategies
+ * Strategy Manager responsible for storing and
+ * return the possible strategies
  */
 class MutationStrategyManager {
     _strategies;
@@ -25,6 +26,12 @@ class MutationStrategyManager {
     }
 }
 
+
+
+
+/**
+ * Flib Bit Mutation
+ */
 class FlipBitMutation {
     _name = "Flip Bit";
     constructor() {}
@@ -66,6 +73,11 @@ class FlipBitMutation {
 }
 
 
+
+
+/**
+ * Bit String Mutation
+ */
 class BitStringMutation {
     _name = "Bit String Mutation";
     constructor() {}
@@ -112,6 +124,6 @@ class BitStringMutation {
 
 
 /**
- * Strategy Manager initialization
+ * Initialization
  */
 const mutationStrategyManager  = new MutationStrategyManager();

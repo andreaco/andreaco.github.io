@@ -1,23 +1,18 @@
-$('.ui.accordion')
-    .accordion()
-    ;
-
-$('.menu .item')
-    .tab()
-    ;
-
-$('.ui.sticky')
-    .sticky({
-        context: '#example1'
-    })
-    ;
-
-$('.parametername')
-    .popup()
-    ;
+/**
+ * Accordion
+ */
+$('.ui.accordion').accordion();
 
 
-//=================    POP UP     =======================================================================================================
+/**
+ * Menu Item
+ */
+$('.menu .item').tab();
+
+
+/**
+ * Modal Windows
+ */
 $(function(){
 	$(".featuremodal").modal({
         onHide: function() {
@@ -30,8 +25,10 @@ $(function(){
     });
 });
 
-//=================    TABS VISUAL REPRESENTATION     =======================================================================================================
 
+/**
+ * Tabs Visual Representation
+ */
 $(document).ready(function() {
     $(".tab_content").hide();
     $("#tab1").show();

@@ -1,5 +1,6 @@
 /**
- * Selection Strategies
+ * Strategy Manager responsible for storing and
+ * return the possible strategies
  */
 class SelectionStrategyManager {
     _strategies;
@@ -26,6 +27,10 @@ class SelectionStrategyManager {
 
 
 
+
+/**
+ * Selection Roulette Wheel with Stochastic Acceptance
+ */
 class SelectionRouletteWheelStochasticAcceptance {
     _name = "Roulette Wheel Stochastic Acceptance"
     constructor() {}
@@ -69,6 +74,12 @@ class SelectionRouletteWheelStochasticAcceptance {
     }
 }
 
+
+
+
+/**
+ * Fittest Survive
+ */
 class FittestSurvive {
     _name = "Fittest Survive"
     constructor() {}
@@ -107,6 +118,6 @@ class FittestSurvive {
 
 
 /**
- * Strategy Manager initialization
+ * Initialization
  */
 const selectionStrategyManager = new SelectionStrategyManager();

@@ -1,9 +1,6 @@
 /**
- * Fitness Strategies
- */
-
-/**
- * Manager responsible for storing and returning all the included strategies.
+ * Strategy Manager responsible for storing and
+ * return the possible strategies
  */
 class FitnessStrategyManager {
     _strategies;
@@ -23,7 +20,7 @@ class FitnessStrategyManager {
 
     getStrategyNames() {
         let list = []
-        for (let i=0; i < this._strategies.length; ++i) {
+        for (let i = 0; i < this._strategies.length; ++i) {
             list.push(this._strategies[i]._name)
         }
         return list
@@ -47,19 +44,19 @@ function distance(p) {
     let tmp = []
     let N = p.length;
 
-    for (let i = 0; i < N; i++){
-        if (p[i]!==0){
+    for (let i = 0; i < N; i++) {
+        if (p[i] !== 0) {
             ons.push(i);
         }
     }
 
-    if(ons.length > 0){
-        ons.push(N+ons[0]);
+    if (ons.length > 0) {
+        ons.push(N + ons[0]);
     }
     else ons.push(N);
-    
-    for (let i = 0; i < ons.length-1; i++){ 
-        tmp.push(ons[i+1] - ons[i]);
+
+    for (let i = 0; i < ons.length - 1; i++) {
+        tmp.push(ons[i + 1] - ons[i]);
     }
 
     return tmp;
@@ -78,34 +75,35 @@ function countOccurrences(array) {
  * Utility function to compute the Inter Onset Interval
  * @param {Array} p Pattern in p notation 
  */
-function IOI(p){
+function IOI(p) {
     let g = distance(p);
     let occurrencesDict = countOccurrences(g);
 
     //N is the number of intervals (== number of onsets)
     let N = 0;
-    Object.keys(occurrencesDict).forEach(function(key) {
+    Object.keys(occurrencesDict).forEach(function (key) {
         N += occurrencesDict[key];
-     });
-    
+    });
+
     // Len of pattern + 1, taking into account seq with only one onset (distance 16 needs index 16)
-    let ans = Array(p.length+1).fill(0)
-    Object.entries(occurrencesDict).forEach(function(pair) {
+    let ans = Array(p.length + 1).fill(0)
+    Object.entries(occurrencesDict).forEach(function (pair) {
         ans[pair[0]] = pair[1] / N
     });
-    
+
     return ans;
 }
 
 /**
  * Computes entropy feature for the desired pattern
+ * @param {*} ioi Pattern IOI
  */
 function entropy(ioi) {
     let N = ioi.length
     let sum = 0;
     let eps = 0.00000000001
-    for(let i=0; i < N; ++i) {
-        sum += (ioi[i]*Math.log(ioi[i]+eps))
+    for (let i = 0; i < N; ++i) {
+        sum += (ioi[i] * Math.log(ioi[i] + eps))
     }
     return - sum / Math.log(N);
 }
@@ -117,9 +115,9 @@ function entropy(ioi) {
 function p2x(p) {
     let result = []
     let N = p.length
-    for (let i = 0; i < N; i++){
-        if (p[i]!==0){
-            result.push(i/N);
+    for (let i = 0; i < N; i++) {
+        if (p[i] !== 0) {
+            result.push(i / N);
         }
     }
     return result;
@@ -131,8 +129,8 @@ function p2x(p) {
  */
 function x2z(x) {
     let z = [];
-    for (let i = 0; i < x.length; i++){
-        let twoPiJ = math.complex(0,2*math.pi);
+    for (let i = 0; i < x.length; i++) {
+        let twoPiJ = math.complex(0, 2 * math.pi);
         z.push(math.exp(math.multiply(x[i], twoPiJ)))
     }
     return z;
@@ -143,19 +141,19 @@ function x2z(x) {
  * Compute evenness of pattern
  * @param {Array} z Pattern in z notation
  */
-function evenness(z){
+function evenness(z) {
     let N = z.length;
     if (N == 0) return 0
     let e = 0
-    for (let k=0; k < z.length; ++k) {
-        let minusTwoPij = math.complex(0, -2*math.pi);
+    for (let k = 0; k < z.length; ++k) {
+        let minusTwoPij = math.complex(0, -2 * math.pi);
         let exponent = math.multiply(minusTwoPij, k);
         exponent = math.divide(exponent, N)
         let tmp = math.multiply(z[k], math.exp(exponent))
         e = math.add(e, tmp)
     }
     e = math.abs(e)
-    e = math.divide(e,N)
+    e = math.divide(e, N)
     return e;
 }
 
@@ -164,10 +162,10 @@ function evenness(z){
  * Utility funcution to compute the sum over the array
  * @param {Array} z Array to be summed
  */
-function summation(z){
+function summation(z) {
     let sum = math.complex(0, 0);
-    for (let i = 0; i < z.length; i++){
-        sum  = math.add(sum, z[i]);
+    for (let i = 0; i < z.length; i++) {
+        sum = math.add(sum, z[i]);
     }
     return sum;
 }
@@ -176,22 +174,26 @@ function summation(z){
  * Compute balance of pattern
  * @param {Array} z Pattern in z notation
  */
-function balance(z){
-    let N = z.length; 
-    if (N === 0){
+function balance(z) {
+    let N = z.length;
+    if (N === 0) {
         return 0
     }
 
-    else{
-        return 1 - math.abs(summation(z))/N
+    else {
+        return 1 - math.abs(summation(z)) / N
     }
 }
 
 
 
+
+/**
+ * Fitness Entropy
+ */
 class FitnessEntropy {
     _name = "Fitness Entropy"
-    constructor() {}
+    constructor() { }
 
     /**
      * Fitness Function
@@ -199,23 +201,27 @@ class FitnessEntropy {
      */
     compute(pattern) {
         let list = pattern.sequences.tolist();
-        let h = 0; 
-        for (let i = 0; i < list.length; i++){
+        let h = 0;
+        for (let i = 0; i < list.length; i++) {
             let p = list[i];
             let ioi = IOI(p);
             h += entropy(ioi);
 
         }
 
-        return h;
+        return h/3;
     }
 }
 
 
 
+
+/**
+ * Fitness Evenness
+ */
 class FitnessEvenness {
     _name = "Fitness Evenness"
-    constructor() {}
+    constructor() { }
 
     /**
      * Fitness Function
@@ -224,21 +230,26 @@ class FitnessEvenness {
     compute(pattern) {
         let list = pattern.sequences.tolist();
         let e = 0;
-        for (let i = 0; i < list.length; i++){
+        for (let i = 0; i < list.length; i++) {
             let p = list[i];
             let x = p2x(p);
             let z = x2z(x);
-            e+= evenness(z);
+            e += evenness(z);
         }
 
-        return e;
+        return e/3;
     }
 }
 
 
+
+
+/**
+ * Fitness Balance
+ */
 class FitnessBalance {
     _name = "Fitness Balance"
-    constructor() {}
+    constructor() { }
 
 
     /**
@@ -248,20 +259,26 @@ class FitnessBalance {
     compute(pattern) {
         let list = pattern.sequences.tolist();
         let b = 0;
-        for (let i = 0; i < list.length; i++){
+        for (let i = 0; i < list.length; i++) {
             let p = list[i];
             let x = p2x(p);
             let z = x2z(x);
             b += balance(z);
         }
 
-        return b;
+        return b/3.0;
     }
 }
 
+
+
+
+/**
+ * Fitness Balance Evenness Entropy 
+ */
 class FitnessBEH {
     _name = "Fitness BEH"
-    constructor() {}
+    constructor() { }
 
     /**
      * Fitness Function
@@ -270,7 +287,7 @@ class FitnessBEH {
     compute(pattern) {
         let list = pattern.sequences.tolist();
         let beh = [];
-        for (let i = 0; i < list.length; i++){
+        for (let i = 0; i < list.length; i++) {
             let p = list[i];
             let x = p2x(p);
             let z = x2z(x);
@@ -284,6 +301,6 @@ class FitnessBEH {
 
 
 /**
- * Strategy Manager initialization
+ * Initialization
  */
-const fitnessStrategyManager   = new FitnessStrategyManager();
+const fitnessStrategyManager = new FitnessStrategyManager();
