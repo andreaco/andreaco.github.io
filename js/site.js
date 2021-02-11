@@ -2,7 +2,7 @@
  * Read JSON containing array of names for patterns
  */
 var randomNames;
-$.getJSON("first-names.json", function (json) {
+$.getJSON("resources/first-names.json", function (json) {
     randomNames = json;
 });
 
