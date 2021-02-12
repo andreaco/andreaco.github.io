@@ -70,18 +70,18 @@ document.getElementById("startingPopulationTextbox").value = 260
 
 document.getElementById("survivalRateSlider").min = 60
 document.getElementById("survivalRateSlider").max = 99
-document.getElementById("survivalRateSlider").value = 80
-document.getElementById("survivalRateTextbox").value = 80
+document.getElementById("survivalRateSlider").value = 90
+document.getElementById("survivalRateTextbox").value = 90
 
 document.getElementById("crossoverProbabilitySlider").min = 30
 document.getElementById("crossoverProbabilitySlider").max = 100
-document.getElementById("crossoverProbabilitySlider").value = 65
-document.getElementById("crossoverProbabilityTextbox").value = 65
+document.getElementById("crossoverProbabilitySlider").value = 90
+document.getElementById("crossoverProbabilityTextbox").value = 90
 
 document.getElementById("mutationProbabilitySlider").min = 0
 document.getElementById("mutationProbabilitySlider").max = 100
-document.getElementById("mutationProbabilitySlider").value = 50
-document.getElementById("mutationProbabilityTextbox").value = 50
+document.getElementById("mutationProbabilitySlider").value = 5
+document.getElementById("mutationProbabilityTextbox").value = 5
 
 
 document.getElementById("startingPopulationSlider").oninput = function () { updateTextBox('startingPopulationTextbox', this.value) };

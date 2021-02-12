@@ -55,10 +55,19 @@
 
   <h1 class="ui center aligned header">Bit Generation</h1>
 
+
+
   <!---------------------------------------------FITNESS SECTION--------------------------------------------------------------->
   <div class="parametersContainer main ui container">
+    <p class="item_name centered">
+      Genetic Algorithms are an optimization technique inspired by Darwin’s theory of evolution. <br>
+      Starting from a random set of drum patterns, we gradually combine them in order to generate better ones. <br>
+    </p>
     <h2 class="ui header">Fitness</h2>
-
+    <p class="item_name">
+      The fitness function determines the ability of an individual to compete with
+      others. <br>
+    </p>
     <!--------------------STARTING POPULATION---------------------->
 
     <div class="ui inverted segment">
@@ -72,7 +81,7 @@
               STARTING POPULATION
             </div>
             <div class="content">
-              <p>Number of randomically generated patterns that compose the initial population.</p>
+              <p class="item_name">Number of patterns generated randomically that compose the first generation</p>
             </div>
           </div>
 
@@ -110,9 +119,14 @@
               FITNESS STRATEGY
             </div>
             <div class="content">
-              <p>The fitness function determines how fit an individual is (the ability of an individual to compete with
-                other individuals). It gives a fitness score to each individual. The probability that an individual will
-                be selected for reproduction is based on its fitness score.</p>
+              <p class="item_name">
+                Fitness function to be used <br><br>
+                <b>Fintess Balance:</b> <br>
+                <b>Fitness Evennes:</b> <br>
+                <b>Fitness Entropy:</b> <br>
+                <b>Fitness BEH:</b> a combination of all the features above
+
+              </p>
             </div>
           </div>
 
@@ -134,6 +148,9 @@
     <!---------------------------------------------SELECTION SECTION--------------------------------------------------------------->
 
     <h2 class="ui header">Selection</h2>
+    <p class="item_name">
+      The selection phase is when the fittest individuals are selected as parents for breeding the next generation. <br>
+    </p>
 
     <!--------------------SURVIVAL RATE-------------------------->
     <div class="ui inverted segment">
@@ -147,8 +164,7 @@
               SURVIVAL RATE
             </div>
             <div class="content">
-              <p>During selection phase the fittest individuals are selected: they will pass their main features to the
-                next generation.</p>
+              <p class="item_name">Percentage of individuals that will survive as parents</p>
             </div>
           </div>
         </div>
@@ -185,7 +201,12 @@
               SELECTION STRATEGY
             </div>
             <div class="content">
-              <p></p>
+              <p class="item_name">
+                Function to be used to choose the surviving individuals <br><br>
+                <b>Fittest Survive:</b> Is the simplest, just the fittest indivuals can survive <br>
+                <b>Roulette Wheel:</b> Each individual has a probability to survive, which is proportional to its
+                fitness score
+              </p>
             </div>
           </div>
         </div>
@@ -206,6 +227,10 @@
     <!---------------------------------------------CROSSOVER SECTION--------------------------------------------------------------->
 
     <h2 class="ui header">Crossover</h2>
+    <p class="item_name">
+      During this phase pairs of individuals are combined in order to create a new offspring characterized
+      by the predominant features of the parents.
+    </p>
 
     <!--------------------CROSSOVER PROBABILITY-------------------->
     <div class="ui inverted segment">
@@ -219,9 +244,9 @@
               CROSSOVER PROBABILITY
             </div>
             <div class="content">
-              <p>Probability of each element to be part of the Crossover phase.
-                During this phase pairs of individuals are combinated in order to create a new Offspring characterized
-                by the predominant features of the previous generation.
+              <p class="item_name">
+                Probability of each element to be part of the Crossover phase. <br>
+                Otherwise the parents will survive to the next generation instead of mating.
               </p>
             </div>
           </div>
@@ -230,7 +255,7 @@
         <div class="column">
           <div class="ui two column grid">
             <div class="left floated ten wide column">
-              <input id="crossoverProbabilitySlider" class="slider" type="range" >
+              <input id="crossoverProbabilitySlider" class="slider" type="range">
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
@@ -250,7 +275,7 @@
 
     <!--------------------CROSSOVER STRATEGY ----------------------->
     <div class="ui inverted segment">
-    
+
       <div class="ui two column grid">
 
         <div class="column">
@@ -260,9 +285,13 @@
               CROSSOVER STRATEGY
             </div>
             <div class="content">
-              <p>The combination of two patterns is made through an exchange of the values that compose them.
-                The strategies apply one (Single Point) or two (Two Point) subdivisions of the two patterns and create
-                the Offspring throung the exchange of the resulted sections.
+              <p class="item_name">
+                The combination modality to generate new patterns <br><br>
+                <b>Single Point:</b> A point on both parents' chromosomes is picked randomly, and designated a
+                'crossover point'. Bits to the right of that point are swapped between the two parent chromosomes. This
+                results in two offspring, each carrying some genetic information from both parents<br>
+                <b>Two Point:</b>Two crossover points are picked randomly from the parent chromosomes. The bits in
+                between the two points are swapped between the parent organisms.
               </p>
             </div>
           </div>
@@ -285,6 +314,9 @@
     <!---------------------------------------------MUTATION SECTION---------------------------------------------------------------->
 
     <h2 class="ui header">Mutation</h2>
+    <p class="item_name">
+      Mutation occurs to maintain diversity within the population and prevent premature convergence.
+    </p>
 
     <!--------------------MUTATION PROBABILITY-------------------->
     <div class="ui inverted segment">
@@ -298,8 +330,8 @@
               MUTATION PROBABILITY
             </div>
             <div class="content">
-              <p>Probability of each element to be subjected to a mutation.
-                Mutation occurs to maintain diversity within the population and prevent premature convergence.
+              <p class="item_name">
+                Probability of each element to be subjected to a mutation.
               </p>
             </div>
           </div>
@@ -312,7 +344,7 @@
             </div>
             <div class="right floated five wide column">
               <div class="ui fluid right inverted labeled input">
-                <input id = "mutationProbabilityTextbox" type="text" class="textbox" readonly>
+                <input id="mutationProbabilityTextbox" type="text" class="textbox" readonly>
                 <div class="ui inverted inverted label">
                   %
                 </div>
@@ -339,7 +371,13 @@
               MUTATION STRATEGY
             </div>
             <div class="content">
-              <p>Mutation Srategies:</p>
+              <p class="item_name">
+                Type of mutation to be applied <br><br>
+                <b>Bit String Mutation:</b> The mutation of bit strings ensue through bit flips at random positions.
+                <br>
+                <b>Flip Bit:</b> This mutation operator takes the chosen genome and inverts the bits, if the genome bit
+                is 1, it is changed to 0 and vice versa
+              </p>
             </div>
           </div>
         </div>
@@ -464,7 +502,7 @@
                 <!--------PLAYER------>
 
                 <div class="ui segment" id='player_visualization'>
-                  
+
                   <div class="five ui buttons">
                     <button class="ui basic button grey" id="play_button"></button>
                     <button class="ui basic button orange" id="kick_button"></button>

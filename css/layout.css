@@ -8,6 +8,7 @@ icon {
   padding-left:25px;
 }
 
+
 canvas {
   padding-left: 0;
   padding-right: 0;
@@ -32,17 +33,11 @@ h1, h2, h3, h4 {
 .item_name {
   color: #9c9c9c !important;
 }
-/*
-html, body, pre, code, kbd, samp {
-  font-family: "Press Start 2P";
+
+b {
+  color: white;
 }
-*/
 
-/* 
-
-  justify-content?????
-
-*/
 .main-container {
   display: flex;
   flex-direction: column;
