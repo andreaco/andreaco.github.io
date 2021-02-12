@@ -16,13 +16,37 @@ async function getFile(audioContext, filepath) {
 /**
  * Setup and return the samples array
  */
-async function setupSample() {
-    const filePaths =  ['audio/kick.wav',
-                        'audio/snare.wav',
-                        'audio/hihat.wav',
-                        'audio/metronome1.wav',
-                        'audio/metronome2.wav',
-                        'audio/pad.mp3'];
+async function setupSample(drumTheme) {
+
+    let filePaths;
+
+    if (drumTheme=='Percussive'){
+        filePaths =  ['audio/perc_kick.wav',
+                            'audio/perc_snare.wav',
+                            'audio/perc_hihat.wav',
+                            'audio/metronome1.wav',
+                            'audio/metronome2.wav',
+                            'audio/pad.mp3'];
+    }
+    else if(drumTheme=='Electronic'){
+        filePaths =  ['audio/elec_kick.wav',
+                            'audio/elec_snare.wav',
+                            'audio/elec_hihat.wav',
+                            'audio/metronome1.wav',
+                            'audio/metronome2.wav',
+                            'audio/pad.mp3'];
+    }
+    else{
+        filePaths =  ['audio/kick.wav',
+                            'audio/snare.wav',
+                            'audio/hihat.wav',
+                            'audio/metronome1.wav',
+                            'audio/metronome2.wav',
+                            'audio/pad.mp3'];
+
+    }
+        
+
     const samples = []
     for (let i=0; i < filePaths.length; ++i) {
         console.log("Loading: " + filePaths[i] + "...")
@@ -30,6 +54,7 @@ async function setupSample() {
     }
     return samples;
 }
+
 
 function linearToExp(linearGain, steepness) {
     let result = (Math.exp(steepness*linearGain) - 1) / (Math.exp(steepness) - 1);

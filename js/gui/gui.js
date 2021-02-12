@@ -4,6 +4,11 @@ var fitnessValues   = getDropdownValues(fitnessStrategyManager.getStrategyNames(
 var selectionValues = getDropdownValues(selectionStrategyManager.getStrategyNames());
 var crossoverValues = getDropdownValues(crossoverStrategyManager.getStrategyNames());
 var mutationValues  = getDropdownValues(mutationStrategyManager.getStrategyNames());
+var drumThemes =  ["808",
+                  "Percussive",
+                  "Electronic"];
+var drumValues  = getDropdownValues(drumThemes);
+
 
 // Dropdown Menus Setup
 $('.ui.dropdown.fitness')
@@ -30,6 +35,14 @@ $('.ui.dropdown.mutation')
     placeholder: "Select Mutation Strategy"
   })
   ;
+
+$('.ui.dropdown.drum')
+  .dropdown({
+    values: drumValues,
+    placeholder: "Select Drum Theme"
+  })
+  ;
+
 
 function updateTextBox(ID, value) {
   document.getElementById(ID).value = value;
