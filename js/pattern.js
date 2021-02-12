@@ -1,8 +1,8 @@
 class Pattern {
-    _sequences; // 2D array N sequences * S steps
-    score = 0;  // fitness score to be computed
-    name = undefined;
-    id = undefined;
+    _sequences;         // 2D array N sequences * S steps
+    score = 0;          // fitness score to be computed
+    name  = undefined;
+    id    = undefined;
 
     /**
      * Constructor
