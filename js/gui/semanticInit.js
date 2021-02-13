@@ -15,6 +15,9 @@ $('.menu .item').tab();
  */
 $(function(){
 	$(".featuremodal").modal({
+        onShow: function() {
+          $('.descriptiontooltip').popup();
+        },
         onHide: function() {
             resetPlayer();
         },

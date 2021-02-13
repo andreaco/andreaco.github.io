@@ -192,7 +192,7 @@ function balance(z) {
  * Fitness Entropy
  */
 class FitnessEntropy {
-    _name = "Fitness Entropy"
+    _name = "Entropy"
     constructor() { }
 
     /**
@@ -220,7 +220,7 @@ class FitnessEntropy {
  * Fitness Evenness
  */
 class FitnessEvenness {
-    _name = "Fitness Evenness"
+    _name = "Evenness"
     constructor() { }
 
     /**
@@ -248,7 +248,7 @@ class FitnessEvenness {
  * Fitness Balance
  */
 class FitnessBalance {
-    _name = "Fitness Balance"
+    _name = "Balance"
     constructor() { }
 
 
@@ -277,7 +277,7 @@ class FitnessBalance {
  * Fitness Balance Evenness Entropy 
  */
 class FitnessBEH {
-    _name = "Fitness BEH"
+    _name = "Milne-Herff"
     constructor() { }
 
     /**

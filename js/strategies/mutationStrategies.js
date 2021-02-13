@@ -79,7 +79,7 @@ class FlipBitMutation {
  * Bit String Mutation
  */
 class BitStringMutation {
-    _name = "Bit String Mutation";
+    _name = "Bit String";
     constructor() {}
 
     /**

@@ -32,7 +32,7 @@ class CrossoverStrategyManager {
  * Single Point Crossover Strategy
  */
 class SinglePointCrossover {
-    _name = "Single Point Crossover";
+    _name = "Single Point";
     constructor() { }
 
     /**
@@ -72,7 +72,7 @@ class SinglePointCrossover {
  * Two Point Crossover Strategy
  */
 class TwoPointCrossover {
-    _name = "Two Point Crossover";
+    _name = "Two Point";
     constructor() { }
 
     /**

@@ -121,10 +121,17 @@
             <div class="content">
               <p class="item_name">
                 Fitness function to be used <br><br>
-                <b>Fintess Balance:</b> <br>
-                <b>Fitness Evennes:</b> <br>
-                <b>Fitness Entropy:</b> <br>
-                <b>Fitness BEH:</b> a combination of all the features above
+                <b>Balance:</b> <br>
+                The balance of a rhythm is a quantification of the proximity of that rhythm's “centre of mass” to the
+                centre of the unit circle <br>
+                <b>Evennes:</b> <br>
+                The evenness of a rhythm is a quantification of the lack of variance of its interonset intervals.
+                If the rhythm's interonset intervals are all similar in duration, the rhythm will have high evenness<br>
+                <b>Entropy:</b> <br>
+                Entropy quantifies the unpredictability of a probability mass function.
+                <br>
+                <b>Milne-Herff:</b> <br>
+                As stated by Milne and Herff is a combination of all the features above
 
               </p>
             </div>
@@ -373,7 +380,7 @@
             <div class="content">
               <p class="item_name">
                 Type of mutation to be applied <br><br>
-                <b>Bit String Mutation:</b> The mutation of bit strings ensue through bit flips at random positions.
+                <b>Bit String:</b> The mutation of bit strings ensue through bit flips at random positions.
                 <br>
                 <b>Flip Bit:</b> This mutation operator takes the chosen genome and inverts the bits, if the genome bit
                 is 1, it is changed to 0 and vice versa
@@ -480,23 +487,34 @@
                 <!--------TABS CONTENT------>
 
                 <div class="ui bottom attached tab segment active" data-tab="overtab">
-                  <h3 class="centered"> Euclidean Rhythm </h3>
-                  <canvas id="circles" width="350" height="350"></canvas>
+                  
+                    <h3 class="centered"> Euclidean Rhythm </h3>
+                    <canvas id="circles" width="350" height="350"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="balancetab">
                   <h3 class="centered"> Balance </h3>
-                  <canvas id="balance" width="350" height="350"></canvas>
+                  <canvas class="descriptiontooltip"
+                          data-content="The balance of a rhythm is a quantification of the proximity of that rhythm's “centre of mass” to the
+                  centre of the unit circle"
+                          data-position="right center"
+                          id="balance" width="350" height="350"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="evenesstab">
                   <h3 class="centered"> Evenness </h3>
-                  <canvas id="evenness" width="350" height="350"></canvas>
+                  <canvas class="descriptiontooltip"
+                  data-content="The evenness of a rhythm is a quantification of the lack of variance of its interonset intervals. If the rhythm's interonset intervals are all similar in duration, the rhythm will have high evenness"
+                  data-position="right center"
+                  id="evenness" width="350" height="350"></canvas>
                 </div>
 
                 <div class="ui bottom attached tab segment" data-tab="entropytab">
                   <h3 class="centered"> Entropy </h3>
-                  <canvas id="entropy" width="350" height="350"></canvas>
+                  <canvas class="descriptiontooltip"
+                  data-content="Entropy quantifies the unpredictability of a probability mass function. "
+                  data-position="right center"
+                  id="entropy" width="350" height="350"></canvas>
                 </div>
 
                 <!--------PLAYER------>
