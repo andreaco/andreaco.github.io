@@ -45,6 +45,16 @@ b {
   position: absolute;
 }
 
+@font-face {
+  font-family: Networld;
+  src: url(Networld-3zRwp.ttf);
+}
+.title {
+  font-family: Networld;
+  color: white;
+  font-size: 100px;
+}
+
 /* Horizontal Flexbox */
 .horizontal-container {
   display: flex;
@@ -349,3 +359,6 @@ body {
     -webkit-transform: rotate(360deg);
  }
 }
+
+
+
