@@ -109,6 +109,15 @@ function resetPlayer() {
     // Stop AudioContext
     audioCtx.suspend();
 
+    // Reset View Variables
+    playing = false;
+    muteKick = true;
+    muteSnare = true;
+    muteHihat = true;
+    muteMetro = true;
+
+
+
     // Reset Sequencer
     currentNote = 0;
 
