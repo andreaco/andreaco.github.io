@@ -1,6 +1,6 @@
 class Pattern {
-    _sequences;         // 2D array N sequences * S steps
-    score = 0;          // fitness score to be computed
+    _sequences;         /// 2D array N sequences * S steps as NJ array
+    score = 0;          /// fitness score to be computed
     name  = undefined;
     id    = undefined;
 
@@ -20,7 +20,7 @@ class Pattern {
     }
 
     /**
-     * Getters
+     * Getters for private attributes
      */
     get steps() {
         return this._sequences.shape[1];
@@ -31,7 +31,10 @@ class Pattern {
     get sequences() {
         return this._sequences;
     }
-
+    
+    /**
+     * Setters
+     */
     set sequences(value) {
         this._sequences = value;
     }

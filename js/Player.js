@@ -11,45 +11,59 @@ muteHihat = true;
 muteMetro = true;
 
 /**
- * Player Functions
+ * This function starts and stop the AudioContext and the sequencer
  */
 function startAndStop() {
+    //Toggle between start and stop
     if (playing) {
         audioCtx.suspend();
     }
     else {
         audioCtx.resume();
     }
+    
+    // GUI State variable
     playing = !playing;
 
+    // Render
     renderPlayer();
 }
 
+/**
+ * Mute/Unmute Kick sample
+ */
 function muteUnmuteKick() {
     muteKick = !muteKick;
     renderPlayer();
 }
 
+/**
+ * Mute/Unmute Snare sample
+ */
 function muteUnmuteSnare() {
     muteSnare = !muteSnare;
     renderPlayer();
 }
 
+/**
+ * Mute/Unmute Hihat sample
+ */
 function muteUnmuteHihat() {
     muteHihat = !muteHihat;
     renderPlayer();
 }
 
-function muteUnmuteKick() {
-    muteKick = !muteKick;
-    renderPlayer();
-}
-
+/**
+ * Mute/Unmute Metronome sample
+ */
 function muteUnmuteMetronome() {
     muteMetro = !muteMetro;
     renderPlayer();
 }
 
+/**
+ * Assign the mute/unmute functions to relative buttons
+ */
 play_button.onclick  = startAndStop;
 kick_button.onclick  = muteUnmuteKick;
 snare_button.onclick = muteUnmuteSnare;
@@ -103,19 +117,18 @@ function renderPlayer() {
 }
 
 /**
- * Function used to reset the player between one session and another
+ * Function used to reset the player GUI between one session and another
  */
 function resetPlayer() {
     // Stop AudioContext
     audioCtx.suspend();
 
     // Reset View Variables
-    playing = false;
-    muteKick = true;
+    playing   = false;
+    muteKick  = true;
     muteSnare = true;
     muteHihat = true;
     muteMetro = true;
-
 
 
     // Reset Sequencer

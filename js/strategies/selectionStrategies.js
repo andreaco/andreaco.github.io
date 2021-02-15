@@ -11,11 +11,18 @@ class SelectionStrategyManager {
             new FittestSurvive()
         ];
     }
-
+    
+    /**
+     * Returns strategy from its name
+     * @param {string} name 
+     */
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
     }
-
+    
+    /**
+     * Return the list of strategy names
+     */
     getStrategyNames() {
         let list = []
         for (let i=0; i < this._strategies.length; ++i) {
@@ -57,6 +64,7 @@ class SelectionRouletteWheelStochasticAcceptance {
             selected[i] = population[index];
             population.splice(index, 1);
         }
+
         return selected;
     }
 
@@ -88,8 +96,7 @@ class FittestSurvive {
      * @param {Array} population Population to be selected
      * @param {float} survivalRate Percentage of elements that should survive 
      */
-    compute(population, survivalRate = 0.9) {
-        
+    compute(population, survivalRate = 0.9) { 
         let numberOfSurvivors = Math.floor(population.length * survivalRate)
 
         let selected = Array(numberOfSurvivors);
@@ -97,11 +104,13 @@ class FittestSurvive {
             selected[i] = this.extractMaxScore(population);
         }
         
-
-
         return selected;
     }
 
+    /**
+     * Extract the max scoring element and removes it from the array
+     * @param {*} population 
+     */
     extractMaxScore(population) {
         let max = population[0];
         let iMax = 0;

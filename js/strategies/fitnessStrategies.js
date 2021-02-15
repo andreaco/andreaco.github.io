@@ -13,11 +13,17 @@ class FitnessStrategyManager {
             new FitnessEntropy()
         ];
     }
-
+    /**
+     * Returns strategy from its name
+     * @param {string} name 
+     */
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
     }
 
+    /**
+     * Return the list of strategy names
+     */
     getStrategyNames() {
         let list = []
         for (let i = 0; i < this._strategies.length; ++i) {
@@ -25,7 +31,6 @@ class FitnessStrategyManager {
         }
         return list
     }
-
 }
 
 
@@ -44,17 +49,20 @@ function distance(p) {
     let tmp = []
     let N = p.length;
 
+    // Get the list of onsets indexes
     for (let i = 0; i < N; i++) {
         if (p[i] !== 0) {
             ons.push(i);
         }
     }
 
+    // If necessary add the distance between the first and the last
     if (ons.length > 0) {
         ons.push(N + ons[0]);
     }
     else ons.push(N);
 
+    //Compute the distance
     for (let i = 0; i < ons.length - 1; i++) {
         tmp.push(ons[i + 1] - ons[i]);
     }
@@ -73,6 +81,8 @@ function countOccurrences(array) {
 
 /**
  * Utility function to compute the Inter Onset Interval
+ * Returns an array in which the index represents the distance
+ * and the value the relative multiplicity 
  * @param {Array} p Pattern in p notation 
  */
 function IOI(p) {
@@ -99,9 +109,9 @@ function IOI(p) {
  * @param {*} ioi Pattern IOI
  */
 function entropy(ioi) {
-    let N = ioi.length
+    let N = ioi.length;
     let sum = 0;
-    let eps = 0.00000000001
+    let eps = 0.00000000001;
     for (let i = 0; i < N; ++i) {
         sum += (ioi[i] * Math.log(ioi[i] + eps))
     }
@@ -113,8 +123,8 @@ function entropy(ioi) {
  * @param {Array} p Array of onsets in p notation
  */
 function p2x(p) {
-    let result = []
-    let N = p.length
+    let result = [];
+    let N = p.length;
     for (let i = 0; i < N; i++) {
         if (p[i] !== 0) {
             result.push(i / N);
@@ -131,7 +141,7 @@ function x2z(x) {
     let z = [];
     for (let i = 0; i < x.length; i++) {
         let twoPiJ = math.complex(0, 2 * math.pi);
-        z.push(math.exp(math.multiply(x[i], twoPiJ)))
+        z.push(math.exp(math.multiply(x[i], twoPiJ)));
     }
     return z;
 }
@@ -160,7 +170,7 @@ function evenness(z) {
 
 /**
  * Utility funcution to compute the sum over the array
- * @param {Array} z Array to be summed
+ * @param {Array} z Complex array to be summed
  */
 function summation(z) {
     let sum = math.complex(0, 0);
@@ -181,7 +191,7 @@ function balance(z) {
     }
 
     else {
-        return 1 - math.abs(summation(z)) / N
+        return 1 - math.abs(summation(z)) / N;
     }
 }
 

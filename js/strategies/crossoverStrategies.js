@@ -12,10 +12,17 @@ class CrossoverStrategyManager {
         ];
     }
 
+    /**
+     * Returns strategy from its name
+     * @param {string} name 
+     */
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
     }
 
+    /**
+     * Return the list of strategy names
+     */
     getStrategyNames() {
         let list = []
         for (let i = 0; i < this._strategies.length; ++i) {
@@ -36,6 +43,7 @@ class SinglePointCrossover {
     constructor() { }
 
     /**
+     * Single point crossover for all the population
      * @param {Array} selected Selected population to crossover
      * @param {float} crossoverProbability Probability to mating instead of surviving
      */
@@ -46,7 +54,6 @@ class SinglePointCrossover {
 
         for (let i = 0; i < N - 1; i += 2) {
             if (Math.random() < crossoverProbability) {
-
                 offspring[i] = this.singlePointMating(selected[i], selected[i + 1], crossoverPoint);
                 offspring[i + 1] = this.singlePointMating(selected[i + 1], selected[i], crossoverPoint);
             }
@@ -54,7 +61,13 @@ class SinglePointCrossover {
         }
         return offspring;
     }
-
+    
+    /**
+     * Single point mating for 2 patterns
+     * @param {Array} a pattern A
+     * @param {Array} b pattern B
+     * @param {float} crossoverPoint Crossover point (between 0 and 1)
+     */
     singlePointMating(a, b, crossoverPoint) {
         let M = Math.floor(crossoverPoint * a.sequences.shape[1]);
         let firstChromosome = a.sequences.slice([null], [0, M]);
@@ -76,10 +89,10 @@ class TwoPointCrossover {
     constructor() { }
 
     /**
+     * Two point crossover for all the population
      * @param {Array} selected Selected population to crossover
      * @param {float} crossoverProbability Probability to mating instead of surviving
      */
-
     compute(selected, crossoverProbability) {
         let N = selected.length;
         let offspring = selected.slice();
@@ -102,7 +115,13 @@ class TwoPointCrossover {
         return offspring;
     }
 
-
+    /**
+     * Two point mating for 2 patterns
+     * @param {Array} a pattern A
+     * @param {Array} b pattern B
+     * @param {float} start Starting point (between 0 and 1)
+     * @param {float} end   Ending point (between 0 and 1)
+     */
     twoPointMating(a, b, start, end) {
         let child = new Pattern();
         if (start <= end) {

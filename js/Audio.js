@@ -14,12 +14,12 @@ async function getFile(audioContext, filepath) {
 }
 
 /**
- * Setup and return the samples array
+ * Function called to get the samples and return them as a list
+ * @param {string} drumTheme Name of the sample theme to be downloaded
  */
 async function setupSample(drumTheme) {
 
     let filePaths;
-
     if (drumTheme=='Percussive'){
         filePaths =  ['audio/perc_kick.wav',
                             'audio/perc_snare.wav',
@@ -36,26 +36,28 @@ async function setupSample(drumTheme) {
                             'audio/metronome2.wav',
                             'audio/pad.mp3'];
     }
-    else{
+    else {
         filePaths =  ['audio/kick.wav',
                             'audio/snare.wav',
                             'audio/hihat.wav',
                             'audio/metronome1.wav',
                             'audio/metronome2.wav',
                             'audio/pad.mp3'];
-
     }
-        
 
+    // Get the samples from specified path
     const samples = []
     for (let i=0; i < filePaths.length; ++i) {
-        console.log("Loading: " + filePaths[i] + "...")
         samples.push(await getFile(audioCtx, filePaths[i]));
     }
     return samples;
 }
 
-
+/**
+ * Linear to exponential utility function
+ * @param {float} linearGain Linear gain to be used 
+ * @param {float} steepness  Steepness to be applied
+ */
 function linearToExp(linearGain, steepness) {
     let result = (Math.exp(steepness*linearGain) - 1) / (Math.exp(steepness) - 1);
     return result;
@@ -63,13 +65,14 @@ function linearToExp(linearGain, steepness) {
 
 
 /**
- * Create and play a BufferSource from a custom AudioBuffer
+ * Create and play a BufferSource from a custom AudioBuffer,
+ * this function is used by the sequencer to play the audio samples
  * @param {AudioContext} audioContext The AudioContext object to be used
  * @param {AudioBuffer} audioBuffer The AudioBuffer in which the samples are stored
  */
 function playSample(audioContext, audioBuffer, audioGain) {
     const sampleSource = audioContext.createBufferSource();
-    const sampleGain = audioContext.createGain();
+    const sampleGain   = audioContext.createGain();
     sampleSource.buffer = audioBuffer;
     sampleGain.gain.setValueAtTime(linearToExp(audioGain, 5), audioCtx.currentTime);
     sampleSource.playbackRate.setValueAtTime(1.0, audioCtx.currentTime);
@@ -79,6 +82,10 @@ function playSample(audioContext, audioBuffer, audioGain) {
     return sampleSource;
 }
 
+/**
+ * Playback of background pad
+ * @param {AudioBuffer} padSample 
+ */
 function setupPad (padSample) {
     var pad = audioCtx.createBufferSource();
     const padGain = audioCtx.createGain();
@@ -92,6 +99,7 @@ function setupPad (padSample) {
 
 /**
  * These variables will be instantiated at Setup in "site.js"
+ * These variables contains the samples to be used by the sequencer
  */
 let kick;
 let snare;

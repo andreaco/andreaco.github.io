@@ -13,10 +13,17 @@ class MutationStrategyManager {
         ];
     }
 
+    /**
+     * Returns strategy from its name
+     * @param {string} name 
+     */
     getStrategy(name) {
         return this._strategies.find(strategy => strategy._name === name);
     }
 
+    /**
+     * Return the list of strategy names
+     */
     getStrategyNames() {
         let list = []
         for (let i=0; i < this._strategies.length; ++i) {
@@ -56,7 +63,11 @@ class FlipBitMutation {
         return mutated;
     }
 
-    flipBit(p){
+    /**
+     * Apply flip bit to single pattern
+     * @param {Array} p pattern to be mutated
+     */
+    flipBit(p) {
         let N = p.steps;
         let num_seq = p.numSequences;
 
@@ -102,6 +113,10 @@ class BitStringMutation {
         return mutated;
     }
 
+    /**
+     * Apply bit string to single pattern
+     * @param {Array} p pattern to be mutated
+     */
     bitstring_mutation(p){
             let N = p.steps;
             let num_seq = p.numSequences;

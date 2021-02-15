@@ -7,13 +7,13 @@ class GeneticAlgorithm {
     // Parameters
     _survivalRate;              // Percentage of elements surviving at the end of each generation
     _crossoverProbability;      // Percentage of elements that will mate
-    _mutationProbability;
+    _mutationProbability;       // Probability of mutation
 
     // Strategies to be used
-    _fitnessFunction = undefined;
+    _fitnessFunction   = undefined;
     _selectionFunction = undefined;
     _crossoverFunction = undefined;
-    _mutationFunction = undefined;
+    _mutationFunction  = undefined;
 
 
     /**
@@ -36,7 +36,6 @@ class GeneticAlgorithm {
     }
 
     /**
-     * Constructor
      * @param {string} fitnessStrategyName Fitness Strategy name selected
      * @param {int} numberOfFinalElements Number of final elements to obtain in the end
      */
@@ -72,38 +71,49 @@ class GeneticAlgorithm {
         this._mutationFunction = mutationStrategyManager.getStrategy(mutationStrategyName);
     }
 
-    // TODO: Gather statitics for each generation
+    /**
+     * Initialize and start the Genetic Algorithm
+     */
     start() {
+        // Check if all the required parameters have been filled
         if (this._fitnessFunction == undefined || this._selectionFunction == undefined
             || this._crossoverFunction == undefined || this._mutationFunction == undefined) {
             console.error("Cannot start due to some uninitialized functions");
             return [];
-        }
+        }        
         else {
             while (this._population.length > this._numberOfFinalElements) {
+                // At this step we assign the relative score to each Pattern object attribute
                 this.computeScores();
 
+                // Copy the actual population
                 let populationCopy = this._population.slice();
 
+                // Apply selection
                 let selected = this._selectionFunction.compute(populationCopy, this._survivalRate);
 
+                // Apply Crossover
                 let offspring = this._crossoverFunction.compute(selected, this._crossoverProbability);
 
+                // Apply Mutation
                 let mutated = this._mutationFunction.compute(offspring);
 
+                // In the end swap the current generation with the new one
                 this._population = mutated;
             }
+            // Return the final population
             return this._population;
         }
-
     }
 
+    /**
+     * Compute and assing the fitness score to each individual
+     */
     computeScores() {
         for (let i = 0; i < this._population.length; ++i) {
             this._population[i].score = this._fitnessFunction.compute(this._population[i])
         }
     }
-
 }
 
 
