@@ -119,7 +119,11 @@ Thanks to the player, the user has the possibility to play with each one of the 
 
 *Strategy Pattern*: We used the strategy design pattern to manage the different functions to be used by the GeneticAlgorithm class.
 The Strategy and StrategyManager templates are the following
-<img align="center" src="images/strategy.png" alt="StrategyTemplates" width="246" height="200">
+<pre><code>
+
+</code></pre>
+
+<img align="center" src="images/strategy.png" alt="StrategyTemplates" width="400" height="410">
 
 
 ## Representations
