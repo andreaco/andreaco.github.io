@@ -31,10 +31,12 @@ As stated by Milne and Herff is a combination of all the features above
 
 ### Selection
 The selection phase is when the fittest individuals are selected as parents for breeding the next generation
-**Survival Rate**:
+**Survival Rate**
+
 Percentage of individuals that will survive as parents
 
-**Selection Strategy**:
+**Selection Strategy**
+
 Function to be used to choose the surviving individuals
 
 Fittest Survive: Is the simplest, just the fittest indivuals can survive
@@ -44,32 +46,48 @@ Roulette Wheel: Each individual has a probability to survive, which is proportio
 During this phase pairs of individuals are combined in order to create a new offspring characterized by the predominant features of the parents.
 
 **Crossover Probability**
+
 Probability of each element to be part of the Crossover phase.
 Otherwise the parents will survive to the next generation instead of mating.
 
 **Crossover Strategy**
+
 The combination modality to generate new patterns
 
-Single Point: A point on both parents' chromosomes is picked randomly, and designated a 'crossover point'. Bits to the right of that point are swapped between the two parent chromosomes. This results in two offspring, each carrying some genetic information from both parents
+Single Point: A point on both parents' chromosomes is picked randomly, and designated a 'crossover point'. Bits to the right of that point are swapped between the two parent chromosomes. This results in two offspring, each carrying some genetic information from both parents.
+
+<img align="center" src="images/singlepoint.png" alt="Overview" width="494" height="206">
+
 
 Two Point:Two crossover points are picked randomly from the parent chromosomes. The bits in between the two points are swapped between the parent organisms.
+<img align="center" src="images/twopoint.png" alt="Overview" width="506" height="184">
 
 ### Mutation
 Mutation occurs to maintain diversity within the population and prevent premature convergence.
 
 **Mutation Probability**
+
 Probability of each element to be subjected to a mutation.
 
 **Mutation Strategy**
 
 Type of mutation to be applied
 Bit String: The mutation of bit strings ensue through bit flips at random positions.
+<img align="center" src="images/bitstring.png" alt="Overview" width="267" height="168">
+
 Flip Bit: This mutation operator takes the chosen genome and inverts the bits, if the genome bit is 1, it is changed to 0 and vice versa.
+<img align="center" src="images/flipbit.png" alt="Overview" width="232" height="172">
 
 ## Drum Theme
 Allows the user to customize the patterns choosing between different sets of drum samples.
 
 Player: Thanks to the player, the user has the possibility to play with each one of the final rhythms muting or unmuting the single sequences and adding the metronome.
+
+## Overlay Window
+After having set up all the parameters and pressed the *Start Process* button, an overlay window will appear in front of the main page.
+This window will display on the left, the list of the generated patterns, each with an unique name, and on the right the different representations of the features that characterize it.
+Thanks to the player, the user has the possibility to play with each one of the final rhythms muting or unmuting the single sequences with or without the metronome.
+
 
 
 ## Brief Code Overview
