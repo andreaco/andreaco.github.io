@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class="content">
-        <p class="title">How the Fuck Should I call this project?</p>
+        <p class="title">How Should I call this project?</p>
         <div class="subtitles" style="display: none;">
             <ul>
                 <li><a href="#" class="subtitle" data-target="content1">Music</a></li>
@@ -42,27 +42,28 @@
             const contentDetails = document.querySelectorAll('.content-detail');
 
             title.addEventListener('click', function () {
-                if (subtitles.style.display === 'block') {
-                    subtitles.style.display = 'none';
-                    contentDetails.forEach(detail => detail.style.display = 'none');
-                    title.classList.remove('top');
-                } else {
-                    subtitles.style.display = 'block';
-                    contentDetails.forEach(detail => detail.style.display = 'none');
-                    title.classList.add('top');
-                }
+            title.style.display = 'none';
+            subtitles.style.display = 'block';
+            contentDetails.forEach(detail => detail.style.display = 'none');
             });
 
             document.querySelectorAll('.subtitle').forEach(subtitle => {
-                subtitle.addEventListener('click', function () {
-                    const target = document.getElementById(subtitle.dataset.target);
-                    subtitles.style.display = 'none';
-                    contentDetails.forEach(detail => detail.style.display = 'none');
-                    target.style.display = 'block';
-                });
+            subtitle.addEventListener('click', function () {
+                const target = document.getElementById(subtitle.dataset.target);
+                subtitles.style.display = 'none';
+                contentDetails.forEach(detail => detail.style.display = 'none');
+                target.style.display = 'block';
+            });
+            });
+
+            document.addEventListener('click', function (event) {
+            if (!event.target.closest('.title') && !event.target.closest('.subtitles') && !event.target.closest('.content-detail')) {
+                title.style.display = 'block';
+                subtitles.style.display = 'none';
+                contentDetails.forEach(detail => detail.style.display = 'none');
+            }
             });
         });
-
         var options = {
             backgroundColor: 'rgba(0.0, 0.0, 0.0, 0.0)',
             alpha: true,
