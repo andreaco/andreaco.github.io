@@ -130,7 +130,7 @@ void main () {
     float noise_disp =  0.03 * 0.5 * (1.+fBm(noise_coords.yx * 35. + u_time, 2., 0.5));
     uv_noise += (radius-0.1) * noise_disp;
     
-    float circle = GlowingCircles(uv_noise, mouse);
+    float circle = GlowingCircles(uv_noise, mouse + sin(0.5*u_time));
     float bg_circles = GlowingCircles(1.1*uv_noise, 0.5*mouse);
     float rhomb1 = 0.;
     float rhomb2 = 0.;
