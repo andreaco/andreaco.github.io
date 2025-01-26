@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLSL Background Website</title>
+    <link type="image/png" href="/img/favicon-32x32.png" sizes="32x32" rel="icon" />
+    <link type="image/png" href="/img/favicon-16x16.png" sizes="16x16" rel="icon" />
+    <link type="image/x-icon" href="/img/favicon.ico" rel="icon"/>
+    <link type="text/css" href="/css/glsl-canvas.css" rel="stylesheet"/>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">    <script type="text/javascript" src="/js/stats.min.js"></script>
+    <script type="text/javascript" src="/js/glsl-canvas.min.js"></script>
+</head>
+<body>
+    <div class="content">
+        <p class="title">How the Fuck Should I call this project?</p>
+        <div class="subtitles" style="display: none;">
+            <ul>
+                <li><a href="#" class="subtitle" data-target="content1">Music</a></li>
+                <li><a href="#" class="subtitle" data-target="content2">Live</a></li>
+                <li><a href="#" class="subtitle" data-target="content4">About</a></li>
+            </ul>
+        </div>
+        <div class="content-detail" id="content1" style="display: none;">
+			<iframe style="border: 0; width: 300px; height: 300px;" src="https://bandcamp.com/EmbeddedPlayer/album=1211915205/size=large/bgcol=333333/linkcol=ffffff/minimal=true/track=514693185/transparent=true/" seamless><a href="https://homemort.bandcamp.com/album/interference-with-the-present-ii">INTERFERENCE WITH THE PRESENT II by Home Mort</a></iframe>
+        </div>
+        <div class="content-detail" id="content2" style="display: none;">
+            <img src="https://i.imgflip.com/9hzkls.jpg" style="width: 50%; height: 50%;" />
+        </div>
+        <div class="content-detail" id="content4" style="display: none;">
+            <p> So this page is supposed to speak about me... I don't know what I should put here yet. </p>
+        </div>
+    </div>
+
+    <canvas class="glsl-canvas" data-fragment-url="shaders/fragment.glsl"></canvas>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const title = document.querySelector('.title');
+            const subtitles = document.querySelector('.subtitles');
+            const contentDetails = document.querySelectorAll('.content-detail');
+
+            title.addEventListener('click', function () {
+                if (subtitles.style.display === 'block') {
+                    subtitles.style.display = 'none';
+                    contentDetails.forEach(detail => detail.style.display = 'none');
+                    title.classList.remove('top');
+                } else {
+                    subtitles.style.display = 'block';
+                    contentDetails.forEach(detail => detail.style.display = 'none');
+                    title.classList.add('top');
+                }
+            });
+
+            document.querySelectorAll('.subtitle').forEach(subtitle => {
+                subtitle.addEventListener('click', function () {
+                    const target = document.getElementById(subtitle.dataset.target);
+                    subtitles.style.display = 'none';
+                    contentDetails.forEach(detail => detail.style.display = 'none');
+                    target.style.display = 'block';
+                });
+            });
+        });
+
+        var options = {
+            backgroundColor: 'rgba(0.0, 0.0, 0.0, 0.0)',
+            alpha: true,
+            antialias: false,
+            premultipliedAlpha: false,
+            preserveDrawingBuffer: false, 
+            extensions: [],
+            doubleSided: false,
+        };
+        var canvas = document.querySelector('.glsl-canvas');
+        var glsl = new glsl.Canvas(canvas, options);
+        glsl.setUniforms({});
+    </script>
+</body>
+</html>
