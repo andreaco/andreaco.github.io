@@ -6,8 +6,8 @@ uniform vec2 u_resolution;
 uniform float u_time;
 uniform vec2 u_mouse;
 
-#define MAX_STEPS 228
-#define MAX_DIST 40.0
+#define MAX_STEPS 20
+#define MAX_DIST 30.0
 #define SURF_DIST 0.01
 
 float sdSphere(vec3 p, float s) {
@@ -19,32 +19,7 @@ float sdBox(vec3 p, vec3 b) {
     return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0);
 }
 
-vec3 hash3(vec3 p) {
-    p = vec3(dot(p, vec3(127.1, 311.7, 74.7)),
-             dot(p, vec3(269.5, 183.3, 246.1)),
-             dot(p, vec3(113.5, 271.9, 124.6)));
-    return fract(sin(p) * 43758.5453123);
-}
-
-float voronoise(vec3 p, float u, float v) {
-    float k = 1.0 + 63.0 * pow(1.0 - v, 4.0);
-    vec3 i = floor(p);
-    vec3 f = fract(p);
-    vec2 a = vec2(0.0, 1.0);
-    
-    for (int z = -1; z <= 1; z++) {
-        for (int y = -1; y <= 1; y++) {
-            for (int x = -1; x <= 1; x++) {
-                vec3 g = vec3(x, y, z);
-                vec3 o = hash3(i + g) * vec3(u, u, 1.0);
-                vec3 d = g - f + o + 0.5;
-                float w = pow(1.0 - smoothstep(0.0, 1.414, length(d)), k);
-                a += vec2(o.z * w, w);
-            }
-        }
-    }
-    return a.x / a.y;
-}
+// Removed unused voronoise functions for better performance
 
 float sdGyroid(vec3 p, float scale) {
     // Fractal distortion with harmonics for natural rock-like appearance
@@ -72,13 +47,7 @@ float hollowGyroid(vec3 p, float scale1, float scale2) {
     return gyroidDist1;max(gyroidDist1, -gyroidDist2);
 }
 
-float affectGyroid(vec3 p, float gyroidSDF) {
-    // Add organic rocky spikes using voronoise
-    float spikes = voronoise(p * 1.5, 0.8, 0.2) * 10.0;
-    float roughness = voronoise(p * 10.0, 0.1, 1.) * 0.2;
-    
-    return gyroidSDF - spikes - roughness;
-}
+// Removed unused affectGyroid function
 
 float getDist(vec3 p) {
     // Shift gyroid backwards to create forward movement effect
