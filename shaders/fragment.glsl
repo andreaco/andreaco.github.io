@@ -1,152 +1,227 @@
-#define PI 3.14159265359
+#ifdef GL_ES
 precision mediump float;
+#endif
 
-uniform float u_time;
 uniform vec2 u_resolution;
+uniform float u_time;
 uniform vec2 u_mouse;
 
-float noise(vec2 uv) {
-    return fract(sin(dot(uv, vec2(12.9898,78.233))) * 43758.5453);
+#define MAX_STEPS 228
+#define MAX_DIST 40.0
+#define SURF_DIST 0.01
+
+float sdSphere(vec3 p, float s) {
+    return length(p) - s;
 }
 
-float noise(vec3 uv) {
-    return fract(sin(dot(uv, vec3(12.9898,78.233, 45.543))) * 43758.5453);
+float sdBox(vec3 p, vec3 b) {
+    vec3 q = abs(p) - b;
+    return length(max(q, 0.0)) + min(max(q.x, max(q.y, q.z)), 0.0);
 }
 
-float ValueNoise2D(vec2 uv) {
-    vec2 i = floor(uv);
-    vec2 f = fract(uv);
-    f = f * f * (3.0 - 2.0 * f);
-
-    float a = noise(i + vec2(0.0, 0.0));
-    float b = noise(i + vec2(1.0, 0.0));
-    float c = noise(i + vec2(0.0, 1.0));
-    float d = noise(i + vec2(1.0, 1.0));
-
-    return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
+vec3 hash3(vec3 p) {
+    p = vec3(dot(p, vec3(127.1, 311.7, 74.7)),
+             dot(p, vec3(269.5, 183.3, 246.1)),
+             dot(p, vec3(113.5, 271.9, 124.6)));
+    return fract(sin(p) * 43758.5453123);
 }
 
-float ValueNoise3D(vec3 uv) {
-    vec3 i = floor(uv);
-    vec3 f = fract(uv);
-    f = f * f * (3.0 - 2.0 * f);
+float voronoise(vec3 p, float u, float v) {
+    float k = 1.0 + 63.0 * pow(1.0 - v, 4.0);
+    vec3 i = floor(p);
+    vec3 f = fract(p);
+    vec2 a = vec2(0.0, 1.0);
+    
+    for (int z = -1; z <= 1; z++) {
+        for (int y = -1; y <= 1; y++) {
+            for (int x = -1; x <= 1; x++) {
+                vec3 g = vec3(x, y, z);
+                vec3 o = hash3(i + g) * vec3(u, u, 1.0);
+                vec3 d = g - f + o + 0.5;
+                float w = pow(1.0 - smoothstep(0.0, 1.414, length(d)), k);
+                a += vec2(o.z * w, w);
+            }
+        }
+    }
+    return a.x / a.y;
+}
 
-    float a = noise(i + vec3(0.0, 0.0, 0.0));
-    float b = noise(i + vec3(1.0, 0.0, 0.0));
-    float c = noise(i + vec3(0.0, 1.0, 0.0));
-    float d = noise(i + vec3(1.0, 1.0, 0.0));
-    float e = noise(i + vec3(0.0, 0.0, 1.0));
-    float f1 = noise(i + vec3(1.0, 0.0, 1.0));
-    float g = noise(i + vec3(0.0, 1.0, 1.0));
-    float h = noise(i + vec3(1.0, 1.0, 1.0));
+float sdGyroid(vec3 p, float scale) {
+    // Fractal distortion with harmonics for natural rock-like appearance
+    vec3 q = p;
+    
+    // First octave - large features
+    q += sin(p.yzx * 2.0) * 0.15;
+    
+    // Second octave - medium features
+    q += sin(p.zxy * 4.0 + 1.3) * 0.08;
+    
+    // Third octave - fine details
+    q += sin(p.xyz * 8.0 + 2.7) * 0.04;
+    
+    // Fourth octave - very fine texture
+    q += sin(p.yxz * 16.0 + 4.1) * 0.02;
+    
+    q *= scale;
+    return abs(dot(sin(q), cos(q.zxy))) / scale - 0.3;
+}
 
-    return mix(
-        mix(mix(a, b, f.x), mix(c, d, f.x), f.y),
-        mix(mix(e, f1, f.x), mix(g, h, f.x), f.y),
-        f.z
+float hollowGyroid(vec3 p, float scale1, float scale2) {
+    float gyroidDist1 = sdGyroid(p, scale1);
+    float gyroidDist2 = sdGyroid(p, scale2);
+    return gyroidDist1;max(gyroidDist1, -gyroidDist2);
+}
+
+float affectGyroid(vec3 p, float gyroidSDF) {
+    // Add organic rocky spikes using voronoise
+    float spikes = voronoise(p * 1.5, 0.8, 0.2) * 10.0;
+    float roughness = voronoise(p * 10.0, 0.1, 1.) * 0.2;
+    
+    return gyroidSDF - spikes - roughness;
+}
+
+float getDist(vec3 p) {
+    // Shift gyroid backwards to create forward movement effect
+    vec3 shiftedP = p + vec3(0, 0., u_time * 0.1);
+    
+    // Intersect two gyroids with different scales for organic blocks
+    float gyroid1 = sdGyroid(shiftedP, 0.9);
+    float gyroid2 = sdGyroid(shiftedP + vec3(0.5, 0.7, 0.3), 0.6); // Offset and different scale
+    
+    // Create organic blocks by intersecting the two gyroids
+    float affectedGyroid = max(gyroid1, gyroid2);
+
+    // Create organically twisted tube with fractal harmonics
+    vec2 tubePos = p.xy;
+    
+    // First octave - large sweeping curves
+    tubePos += vec2(sin(p.z * 0.3), cos(p.z * 0.4)) * 0.6;
+    
+    // Second octave - medium bends
+    tubePos += vec2(sin(p.z * 0.8 + 1.5), cos(p.z * 1.1 + 2.1)) * 0.15;
+    
+    // Third octave - fine wiggles
+    tubePos += vec2(sin(p.z * 2.0 + 3.7), cos(p.z * 2.3 + 4.9)) * 0.08;
+    
+    // Fourth octave - micro variations
+    tubePos += vec2(sin(p.z * 5.0 + 6.2), cos(p.z * 4.7 + 7.8)) * 0.04;
+    
+    float tubeDist = length(tubePos) - 1.5;
+    
+    // Subtract tube from gyroid to create clear path
+    float d = max(affectedGyroid, -tubeDist);
+    return d;
+}
+
+float rayMarch(vec3 ro, vec3 rd) {
+    float dO = 0.0;
+    
+    for (int i = 0; i < MAX_STEPS; i++) {
+        vec3 p = ro + rd * dO;
+        float dS = getDist(p);
+        dO += dS;
+        if (dO > MAX_DIST || dS < SURF_DIST) break;
+    }
+    
+    return dO;
+}
+
+vec3 getNormal(vec3 p) {
+    float d = getDist(p);
+    vec2 e = vec2(0.01, 0);
+    
+    vec3 n = d - vec3(
+        getDist(p - e.xyy),
+        getDist(p - e.yxy),
+        getDist(p - e.yyx)
     );
-}
-
-#define OCTAVES 5
-float fBm(vec2 uv, float lacunarity, float gain) {
-    float sum = 0.0;
-    float amp = 1.0;
-    float freq = 1.0;
-    for (int i = 0; i < OCTAVES; i++) {
-        sum += amp * ValueNoise2D(uv * freq);
-        amp *= gain;
-        freq *= lacunarity;
-    }
-    return sum;
-}
-
-float fBm(vec3 uv, float lacunarity, float gain) {
-    float sum = 0.0;
-    float amp = 1.0;
-    float freq = 1.0;
-    for (int i = 0; i < OCTAVES; i++) {
-        sum += amp * ValueNoise3D(uv * freq);
-        amp *= gain;
-        freq *= lacunarity;
-    }
-    return sum;
-}
-
-float TriangleSDF(vec2 uv, vec2 p0, vec2 p1, vec2 p2) {
-    return length(max(abs(uv - p0), max(abs(uv - p1), abs(uv - p2))));
-}
-
-float sdEquilateralTriangle( in vec2 p, in float r )
-{
-    const float k = sqrt(3.0);
-    p.x = abs(p.x) - r;
-    p.y = p.y + r/k;
-    if( p.x+k*p.y>0.0 ) p = vec2(p.x-k*p.y,-k*p.x-p.y)/2.0;
-    p.x -= clamp( p.x, -2.0*r, 0.0 );
-    return -length(p)*sign(p.y);
-}
-
-float ndot(vec2 a, vec2 b ) { return a.x*b.x - a.y*b.y; }
-float sdRhombus( in vec2 p, in vec2 b ) 
-{
-    p = abs(p);
-    float h = clamp( ndot(b-2.0*p,b)/dot(b,b), -1.0, 1.0 );
-    float d = length( p-0.5*b*vec2(1.0-h,1.0+h) );
-    return d * sign( p.x*b.y + p.y*b.x - b.x*b.y );
-}
-
-float remap(float value, float low1, float high1, float low2, float high2) {
-    return low2 + (value - low1) * (high2 - low2) / (high1 - low1);
-}
-
-float GlowingCircles(vec2 uv_noise, vec2 mouse) {
-    float radius = length(uv_noise);
-
-    float circle = 0.;
-    const int n = 3;
-    for (int i=0; i < n; i++) {
-        
-        float mouse_ease = remap((sin(0.5*mouse.y*PI)), 0., 1., 1.6, 1.4);
-        float size = mouse_ease * float(i + 1) / float(n);
-
-
-        float ray  = abs( length(uv_noise / size) - .55);
-        circle += 1. - smoothstep(0., 0.0055, ray);
-
-        float glow = 0.2/ (radius-0.06) * (1. - smoothstep(0.0, 0.035, ray ));
-        circle += 0.2 * glow;
-    }
-    return circle;
-}
-void main () {
-    vec2 uv = (2.0 * gl_FragCoord.xy - u_resolution) / min(u_resolution.x, u_resolution.y);
-    vec2 uv_noise = uv;
-    vec2 noise_coords = vec2((uv_noise.x), (uv_noise.y));
-    vec2 mouse = u_mouse /  u_resolution;
-
-    float angle = atan(uv_noise.y, uv_noise.x);
-    float radius = length(uv_noise);
     
-    float noise_disp =  0.03 * 0.5 * (1.+fBm(noise_coords.yx * 35. + u_time, 2., 0.5));
-    uv_noise += (radius-0.1) * noise_disp;
+    return normalize(n);
+}
+
+float rockTexture(vec3 p) {
+    // Fibrous, striated texture like microscopic carved material
     
-    float circle = GlowingCircles(uv_noise, mouse + sin(0.5*u_time));
-    float bg_circles = GlowingCircles(1.1*uv_noise, 0.5*mouse);
-    float rhomb1 = 0.;
-    float rhomb2 = 0.;
-        for (int i=0; i < 3; ++i) {
-            
-        float scale = float(i+1);
-        float r1 = sdRhombus(scale*uv_noise, vec2(0.55, 0.2));
-        float r2 = sdRhombus(scale*uv_noise.yx, vec2(0.55, 0.2));
+    // Main fiber direction with fine parallel lines
+    float fibers1 = abs(fract(p.y * 10.0) - 0.5) * 2.0;
+    fibers1 = 1.0 - smoothstep(0.0, 0.3, fibers1);
+    
+    // Secondary fiber layer at slight angle
+    float fibers2 = abs(fract((p.y + p.x * 0.2) * 20.0) - 0.5) * 2.0;
+    fibers2 = 1.0 - smoothstep(0.0, 0.4, fibers2);
+    
+    // Fine scratches/incisions across fibers
+    float scratches1 = abs(fract(p.x * 50.0) - 0.5) * 2.0;
+    scratches1 = 1.0 - smoothstep(0.0, 0.2, scratches1);
+    
+    // Cross scratches for depth
+    float scratches2 = abs(fract((p.x - p.y * 0.3) * 10.0) - 0.5) * 2.0;
+    scratches2 = 1.0 - smoothstep(0.0, 0.15, scratches2);
+    
+    // Combine all elements with max for sharp incisive marks
+    float texture = max(fibers1 * 0.6, max(fibers2 * 0.6, max(scratches1 * 0.8, scratches2 * 0.5)));
+    
+    return mix(0.6, 0.5, texture);
+}
+
+float getLight(vec3 p, vec3 lightPos, vec3 lightDir) {
+    vec3 l = normalize(lightPos - p);
+    vec3 n = getNormal(p);
+    
+    // Spotlight effect - light direction from camera
+    float spotEffect = dot(l, -lightDir);
+    spotEffect = smoothstep(0.7, 1.0, spotEffect); // Focus the beam
+    
+    float dif = clamp(dot(n, l), 0.0, 0.4);
+    float d = rayMarch(p + n * SURF_DIST * 3.0, l);
+    if (d < length(lightPos - p)) dif *= 0.1;
+    
+    return dif * spotEffect;
+}
+
+void main() {
+    vec2 uv = (gl_FragCoord.xy - 0.5 * u_resolution.xy) / u_resolution.y;
+    
+    vec3 col = vec3(0);
+    
+    // Mouse-controlled camera rotation with smooth drag
+    vec2 mouse = (u_mouse / u_resolution.xy) * 2.0 - 1.0; // Normalize to -1 to 1
+    
+    // Very gentle drag effect - minimal sensitivity for smooth web experience
+    mouse *= 0.4; // Much lower sensitivity
+    mouse = mouse * (1.0 - 0.5 * exp(-length(mouse) * 1.5)); // Stronger ease-out
+    
+    float pitch = mouse.y * 3.14159 * 0.15; // Very limited vertical rotation
+    float yaw = mouse.x * 3.14159 * 0.25;   // Very limited horizontal rotation
+    
+    // Camera position and direction
+    vec3 ro = vec3(0.0, 0.0, 0);
+    vec3 forward = vec3(sin(yaw) * cos(pitch), sin(pitch), cos(yaw) * cos(pitch));
+    vec3 right = normalize(cross(forward, vec3(0, 1, 0)));
+    vec3 up = cross(right, forward);
+    vec3 rd = normalize(forward + uv.x * right + uv.y * up);
+    
+    float d = rayMarch(ro, rd);
+    
+    vec3 p = ro + rd * d;
+    
+    if (d < MAX_DIST) {
+        float dif = getLight(p, ro, forward);
         
-        rhomb1 += 1.-smoothstep(0.0, 0.005, r1*r2);
-        // rhomb2 += 1.-smoothstep(0.0, 0.005, r2);
-    };
-
-
-
-    vec3 col = vec3(0.1*bg_circles + rhomb1 * circle + 0.1*fBm(vec3(uv, 0.1*u_time),3., 0.5));
-
-    gl_FragColor = vec4(col, 1.0);   
+        // Apply texture using the same shifted position as the geometry
+        vec3 shiftedTexP = p + vec3(0, 0., u_time * 0.1);
+        float texture = rockTexture(shiftedTexP);
+        
+        // Distance-based fog/occlusion
+        float fog = 1.0 - smoothstep(5.0, MAX_DIST, d);
+        
+        // Apply rock texture to the surface
+        vec3 baseColor = vec3(texture) * (dif * 1.1 + 0.11);
+        col = baseColor * fog;
+    } else {
+        // Far distance - just darkness
+        col = vec3(0.0);
+    }
+    
+    gl_FragColor = vec4(col, 1.0);
 }
